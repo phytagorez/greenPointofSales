@@ -34,6 +34,8 @@ Projek ini dikembangkan menggunakan teknologi:
 
 Di balik layar pengembangan **Green Point of Sales**, berikut adalah tim yang berkolaborasi dalam menyusun sistem ini:
 
+| Nama | Peran |
+| :--- | :--- |
 | **Umar Rezaq** | 👑 Project Manager & Backend(Syetem) |
 | **Febiola Safira** | 🎨 Front-End Developer |
 | **Azzrina Mayza Hari** | 🗄️ Backend (Database) |
