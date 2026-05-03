@@ -1,47 +1,87 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace greenPointofSales.Models
 {
-    public class PenggunaModel
+    //kontrak
+    public interface IPengguna
     {
-        private string username;
-        private string password;
-        private string namaLengkap;
-        private string role;
+        string Username { get; set; }
+        string Role { get; set; }
+        string TampilkanInfo();
+    }
 
-        public string Username
+    //validasi
+    public abstract class AkunDasar : IPengguna
+    {
+        private string _username = string.Empty;
+        private string _role = string.Empty;
+
+        public virtual string Username
         {
-            get { return this.username; }
-            set
+            get { return _username; }
+            set 
             {
-                if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException("Username tidak boleh kosong.");
-                this.username = value;
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Username tidak boleh kosong.");
+                }
+                _username = value;
             }
         }
 
-        public string Password
+        public virtual string Role
         {
-            get { return this.password; }
+            get { return _role; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value)) throw new ArgumentException("Password tidak boleh kosong.");
-                this.password = value;
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Role tidak boleh kosong.");
+                }
+                _username = value;
+            }
+        }
+
+        public abstract string TampilkanInfo();
+    }
+
+    public class PenggunaModel : AkunDasar
+    {
+        private string _password = string.Empty;
+        private string _namaLengkap = string.Empty;
+
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Password tidak boleh kosong.");
+
+                }
+                _password = value;
             }
         }
 
         public string NamaLengkap
         {
-            get { return this.namaLengkap; }
-            set { this.namaLengkap = value; }
+            get {return _namaLengkap; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Nama lengkap tidak boleh kosong.");
+                }
+                _namaLengkap = value;
+            }
         }
 
-        public string Role
+        public bool IsActive { get; set; } = true;
+
+        public override string TampilkanInfo()
         {
-            get { return this.role; }
-            set { this.role = value; }
+            return $"[{Role}] {NamaLengkap} ({Username})";
         }
     }
 }
-

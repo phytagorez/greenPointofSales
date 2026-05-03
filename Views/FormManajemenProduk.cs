@@ -1,43 +1,40 @@
-﻿using System;
-using System.Data;
-using System.Windows.Forms;
+﻿using greenPointofSales.Controllers;
 using greenPointofSales.Models;
-using greenPointofSales.Controllers;
+using System;
+using System.Windows.Forms;
 
 namespace greenPointofSales.Views
 {
+    //composition
     public partial class FormManajemenProduk : Form
     {
-        private ProdukController controller;
+        private readonly ProdukController _controller = new();
 
         public FormManajemenProduk()
         {
             InitializeComponent();
-            this.controller = new ProdukController();
 
-            // Setup Tabel biar rapi & PBO (Encapsulation UI)
-            this.dgvProduk.ReadOnly = true;
-            this.dgvProduk.AllowUserToAddRows = false;
-            this.dgvProduk.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvProduk.ReadOnly = true;
+            dgvProduk.AllowUserToAddRows = false;
+            dgvProduk.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            // Muat data saat pertama kali form terbuka
-            this.MuatKategori();
-            this.MuatDataProduk();
+            MuatKategori();
+            MuatDataProduk();
         }
 
         private void MuatKategori()
         {
             try
             {
-                // Ambil data dari Controller (MVC)
-                this.cmbKategori.DataSource = this.controller.DapatkanKategori();
-                this.cmbKategori.DisplayMember = "nama_kategori";
-                this.cmbKategori.ValueMember = "id_kategori";
-                this.cmbKategori.SelectedIndex = -1; // Biar awal-awal kosong
+                cmbKategori.DataSource = _controller.DapatkanKategori();
+                cmbKategori.DisplayMember = "nama_kategori";
+                cmbKategori.ValueMember = "id_kategori";
+                cmbKategori.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Gagal memuat kategori: " + ex.Message, "Error Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Gagal memuat kategori: " + ex.Message, "Error Database",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -45,8 +42,8 @@ namespace greenPointofSales.Views
         {
             try
             {
-                this.dgvProduk.DataSource = null;
-                this.dgvProduk.DataSource = this.controller.DapatkanSemuaProduk();
+                dgvProduk.DataSource = null;
+                dgvProduk.DataSource = _controller.DapatkanSemuaProduk();
             }
             catch (Exception ex)
             {
@@ -58,77 +55,72 @@ namespace greenPointofSales.Views
         {
             try
             {
-                // Diagnosis: Intip dulu apa yang dibaca C# dari TextBox kamu
-                // MessageBox.Show($"Beli: {txtHargaBeli.Text}, Jual: {txtHargaJual.Text}"); // Hapus tanda // ini buat ngetes
+                var produk = new ProdukModel
+                {
+                    //iterasi harga jual before harga beli
+                    HargaBeli = decimal.Parse(txtHargaBeli.Text.Trim()),
+                    HargaJual = decimal.Parse(txtHargaJual.Text.Trim()),
+                    IdKategori = Convert.ToInt32(cmbKategori.SelectedValue),
+                    NamaProduk = txtNamaProduk.Text.Trim()
+                };
 
-                ProdukModel produkBaru = new ProdukModel();
+                //stok & kode unik
+                produk.TambahStokAwal(int.Parse(txtStok.Text.Trim()));
+                produk.GenerateKodeOtomatis();
 
-                // 1. SET HARGA BELI DULU (Wajib pertama agar HargaJual punya pembanding)
-                produkBaru.HargaBeli = decimal.Parse(this.txtHargaBeli.Text.Trim());
+                //kirim ke db
+                _controller.TambahProduk(produk);
 
-                // 2. SET HARGA JUAL (Di sini validasi Model akan otomatis ngecek HargaBeli)
-                produkBaru.HargaJual = decimal.Parse(this.txtHargaJual.Text.Trim());
-
-                // 3. Sisanya bebas
-                produkBaru.IdKategori = Convert.ToInt32(this.cmbKategori.SelectedValue);
-                produkBaru.NamaProduk = this.txtNamaProduk.Text.Trim();
-                produkBaru.TambahStokAwal(int.Parse(this.txtStok.Text.Trim()));
-                produkBaru.GenerateKodeOtomatis();
-
-                this.controller.TambahProduk(produkBaru);
-                MessageBox.Show("Berhasil Simpan!");
+                MessageBox.Show("Produk berhasil disimpan!", "Sukses");
                 MuatDataProduk();
+                BersihkanForm();
             }
             catch (Exception ex)
             {
-                // Kalau error, dia bakal kasih tahu errornya di mana
-                MessageBox.Show("Ada Masalah: " + ex.Message, "Sistem Menolak", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ada Masalah: " + ex.Message, "Sistem Menolak",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void btnBusuk_Click(object sender, EventArgs e)
         {
-            if (dgvProduk.SelectedRows.Count > 0)
+            if (dgvProduk.SelectedRows.Count == 0)
             {
-                // Ambil ID dan Nama dari baris yang dipilih
-                int idProduk = Convert.ToInt32(dgvProduk.SelectedRows[0].Cells["id_produk"].Value);
-                string namaProduk = dgvProduk.SelectedRows[0].Cells["nama_produk"].Value.ToString();
-
-                DialogResult konfirmasi = MessageBox.Show(
-                    $"Apakah yakin ingin menandai '{namaProduk}' sebagai produk busuk? Stok akan otomatis nol dan tidak muncul di kasir.",
-                    "Konfirmasi Produk Busuk",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
-
-                if (konfirmasi == DialogResult.Yes)
-                {
-                    try
-                    {
-                        this.controller.TandaiProdukBusuk(idProduk);
-                        MessageBox.Show("Produk berhasil ditandai busuk.");
-                        MuatDataProduk(); // Refresh tabel biar yang busuk hilang (karena View kita filter)
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Gagal: " + ex.Message);
-                    }
-                }
+                MessageBox.Show("Pilih produk di tabel dulu!");
+                return;
             }
-            else
+
+            //catch from id baru nama
+            int id = Convert.ToInt32(dgvProduk.SelectedRows[0].Cells["id_produk"]?.Value ?? 0);
+            string nama = dgvProduk.SelectedRows[0].Cells["nama_produk"]?.Value?.ToString() ?? string.Empty;
+
+            //confirm
+            if (MessageBox.Show($"Tandai '{nama}' sebagai produk busuk? Stok akan jadi nol.",
+                    "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes)
             {
-                MessageBox.Show("Pilih produk di tabel dulu, Jak!");
+                return;
+            }
+
+            try
+            {
+                _controller.TandaiProdukBusuk(id);
+                MessageBox.Show("Produk berhasil ditandai busuk.");
+                MuatDataProduk();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Gagal: " + ex.Message);
             }
         }
 
         private void BersihkanForm()
         {
-            this.txtNamaProduk.Clear();
-            this.txtHargaBeli.Clear();
-            this.txtStok.Clear();
-            this.txtStok.Clear();
-            this.cmbKategori.SelectedIndex = -1;
-            this.txtNamaProduk.Focus();
+            txtNamaProduk.Clear();
+            txtHargaBeli.Clear();
+            txtHargaJual.Clear();
+            txtStok.Clear();
+            cmbKategori.SelectedIndex = -1;
+            txtNamaProduk.Focus();
         }
     }
 }

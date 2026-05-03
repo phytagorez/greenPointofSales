@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
+﻿using greenPointofSales.Models;
+using System;
 using System.Windows.Forms;
 
 namespace greenPointofSales.Views
@@ -13,35 +9,28 @@ namespace greenPointofSales.Views
         public FormDashboardOwner()
         {
             InitializeComponent();
+
+            string nama = SesiPengguna.PenggunaAktif?.Username ?? "idk";
+            string role = SesiPengguna.PenggunaAktif?.Role ?? "Unknown";
+
+            this.Text = $"Dashboard Owner | Selamat Datang, {nama} ({role})";
         }
+
         private void btnMenuKaryawan_Click(object sender, EventArgs e)
         {
-            // Panggil form yang sudah kita buat sebelumnya
-            FormTambahKaryawan formKaryawan = new FormTambahKaryawan();
-
-            // Gunakan ShowDialog agar form muncul sebagai pop-up yang fokus
-            formKaryawan.ShowDialog();
-        }
-
-        // Tombol Logout
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            this.Close(); // Tutup dashboard
-
-            // Tampilkan kembali form login yang tadi disembunyikan
-            Application.OpenForms["Form1"].Show();
-        }
-
-        private void btnMenuKaryawan_Click_1(object sender, EventArgs e)
-        {
-            FormTambahKaryawan formKaryawan = new FormTambahKaryawan();
-            formKaryawan.ShowDialog();
+            new FormTambahKaryawan().ShowDialog();
         }
 
         private void btnMenuProduk_Click(object sender, EventArgs e)
         {
-            FormManajemenProduk formProduk = new FormManajemenProduk();
-            formProduk.ShowDialog();
+            new FormManajemenProduk().ShowDialog();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            SesiPengguna.Logout();
+            this.Close();
+            Application.OpenForms["FormLogin"]?.Show();
         }
     }
 }

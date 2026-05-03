@@ -41,7 +41,6 @@
             btnMenuKaryawan.TabIndex = 0;
             btnMenuKaryawan.Text = "Manajemen Karyawan";
             btnMenuKaryawan.UseVisualStyleBackColor = true;
-            btnMenuKaryawan.Click += btnMenuKaryawan_Click_1;
             // 
             // btnMenuProduk
             // 
@@ -61,6 +60,7 @@
             btnLogout.TabIndex = 2;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = true;
+            btnLogout.Click += btnLogout_Click;
             // 
             // FormDashboardOwner
             // 

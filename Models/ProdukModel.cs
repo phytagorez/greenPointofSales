@@ -2,128 +2,154 @@
 
 namespace greenPointofSales.Models
 {
-    public class ProdukModel
+    //kontrak
+    public interface IBarangJualan
     {
-        private int idKategori;
-        private string kodeProduk;
-        private string namaProduk;
-        private decimal hargaBeli;
-        private decimal hargaJual;
-        private int stok;
+        string TampilkanDetail();
+        void KurangiStok(int jumlah);
+    }
 
-        // --- PROPERTIES DENGAN VALIDASI KETAT ---
+    //validasi
+    public abstract class EntitasProduk : IBarangJualan
+    {
+        private string _namaProduk = string.Empty;
+        private string _kodeProduk = string.Empty;
+        public int IdKategori { get; set; }
 
-        public int IdKategori
+        public virtual string NamaProduk
         {
-            get => this.idKategori;
-            set
-            {
-                if (value <= 0)
-                    throw new ArgumentException("Pilihan Kategori tidak valid! Pastikan Anda sudah memilih kategori di ComboBox.");
-
-                this.idKategori = value;
-            }
-        }
-
-        public string KodeProduk
-        {
-            get => this.kodeProduk;
+            get { return _namaProduk; }
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Kode Produk tidak boleh kosong.");
-                this.kodeProduk = value;
-            }
-        }
-
-        public string NamaProduk
-        {
-            get => this.namaProduk;
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
+                {
                     throw new ArgumentException("Nama Produk tidak boleh kosong.");
-                this.namaProduk = value;
+                }
+                _namaProduk = value;
             }
         }
+
+        public virtual string KodeProduk
+        {
+            get { return _kodeProduk; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Kode Produk tidak boleh kosong.");
+                }
+                _kodeProduk = value;
+            }
+        }
+
+        public abstract string TampilkanDetail();
+        public abstract void KurangiStok(int jumlah);
+    }
+
+    public class ProdukModel : EntitasProduk
+    {
+        private decimal _hargaBeli;
+        private decimal _hargaJual;
+        private int _stok;
+
+        //private set(encapsulation method)
+        public bool IsBusuk { get; private set; } = false;
 
         public decimal HargaBeli
         {
-            get => this.hargaBeli;
+            get { return _hargaBeli; }
             set
             {
                 if (value < 0)
-                    throw new ArgumentException("Harga Beli tidak mungkin minus!");
-                this.hargaBeli = value;
+                {
+                    throw new ArgumentException("Harga Beli tidak boleh minus!");
+                }
+                _hargaBeli = value;
             }
         }
 
         public decimal HargaJual
         {
-            get => this.hargaJual;
+            get { return _hargaJual; }
             set
             {
                 if (value < 0)
+                {
                     throw new ArgumentException("Harga Jual tidak boleh minus!");
-                if (value < this.hargaBeli)
-                    throw new ArgumentException("Peringatan: Harga Jual lebih rendah dari Harga Beli (Rugi)!");
-                this.hargaJual = value;
+                }
+
+                if (value < _hargaBeli)
+                {
+                    throw new ArgumentException("Harga Jual lebih rendah dari Harga Beli!");
+                }
+                _hargaJual = value;
             }
         }
 
-        // STOK DIKUNCI (PRIVATE SET) - Hanya bisa diubah oleh Behavior di bawah
         public int Stok
         {
-            get => this.stok;
+            get { return _stok; }
             private set
             {
-                if (value < 0) throw new ArgumentException("Stok tidak bisa di bawah nol.");
-                this.stok = value;
+                if (value < 0)
+                {
+                    throw new ArgumentException("Stok tidak boleh kurang dari nol.");
+                }
+                _stok = value;
             }
         }
 
-        // Properti khusus untuk menandai jika stok habis karena busuk
-        public bool IsBusuk { get; private set; }
-
-
-        // ========================================================
-        // BEHAVIOR (PERILAKU OBJEK) - INI YANG BIKIN PPBO BANGET
-        // ========================================================
-
-        // 1. Menambah stok saat awal daftar atau kulakan
-        // Ganti nama method-nya jadi ini biar sinkron dengan Form
+        //input stok
         public void TambahStokAwal(int jumlah)
         {
-            if (jumlah < 0) throw new Exception("Stok awal tidak boleh negatif!");
-            this.Stok = jumlah;
+            if (jumlah < 0)
+            {
+                throw new ArgumentException("Stok awal tidak boleh negatif!");
+            }
+            Stok += jumlah;
         }
 
-        // 2. Mengurangi stok karena sayur/buah busuk
+        //stok busuk
         public void SusutkanBarangBusuk(int jumlahBusuk)
         {
-            if (jumlahBusuk > this.Stok)
-                throw new Exception("Jumlah barang busuk melebihi total stok yang ada!");
-
-            this.Stok -= jumlahBusuk;
-
-            // Logika otomatis: Kalau stok habis karena busuk semua
-            if (this.Stok == 0)
+            if (jumlahBusuk > Stok)
             {
-                this.IsBusuk = true;
+                throw new InvalidOperationException("Jumlah busuk melebihi stok!");
+            }
+            Stok -= jumlahBusuk;
+
+            if (Stok == 0)
+            {
+                IsBusuk = true;
             }
         }
 
-        // 3. Generate Kode Otomatis kalau kasir malas ngetik
+        //kode unik
         public void GenerateKodeOtomatis()
         {
-            if (string.IsNullOrEmpty(this.NamaProduk) || this.NamaProduk.Length < 3)
-                throw new Exception("Isi Nama Produk minimal 3 huruf dulu sebelum membuat kode otomatis.");
+            if (string.IsNullOrEmpty(NamaProduk) || NamaProduk.Length < 3)
+            {
+                throw new InvalidOperationException("Nama Produk minimal 3 huruf.");
+            }
 
-            string singkatan = this.NamaProduk.Substring(0, 3).ToUpper();
-            string randomAngka = new Random().Next(100, 999).ToString();
+            string singkatan = NamaProduk[..3].ToUpper();
+            string angka = Random.Shared.Next(100, 999).ToString();
 
-            // Contoh hasil: PRD-1-SAY-452
-            this.KodeProduk = $"PRD-{this.IdKategori}-{singkatan}-{randomAngka}";
+            KodeProduk = $"{singkatan}-{angka}";
+        }
+
+        public override string TampilkanDetail()
+        {
+            return $"[{KodeProduk}] {NamaProduk} - Rp{HargaJual}";
+        }
+
+        public override void KurangiStok(int jumlah)
+        {
+            if (jumlah > Stok)
+            {
+                throw new InvalidOperationException($"Stok {NamaProduk} tidak cukup.");
+            }
+            Stok -= jumlah;
         }
     }
 }
