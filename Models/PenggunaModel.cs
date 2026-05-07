@@ -38,7 +38,7 @@ namespace greenPointofSales.Models
                 {
                     throw new ArgumentException("Role tidak boleh kosong.");
                 }
-                _username = value;
+                _role = value;
             }
         }
 
