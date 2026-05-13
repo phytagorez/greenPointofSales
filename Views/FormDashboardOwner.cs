@@ -37,5 +37,10 @@ namespace greenPointofSales.Views
         {
             new FormKatalog().ShowDialog();
         }
+
+        private void btnMenuDashboard_MouseEnter(object sender, EventArgs e)
+        {
+            btnMenuDashboard.BackColor = Color.FromArgb(0, 128, 0);
+        }
     }
 }

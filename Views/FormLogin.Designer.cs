@@ -46,10 +46,11 @@
             txtUsername.BorderStyle = BorderStyle.None;
             txtUsername.Cursor = Cursors.Hand;
             txtUsername.Font = new Font("Segoe UI Semilight", 10.8F, FontStyle.Italic);
-            txtUsername.Location = new Point(442, 323);
+            txtUsername.Location = new Point(479, 323);
             txtUsername.Multiline = true;
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(397, 35);
+            txtUsername.PlaceholderText = "User Name";
+            txtUsername.Size = new Size(360, 35);
             txtUsername.TabIndex = 2;
             txtUsername.MouseEnter += txtUsername_MouseEnter_1;
             txtUsername.MouseLeave += txtUsername_MouseLeave_1;
@@ -62,11 +63,12 @@
             txtPassword.CharacterCasing = CharacterCasing.Upper;
             txtPassword.Cursor = Cursors.Hand;
             txtPassword.Font = new Font("Segoe UI Semilight", 10.8F, FontStyle.Italic);
-            txtPassword.Location = new Point(442, 390);
+            txtPassword.Location = new Point(479, 390);
             txtPassword.Multiline = true;
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(397, 35);
+            txtPassword.PlaceholderText = "******";
+            txtPassword.Size = new Size(360, 35);
             txtPassword.TabIndex = 3;
             txtPassword.MouseEnter += txtPassword_MouseEnter_1;
             txtPassword.MouseLeave += txtPassword_MouseLeave_1;
@@ -91,21 +93,21 @@
             // 
             pbUsername.BackColor = Color.Transparent;
             pbUsername.Image = Properties.Resources.user;
-            pbUsername.Location = new Point(444, 300);
+            pbUsername.Location = new Point(444, 331);
             pbUsername.Name = "pbUsername";
             pbUsername.Size = new Size(20, 20);
-            pbUsername.SizeMode = PictureBoxSizeMode.Zoom;
+            pbUsername.SizeMode = PictureBoxSizeMode.StretchImage;
             pbUsername.TabIndex = 5;
             pbUsername.TabStop = false;
             // 
             // pbPassword
             // 
             pbPassword.BackColor = Color.Transparent;
-            pbPassword.Image = Properties.Resources.Ipadlock;
-            pbPassword.Location = new Point(444, 366);
+            pbPassword.Image = Properties.Resources.padlock;
+            pbPassword.Location = new Point(444, 397);
             pbPassword.Name = "pbPassword";
             pbPassword.Size = new Size(20, 20);
-            pbPassword.SizeMode = PictureBoxSizeMode.Zoom;
+            pbPassword.SizeMode = PictureBoxSizeMode.StretchImage;
             pbPassword.TabIndex = 6;
             pbPassword.TabStop = false;
             // 
@@ -117,9 +119,8 @@
             lblUsername.Font = new Font("Century Schoolbook", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblUsername.Location = new Point(465, 298);
             lblUsername.Name = "lblUsername";
-            lblUsername.Size = new Size(105, 22);
+            lblUsername.Size = new Size(0, 22);
             lblUsername.TabIndex = 7;
-            lblUsername.Text = "User Name";
             // 
             // lblPassword
             // 
@@ -129,14 +130,13 @@
             lblPassword.Font = new Font("Century Schoolbook", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblPassword.Location = new Point(466, 365);
             lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(89, 22);
+            lblPassword.Size = new Size(0, 22);
             lblPassword.TabIndex = 8;
-            lblPassword.Text = "Password";
             // 
             // FormLogin
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackgroundImage = Properties.Resources.Login;
+            BackgroundImage = Properties.Resources.Login_on;
             ClientSize = new Size(1280, 720);
             Controls.Add(lblPassword);
             Controls.Add(lblUsername);
