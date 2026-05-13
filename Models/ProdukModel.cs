@@ -52,9 +52,6 @@ namespace greenPointofSales.Models
         private decimal _hargaJual;
         private int _stok;
 
-        //private set(encapsulation method)
-        public bool IsBusuk { get; private set; } = false;
-
         public decimal HargaBeli
         {
             get { return _hargaBeli; }
@@ -62,7 +59,7 @@ namespace greenPointofSales.Models
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("Harga Beli tidak boleh minus!");
+                    throw new ArgumentException("Harga Beli tidak boleh negatif.");
                 }
                 _hargaBeli = value;
             }
@@ -73,14 +70,9 @@ namespace greenPointofSales.Models
             get { return _hargaJual; }
             set
             {
-                if (value < 0)
+                if (value < HargaBeli)
                 {
-                    throw new ArgumentException("Harga Jual tidak boleh minus!");
-                }
-
-                if (value < _hargaBeli)
-                {
-                    throw new ArgumentException("Harga Jual lebih rendah dari Harga Beli!");
+                    throw new ArgumentException("Harga Jual tidak boleh lebih kecil dari Harga Beli.");
                 }
                 _hargaJual = value;
             }
@@ -89,17 +81,12 @@ namespace greenPointofSales.Models
         public int Stok
         {
             get { return _stok; }
-            private set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentException("Stok tidak boleh kurang dari nol.");
-                }
-                _stok = value;
-            }
+            private set { _stok = value; }
         }
 
-        //input stok
+        public bool IsNonaktif { get; set; }
+
+        //stok
         public void TambahStokAwal(int jumlah)
         {
             if (jumlah < 0)
@@ -120,7 +107,7 @@ namespace greenPointofSales.Models
 
             if (Stok == 0)
             {
-                IsBusuk = true;
+                IsNonaktif = true; // Sudah diperbarui
             }
         }
 
@@ -147,7 +134,7 @@ namespace greenPointofSales.Models
         {
             if (jumlah > Stok)
             {
-                throw new InvalidOperationException($"Stok {NamaProduk} tidak cukup.");
+                throw new InvalidOperationException("Stok tidak mencukupi.");
             }
             Stok -= jumlah;
         }

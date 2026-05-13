@@ -32,5 +32,10 @@ namespace greenPointofSales.Views
             this.Close();
             Application.OpenForms["FormLogin"]?.Show();
         }
+
+        private void btnMenuKatlog_Click(object sender, EventArgs e)
+        {
+            new FormKatalog().ShowDialog();
+        }
     }
 }

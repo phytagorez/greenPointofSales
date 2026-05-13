@@ -16,6 +16,10 @@ namespace greenPointofSales
             dgvKaryawan.ReadOnly = true;
             dgvKaryawan.AllowUserToAddRows = false;
             dgvKaryawan.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+            dtpTanggalLahir.Value = DateTime.Now.AddYears(-17);
+            dtpTanggalMulaiKerja.Value = DateTime.Now;
+
             MuatDataKaryawan();
         }
 
@@ -25,42 +29,67 @@ namespace greenPointofSales
             {
                 dgvKaryawan.DataSource = null;
                 dgvKaryawan.DataSource = _controller.DapatkanSemuaKaryawan();
+
+                if (dgvKaryawan.Columns.Count > 0)
+                {
+                    dgvKaryawan.Columns["username"]!.HeaderText = "Username";
+                    dgvKaryawan.Columns["nama_lengkap"]!.HeaderText = "Nama Lengkap";
+                    dgvKaryawan.Columns["jenis_kelamin"]!.HeaderText = "L/P";
+                    dgvKaryawan.Columns["no_hp"]!.HeaderText = "No. Handphone";
+                    dgvKaryawan.Columns["email"]!.HeaderText = "Email";
+
+                    dgvKaryawan.Columns["tgl_lahir"]!.HeaderText = "Tgl. Lahir";
+                    dgvKaryawan.Columns["tgl_lahir"]!.DefaultCellStyle.Format = "dd MMM yyyy";
+
+                    dgvKaryawan.Columns["tgl_mulai_kerja"]!.HeaderText = "Mulai Kerja";
+                    dgvKaryawan.Columns["tgl_mulai_kerja"]!.DefaultCellStyle.Format = "dd MMM yyyy";
+
+                    dgvKaryawan.Columns["is_active"]!.HeaderText = "Status Aktif";
+
+                    dgvKaryawan.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Gagal memuat data: " + ex.Message);
+                MessageBox.Show("Gagal memuat data: " + ex.Message, "Error Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnSimpan_Click(object sender, EventArgs e)
         {
-            if (cmbRole.SelectedItem == null)
-            {
-                MessageBox.Show("Pilih Role terlebih dahulu!", "Peringatan",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             try
             {
-                var pengguna = new PenggunaModel
-                {
-                    Username = txtUserBaru.Text,
-                    Password = txtPassBaru.Text,
-                    NamaLengkap = txtNamaLengkap.Text,
-                    Role = cmbRole.SelectedItem?.ToString() ?? string.Empty
-                };
+                var pengguna = new PenggunaModel();
 
+                //mapping encap
+                pengguna.Username = txtUserBaru.Text.Trim();
+                pengguna.Password = txtPassBaru.Text.Trim();
+                pengguna.NamaLengkap = txtNamaLengkap.Text.Trim();
+                pengguna.NoHp = txtNoHp.Text.Trim();
+                pengguna.Email = txtEmail.Text.Trim();
+                pengguna.TglLahir = dtpTanggalLahir.Value;
+                pengguna.TglMulaiKerja = dtpTanggalMulaiKerja.Value;
+                pengguna.JenisKelamin = cmbJenisKelamin.SelectedItem?.ToString() ?? "";
+
+                //fixed
+                pengguna.Role = "Kasir";
+
+                //dommit db
                 _controller.TambahKaryawan(pengguna);
-                MessageBox.Show($"Akun {pengguna.Role} berhasil didaftarkan!", "Sukses",
+
+                MessageBox.Show($"Akun Kasir atas nama '{pengguna.NamaLengkap}' berhasil didaftarkan!", "Sukses",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 MuatDataKaryawan();
                 BersihkanInputan();
             }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Peringatan Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message, "Sistem Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -121,7 +150,11 @@ namespace greenPointofSales
             txtUserBaru.Clear();
             txtPassBaru.Clear();
             txtNamaLengkap.Clear();
-            cmbRole.SelectedIndex = -1;
+            txtNoHp.Clear();
+            txtEmail.Clear();
+            cmbJenisKelamin.SelectedIndex = -1;
+            dtpTanggalLahir.Value = DateTime.Now.AddYears(-17);
+            dtpTanggalMulaiKerja.Value = DateTime.Now;
         }
     }
 }

@@ -28,133 +28,160 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            cmbRole = new ComboBox();
             txtUserBaru = new TextBox();
             txtPassBaru = new TextBox();
             txtNamaLengkap = new TextBox();
             btnSimpan = new Button();
             dgvKaryawan = new DataGridView();
+            label1 = new Label();
+            dtpTanggalMulaiKerja = new DateTimePicker();
+            dtpTanggalLahir = new DateTimePicker();
+            cmbJenisKelamin = new ComboBox();
+            txtNoHp = new TextBox();
+            txtEmail = new TextBox();
             btnNonaktifkan = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvKaryawan).BeginInit();
             SuspendLayout();
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(39, 37);
-            label1.Name = "label1";
-            label1.Size = new Size(78, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Username:";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(40, 105);
-            label2.Name = "label2";
-            label2.Size = new Size(77, 20);
-            label2.TabIndex = 1;
-            label2.Text = "Password: ";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(40, 272);
-            label3.Name = "label3";
-            label3.Size = new Size(42, 20);
-            label3.TabIndex = 2;
-            label3.Text = "Role:";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(39, 181);
-            label4.Name = "label4";
-            label4.Size = new Size(112, 20);
-            label4.TabIndex = 3;
-            label4.Text = "Nama Lengkap:";
-            // 
-            // cmbRole
-            // 
-            cmbRole.FormattingEnabled = true;
-            cmbRole.Items.AddRange(new object[] { "Owner", "Kasir" });
-            cmbRole.Location = new Point(88, 272);
-            cmbRole.Name = "cmbRole";
-            cmbRole.Size = new Size(151, 28);
-            cmbRole.TabIndex = 4;
-            // 
             // txtUserBaru
             // 
-            txtUserBaru.Location = new Point(40, 60);
+            txtUserBaru.BorderStyle = BorderStyle.None;
+            txtUserBaru.Location = new Point(88, 193);
             txtUserBaru.Name = "txtUserBaru";
-            txtUserBaru.Size = new Size(125, 27);
+            txtUserBaru.Size = new Size(164, 20);
             txtUserBaru.TabIndex = 5;
             // 
             // txtPassBaru
             // 
-            txtPassBaru.Location = new Point(40, 132);
+            txtPassBaru.BorderStyle = BorderStyle.None;
+            txtPassBaru.Location = new Point(535, 193);
             txtPassBaru.Name = "txtPassBaru";
-            txtPassBaru.Size = new Size(125, 27);
+            txtPassBaru.Size = new Size(169, 20);
             txtPassBaru.TabIndex = 6;
             // 
             // txtNamaLengkap
             // 
-            txtNamaLengkap.Location = new Point(40, 216);
+            txtNamaLengkap.BorderStyle = BorderStyle.None;
+            txtNamaLengkap.Location = new Point(88, 132);
             txtNamaLengkap.Name = "txtNamaLengkap";
-            txtNamaLengkap.Size = new Size(125, 27);
+            txtNamaLengkap.Size = new Size(164, 20);
             txtNamaLengkap.TabIndex = 7;
             // 
             // btnSimpan
             // 
-            btnSimpan.Location = new Point(40, 365);
+            btnSimpan.BackColor = Color.Transparent;
+            btnSimpan.Cursor = Cursors.Hand;
+            btnSimpan.FlatAppearance.BorderSize = 0;
+            btnSimpan.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnSimpan.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnSimpan.FlatStyle = FlatStyle.Flat;
+            btnSimpan.Location = new Point(266, 302);
             btnSimpan.Name = "btnSimpan";
             btnSimpan.Size = new Size(94, 29);
             btnSimpan.TabIndex = 8;
-            btnSimpan.Text = "Create";
-            btnSimpan.UseVisualStyleBackColor = true;
+            btnSimpan.UseVisualStyleBackColor = false;
             btnSimpan.Click += btnSimpan_Click;
             // 
             // dgvKaryawan
             // 
             dgvKaryawan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvKaryawan.Location = new Point(276, 37);
+            dgvKaryawan.Location = new Point(68, 364);
             dgvKaryawan.Name = "dgvKaryawan";
             dgvKaryawan.RowHeadersWidth = 51;
-            dgvKaryawan.Size = new Size(498, 378);
+            dgvKaryawan.Size = new Size(710, 206);
             dgvKaryawan.TabIndex = 9;
             dgvKaryawan.SelectionChanged += dgvKaryawan_SelectionChanged;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(535, 257);
+            label1.Name = "label1";
+            label1.Size = new Size(49, 26);
+            label1.TabIndex = 11;
+            label1.Text = "Kasir";
+            // 
+            // dtpTanggalMulaiKerja
+            // 
+            dtpTanggalMulaiKerja.Location = new Point(540, 130);
+            dtpTanggalMulaiKerja.Name = "dtpTanggalMulaiKerja";
+            dtpTanggalMulaiKerja.Size = new Size(164, 27);
+            dtpTanggalMulaiKerja.TabIndex = 12;
+            // 
+            // dtpTanggalLahir
+            // 
+            dtpTanggalLahir.Location = new Point(313, 132);
+            dtpTanggalLahir.Name = "dtpTanggalLahir";
+            dtpTanggalLahir.Size = new Size(164, 27);
+            dtpTanggalLahir.TabIndex = 13;
+            // 
+            // cmbJenisKelamin
+            // 
+            cmbJenisKelamin.FlatStyle = FlatStyle.Flat;
+            cmbJenisKelamin.FormattingEnabled = true;
+            cmbJenisKelamin.Items.AddRange(new object[] { "Laki-laki", "Perempuan" });
+            cmbJenisKelamin.Location = new Point(88, 255);
+            cmbJenisKelamin.Name = "cmbJenisKelamin";
+            cmbJenisKelamin.Size = new Size(164, 28);
+            cmbJenisKelamin.TabIndex = 14;
+            // 
+            // txtNoHp
+            // 
+            txtNoHp.BorderStyle = BorderStyle.None;
+            txtNoHp.Location = new Point(313, 196);
+            txtNoHp.Name = "txtNoHp";
+            txtNoHp.Size = new Size(164, 20);
+            txtNoHp.TabIndex = 15;
+            // 
+            // txtEmail
+            // 
+            txtEmail.BorderStyle = BorderStyle.None;
+            txtEmail.Location = new Point(313, 258);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(164, 20);
+            txtEmail.TabIndex = 16;
+            // 
             // btnNonaktifkan
             // 
-            btnNonaktifkan.Location = new Point(145, 365);
+            btnNonaktifkan.BackColor = Color.Black;
+            btnNonaktifkan.Cursor = Cursors.Hand;
+            btnNonaktifkan.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnNonaktifkan.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnNonaktifkan.FlatStyle = FlatStyle.Flat;
+            btnNonaktifkan.ForeColor = Color.Black;
+            btnNonaktifkan.Location = new Point(420, 302);
             btnNonaktifkan.Name = "btnNonaktifkan";
-            btnNonaktifkan.Size = new Size(107, 29);
-            btnNonaktifkan.TabIndex = 10;
-            btnNonaktifkan.Text = "Nonaktifkan";
-            btnNonaktifkan.UseVisualStyleBackColor = true;
+            btnNonaktifkan.Size = new Size(164, 29);
+            btnNonaktifkan.TabIndex = 17;
+            btnNonaktifkan.Text = " ";
+            btnNonaktifkan.UseVisualStyleBackColor = false;
             btnNonaktifkan.Click += btnNonaktifkan_Click;
             // 
             // FormTambahKaryawan
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            AutoScaleDimensions = new SizeF(120F, 120F);
+            AutoScaleMode = AutoScaleMode.Dpi;
+            BackgroundImage = Properties.Resources.Dash_On__karyawan;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(800, 600);
             Controls.Add(btnNonaktifkan);
+            Controls.Add(txtEmail);
+            Controls.Add(txtNoHp);
+            Controls.Add(cmbJenisKelamin);
+            Controls.Add(dtpTanggalLahir);
+            Controls.Add(dtpTanggalMulaiKerja);
+            Controls.Add(label1);
             Controls.Add(dgvKaryawan);
             Controls.Add(btnSimpan);
             Controls.Add(txtNamaLengkap);
             Controls.Add(txtPassBaru);
             Controls.Add(txtUserBaru);
-            Controls.Add(cmbRole);
-            Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
+            DoubleBuffered = true;
+            FormBorderStyle = FormBorderStyle.None;
             Name = "FormTambahKaryawan";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormTambahKaryawan";
             ((System.ComponentModel.ISupportInitialize)dgvKaryawan).EndInit();
             ResumeLayout(false);
@@ -162,17 +189,17 @@
         }
 
         #endregion
-
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private Label label4;
-        private ComboBox cmbRole;
         private TextBox txtUserBaru;
         private TextBox txtPassBaru;
         private TextBox txtNamaLengkap;
         private Button btnSimpan;
         private DataGridView dgvKaryawan;
+        private Label label1;
+        private DateTimePicker dtpTanggalMulaiKerja;
+        private DateTimePicker dtpTanggalLahir;
+        private ComboBox cmbJenisKelamin;
+        private TextBox txtNoHp;
+        private TextBox txtEmail;
         private Button btnNonaktifkan;
     }
 }
