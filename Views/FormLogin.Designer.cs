@@ -31,29 +31,45 @@
             txtUsername = new TextBox();
             txtPassword = new TextBox();
             btnLogin = new Button();
+            pbUsername = new PictureBox();
+            pbPassword = new PictureBox();
+            lblUsername = new Label();
+            lblPassword = new Label();
+            ((System.ComponentModel.ISupportInitialize)pbUsername).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbPassword).BeginInit();
             SuspendLayout();
             // 
             // txtUsername
             // 
+            txtUsername.Anchor = AnchorStyles.None;
             txtUsername.BackColor = Color.Beige;
             txtUsername.BorderStyle = BorderStyle.None;
-            txtUsername.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtUsername.Location = new Point(494, 285);
+            txtUsername.Cursor = Cursors.Hand;
+            txtUsername.Font = new Font("Segoe UI Semilight", 10.8F, FontStyle.Italic);
+            txtUsername.Location = new Point(442, 323);
+            txtUsername.Multiline = true;
             txtUsername.Name = "txtUsername";
-            txtUsername.Size = new Size(178, 23);
+            txtUsername.Size = new Size(397, 35);
             txtUsername.TabIndex = 2;
+            txtUsername.MouseEnter += txtUsername_MouseEnter_1;
+            txtUsername.MouseLeave += txtUsername_MouseLeave_1;
             // 
             // txtPassword
             // 
+            txtPassword.Anchor = AnchorStyles.None;
             txtPassword.BackColor = Color.Beige;
             txtPassword.BorderStyle = BorderStyle.None;
             txtPassword.CharacterCasing = CharacterCasing.Upper;
-            txtPassword.Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtPassword.Location = new Point(494, 336);
+            txtPassword.Cursor = Cursors.Hand;
+            txtPassword.Font = new Font("Segoe UI Semilight", 10.8F, FontStyle.Italic);
+            txtPassword.Location = new Point(442, 390);
+            txtPassword.Multiline = true;
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(178, 23);
+            txtPassword.Size = new Size(397, 35);
             txtPassword.TabIndex = 3;
+            txtPassword.MouseEnter += txtPassword_MouseEnter_1;
+            txtPassword.MouseLeave += txtPassword_MouseLeave_1;
             // 
             // btnLogin
             // 
@@ -61,23 +77,71 @@
             btnLogin.Cursor = Cursors.Hand;
             btnLogin.FlatAppearance.BorderSize = 0;
             btnLogin.FlatStyle = FlatStyle.Flat;
-            btnLogin.Font = new Font("Poppins", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogin.Font = new Font("Georgia", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(524, 394);
+            btnLogin.Location = new Point(490, 479);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(112, 33);
+            btnLogin.Size = new Size(300, 45);
             btnLogin.TabIndex = 4;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
             // 
+            // pbUsername
+            // 
+            pbUsername.BackColor = Color.Transparent;
+            pbUsername.Image = Properties.Resources.user;
+            pbUsername.Location = new Point(444, 300);
+            pbUsername.Name = "pbUsername";
+            pbUsername.Size = new Size(20, 20);
+            pbUsername.SizeMode = PictureBoxSizeMode.Zoom;
+            pbUsername.TabIndex = 5;
+            pbUsername.TabStop = false;
+            // 
+            // pbPassword
+            // 
+            pbPassword.BackColor = Color.Transparent;
+            pbPassword.Image = Properties.Resources.Ipadlock;
+            pbPassword.Location = new Point(444, 366);
+            pbPassword.Name = "pbPassword";
+            pbPassword.Size = new Size(20, 20);
+            pbPassword.SizeMode = PictureBoxSizeMode.Zoom;
+            pbPassword.TabIndex = 6;
+            pbPassword.TabStop = false;
+            // 
+            // lblUsername
+            // 
+            lblUsername.AutoSize = true;
+            lblUsername.BackColor = Color.Transparent;
+            lblUsername.FlatStyle = FlatStyle.Flat;
+            lblUsername.Font = new Font("Century Schoolbook", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblUsername.Location = new Point(465, 298);
+            lblUsername.Name = "lblUsername";
+            lblUsername.Size = new Size(105, 22);
+            lblUsername.TabIndex = 7;
+            lblUsername.Text = "User Name";
+            // 
+            // lblPassword
+            // 
+            lblPassword.AutoSize = true;
+            lblPassword.BackColor = Color.Transparent;
+            lblPassword.FlatStyle = FlatStyle.Flat;
+            lblPassword.Font = new Font("Century Schoolbook", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblPassword.Location = new Point(466, 365);
+            lblPassword.Name = "lblPassword";
+            lblPassword.Size = new Size(89, 22);
+            lblPassword.TabIndex = 8;
+            lblPassword.Text = "Password";
+            // 
             // FormLogin
             // 
-            AutoScaleDimensions = new SizeF(120F, 120F);
-            AutoScaleMode = AutoScaleMode.Dpi;
-            BackgroundImage = Properties.Resources.yogin___1;
-            BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(800, 600);
+            AutoScaleMode = AutoScaleMode.None;
+            BackgroundImage = Properties.Resources.Login;
+            ClientSize = new Size(1280, 720);
+            Controls.Add(lblPassword);
+            Controls.Add(lblUsername);
+            Controls.Add(pbPassword);
+            Controls.Add(pbUsername);
             Controls.Add(btnLogin);
             Controls.Add(txtPassword);
             Controls.Add(txtUsername);
@@ -86,6 +150,8 @@
             Name = "FormLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormLogin";
+            ((System.ComponentModel.ISupportInitialize)pbUsername).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbPassword).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -94,5 +160,9 @@
         private TextBox txtUsername;
         private TextBox txtPassword;
         private Button btnLogin;
+        private PictureBox pbUsername;
+        private PictureBox pbPassword;
+        private Label lblUsername;
+        private Label lblPassword;
     }
 }

@@ -73,5 +73,49 @@ namespace greenPointofSales
                     break;
             }
         }
+
+        private void txtUsername_MouseEnter(object sender, EventArgs e)
+        {
+            txtUsername.BackColor = Color.FromArgb(148, 172, 137);
+            txtUsername.BorderStyle = BorderStyle.FixedSingle;
+        }
+
+        private void txtUsername_MouseLeave(object sender, EventArgs e)
+        {
+            txtUsername.BackColor = Color.FromArgb(245, 245, 220);
+        }
+
+        private void txtPassword_MouseEnter(object sender, EventArgs e)
+        {
+            txtPassword.BackColor = Color.FromArgb(148, 172, 137);
+            txtPassword.BorderStyle = BorderStyle.FixedSingle;
+        }
+
+        private void txtPassword_MouseLeave(object sender, EventArgs e)
+        {
+            txtPassword.BackColor = Color.FromArgb(245, 245, 220);
+        }
+
+        private void txtUsername_MouseEnter_1(object sender, EventArgs e)
+        {
+            txtUsername.BackColor = Color.FromArgb(148, 172, 137);
+            txtUsername.BorderStyle = BorderStyle.FixedSingle;
+        }
+
+        private void txtUsername_MouseLeave_1(object sender, EventArgs e)
+        {
+            txtUsername.BackColor = Color.FromArgb(245, 245, 220);
+        }
+
+        private void txtPassword_MouseEnter_1(object sender, EventArgs e)
+        {
+            txtPassword.BackColor = Color.FromArgb(148, 172, 137);
+            txtPassword.BorderStyle = BorderStyle.FixedSingle;
+        }
+
+        private void txtPassword_MouseLeave_1(object sender, EventArgs e)
+        {
+            txtPassword.BackColor = Color.FromArgb(245, 245, 220);
+        }
     }
 }
