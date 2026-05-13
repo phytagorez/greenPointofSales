@@ -32,7 +32,6 @@
             label2 = new Label();
             txtUsername = new TextBox();
             txtPassword = new TextBox();
-            btnLogin = new Button();
             SuspendLayout();
             // 
             // label1
