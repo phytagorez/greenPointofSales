@@ -49,17 +49,15 @@ namespace greenPointofSales
             }
         }
 
-        //return role jika valid, null jika tidak
+        //return role jika valid, null jika tidak (scalar)
         private string? AmbilRoleDariDb(string username, string password)
         {
-            using var conn = DBHelper.BukaKoneksi();
-            using var cmd = new NpgsqlCommand(
-                "SELECT role FROM pengguna WHERE username=@u AND password=@p AND is_active=true", conn);
-
-            cmd.Parameters.AddWithValue("u", username);
-            cmd.Parameters.AddWithValue("p", password);
-
-            return cmd.ExecuteScalar()?.ToString();
+            string query = "SELECT role FROM pengguna WHERE username=@u AND password=@p AND is_active=true";
+            NpgsqlParameter[] parameters = {
+        new NpgsqlParameter("u", username),
+        new NpgsqlParameter("p", password)
+    };
+            return DBHelper.EksekusiScalar(query, parameters)?.ToString();
         }
 
         private void BukaDashboard(string role)

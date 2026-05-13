@@ -63,9 +63,39 @@ namespace greenPointofSales.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Login___1 {
+        internal static System.Drawing.Bitmap Dash_O_Produk {
             get {
-                object obj = ResourceManager.GetObject("Login - 1", resourceCulture);
+                object obj = ResourceManager.GetObject("Dash O Produk", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Dash_On__karyawan {
+            get {
+                object obj = ResourceManager.GetObject("Dash On_+karyawan", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Dashboard_Ow {
+            get {
+                object obj = ResourceManager.GetObject("Dashboard Ow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap yogin___1 {
+            get {
+                object obj = ResourceManager.GetObject("yogin - 1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -3,6 +3,7 @@ using greenPointofSales.Models;
 using Npgsql;
 using System;
 using System.Data;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace greenPointofSales.Controllers
 {
@@ -11,53 +12,78 @@ namespace greenPointofSales.Controllers
     {
         public DataTable DapatkanSemuaProduk()
         {
-            using var conn = DBHelper.BukaKoneksi();
-            using var adapter = new NpgsqlDataAdapter("SELECT * FROM vw_daftar_produk", conn);
-
-            var dt = new DataTable();
-            adapter.Fill(dt);
-
-            return dt;
+            return DBHelper.EksekusiQuery("SELECT * FROM vw_daftar_produk");
         }
 
         public DataTable DapatkanKategori()
         {
-            using var conn = DBHelper.BukaKoneksi();
-            using var adapter = new NpgsqlDataAdapter("SELECT id_kategori, nama_kategori FROM kategori", conn);
-
-            var dt = new DataTable();
-            adapter.Fill(dt);
-
-            return dt;
+            return DBHelper.EksekusiQuery("SELECT id_kategori, nama_kategori FROM kategori");
         }
 
         public void TambahProduk(ProdukModel produk)
         {
-            if (produk == null)
-            {
-                throw new ArgumentNullException(nameof(produk));
-            }
+            if (produk == null) throw new ArgumentNullException(nameof(produk));
 
-            using var conn = DBHelper.BukaKoneksi();
-            using var cmd = new NpgsqlCommand(
-                "CALL sp_tambah_produk(@p_kode, @p_nama, @p_id_kat, @p_harga_beli, @p_harga_jual, @p_stok)", conn);
+            string query = "CALL sp_tambah_produk(@p_kode, @p_nama, @p_id_kat, @p_harga_beli, @p_harga_jual, @p_stok)";
 
-            cmd.Parameters.AddWithValue("p_kode", produk.KodeProduk);
-            cmd.Parameters.AddWithValue("p_nama", produk.NamaProduk);
-            cmd.Parameters.AddWithValue("p_id_kat", produk.IdKategori);
-            cmd.Parameters.AddWithValue("p_harga_beli", produk.HargaBeli);
-            cmd.Parameters.AddWithValue("p_harga_jual", produk.HargaJual);
-            cmd.Parameters.AddWithValue("p_stok", produk.Stok);
+            NpgsqlParameter[] parameters = {
+        new NpgsqlParameter("p_kode", produk.KodeProduk),
+        new NpgsqlParameter("p_nama", produk.NamaProduk),
+        new NpgsqlParameter("p_id_kat", produk.IdKategori),
+        new NpgsqlParameter("p_harga_beli", produk.HargaBeli),
+        new NpgsqlParameter("p_harga_jual", produk.HargaJual),
+        new NpgsqlParameter("p_stok", produk.Stok)
+    };
 
-            cmd.ExecuteNonQuery();
+            DBHelper.EksekusiNonQuery(query, parameters);
         }
-        //busuk == 0, not return in kasir
-        public void TandaiProdukBusuk(int idProduk)
+        public void UbahStatusAktif(int idProduk, bool statusBaru)
         {
-            using var conn = DBHelper.BukaKoneksi();
-            using var cmd = new NpgsqlCommand("CALL sp_set_produk_busuk(@p_id)", conn);
-            cmd.Parameters.AddWithValue("p_id", idProduk);
-            cmd.ExecuteNonQuery();
+            string query = "CALL sp_toggle_produk_aktif(@p_id, @p_status)";
+            NpgsqlParameter[] parameters = {
+        new NpgsqlParameter("p_id", idProduk),
+        new NpgsqlParameter("p_status", statusBaru)
+    };
+
+            DBHelper.EksekusiNonQuery(query, parameters);
+        }
+
+        public DataTable DapatkanKatalogProduk(int idKategoriFilter = 0)
+        {
+            string query = @"
+        SELECT 
+            p.id_produk, 
+            p.nama_produk, 
+            p.harga_jual, 
+            p.stok, 
+            k.nama_kategori,
+            p.is_nonaktif
+        FROM produk p
+        LEFT JOIN kategori k ON p.id_kategori = k.id_kategori
+        WHERE (p.id_kategori = @p_id OR @p_id = 0)
+        AND p.is_nonaktif = false
+        ORDER BY p.nama_produk";
+
+            NpgsqlParameter[] parameters = {
+        new NpgsqlParameter("p_id", idKategoriFilter)
+    };
+
+            return DBHelper.EksekusiQuery(query, parameters);
+        }
+
+        public void UpdateStok(int idProduk, int jumlahPerubahan)
+        {
+            string query = @"UPDATE produk 
+                     SET stok = GREATEST(stok + @p_jumlah, 0) 
+                     WHERE id_produk = @p_id";
+
+            NpgsqlParameter[] parameters = {
+        new NpgsqlParameter("p_jumlah", jumlahPerubahan),
+        new NpgsqlParameter("p_id", idProduk)
+    };
+
+            // Eksekusi transaksi ke database
+            DBHelper.EksekusiNonQuery(query, parameters);
         }
     }
 }

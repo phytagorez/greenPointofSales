@@ -17,26 +17,39 @@ namespace greenPointofSales.Controllers
                 throw new ArgumentNullException(nameof(pengguna));
             }
 
-            using var conn = DBHelper.BukaKoneksi();
-            using var cmd = new NpgsqlCommand("CALL sp_tambah_karyawan(@u, @p, @n, @r)", conn);
+            string query = "CALL sp_tambah_karyawan(@p_u, @p_p, @p_n, @p_hp, @p_tgl, @p_jk, @p_eml)";
 
-            cmd.Parameters.AddWithValue("u", pengguna.Username);
-            cmd.Parameters.AddWithValue("p", pengguna.Password);
-            cmd.Parameters.AddWithValue("n", pengguna.NamaLengkap);
-            cmd.Parameters.AddWithValue("r", pengguna.Role);
+            NpgsqlParameter[] parameters = {
+                new NpgsqlParameter("p_u", pengguna.Username),
+                new NpgsqlParameter("p_p", pengguna.Password),
+                new NpgsqlParameter("p_n", pengguna.NamaLengkap),
+                new NpgsqlParameter("p_hp", pengguna.NoHp),
+                new NpgsqlParameter("p_tgl", pengguna.TglLahir),
+                new NpgsqlParameter("p_jk", pengguna.JenisKelamin),
+                new NpgsqlParameter("p_eml", pengguna.Email)
+            };
 
-            cmd.ExecuteNonQuery();
+            //transaction
+            DBHelper.EksekusiNonQuery(query, parameters);
         }
 
         public DataTable DapatkanSemuaKaryawan()
         {
-            using var conn = DBHelper.BukaKoneksi();
-            using var adapter = new NpgsqlDataAdapter("SELECT username, nama_lengkap, role, is_active FROM pengguna", conn);
+            string query = @"
+        SELECT 
+            username, 
+            nama_lengkap, 
+            jenis_kelamin, 
+            no_hp, 
+            email, 
+            tgl_lahir, 
+            tgl_mulai_kerja, 
+            is_active 
+        FROM pengguna
+        WHERE role = 'Kasir' 
+        ORDER BY tgl_mulai_kerja DESC";
 
-            var dt = new DataTable();
-            adapter.Fill(dt);
-
-            return dt;
+            return DBHelper.EksekusiQuery(query);
         }
 
         public void UbahStatusAktif(string username, bool statusBaru)
@@ -46,13 +59,14 @@ namespace greenPointofSales.Controllers
                 throw new ArgumentException("Username tidak boleh kosong.");
             }
 
-            using var conn = DBHelper.BukaKoneksi();
-            using var cmd = new NpgsqlCommand("UPDATE pengguna SET is_active = @status WHERE username = @u", conn);
+            string query = "UPDATE pengguna SET is_active = @status WHERE username = @u";
 
-            cmd.Parameters.AddWithValue("status", NpgsqlDbType.Boolean, statusBaru);
-            cmd.Parameters.AddWithValue("u", NpgsqlDbType.Varchar, username.Trim());
+            NpgsqlParameter[] parameters = {
+                new NpgsqlParameter("status", statusBaru),
+                new NpgsqlParameter("u", username.Trim())
+            };
 
-            if (cmd.ExecuteNonQuery() == 0)
+            if (DBHelper.EksekusiNonQuery(query, parameters) == 0)
             {
                 throw new Exception($"Username '{username}' tidak ditemukan.");
             }
