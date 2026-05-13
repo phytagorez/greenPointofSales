@@ -41,6 +41,7 @@
             btnMenuKaryawan.TabIndex = 0;
             btnMenuKaryawan.Text = "Manajemen Karyawan";
             btnMenuKaryawan.UseVisualStyleBackColor = true;
+            btnMenuKaryawan.Click += btnMenuKaryawan_Click;
             // 
             // btnMenuProduk
             // 
