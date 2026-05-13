@@ -72,7 +72,6 @@
             // 
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            BackgroundImage = Properties.Resources.Manajemen_Produk_ON;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1280, 720);
             Controls.Add(button1);

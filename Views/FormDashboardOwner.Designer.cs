@@ -279,6 +279,7 @@
             AutoScaleDimensions = new SizeF(120F, 120F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackgroundImage = Properties.Resources.Dash_P_O;
+            BackgroundImageLayout = ImageLayout.Zoom;
             ClientSize = new Size(1280, 720);
             Controls.Add(lblTPBusuk);
             Controls.Add(lblTKaryawan);
