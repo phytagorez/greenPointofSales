@@ -1,89 +1,50 @@
-﻿using greenPointofSales.Helpers;
-using greenPointofSales.Models;
-using Npgsql;
+﻿using greenPointofSales.Models;
+using greenPointofSales.Models.Context;
+using greenPointofSales.Models.Entity;
 using System;
 using System.Data;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace greenPointofSales.Controllers
 {
-    //composition
     public class ProdukController
     {
+        private readonly ProdukContext _context = new ProdukContext();
+
+        // Mengambil semua produk untuk tabel manajemen produk
         public DataTable DapatkanSemuaProduk()
         {
-            return DBHelper.EksekusiQuery("SELECT * FROM vw_daftar_produk");
+            return _context.AmbilSemuaProduk();
         }
 
+        // Mengambil daftar kategori untuk ComboBox (dipanggil oleh FormKatalog)
         public DataTable DapatkanKategori()
         {
-            return DBHelper.EksekusiQuery("SELECT id_kategori, nama_kategori FROM kategori");
+            return _context.AmbilKategori();
         }
 
+        // Menambah produk baru
         public void TambahProduk(ProdukModel produk)
         {
             if (produk == null) throw new ArgumentNullException(nameof(produk));
-
-            string query = "CALL sp_tambah_produk(@p_kode, @p_nama, @p_id_kat, @p_harga_beli, @p_harga_jual, @p_stok)";
-
-            NpgsqlParameter[] parameters = {
-        new NpgsqlParameter("p_kode", produk.KodeProduk),
-        new NpgsqlParameter("p_nama", produk.NamaProduk),
-        new NpgsqlParameter("p_id_kat", produk.IdKategori),
-        new NpgsqlParameter("p_harga_beli", produk.HargaBeli),
-        new NpgsqlParameter("p_harga_jual", produk.HargaJual),
-        new NpgsqlParameter("p_stok", produk.Stok)
-    };
-
-            DBHelper.EksekusiNonQuery(query, parameters);
+            _context.TambahProduk(produk);
         }
+
+        // Mengubah status aktif/nonaktif produk
         public void UbahStatusAktif(int idProduk, bool statusBaru)
         {
-            string query = "CALL sp_toggle_produk_aktif(@p_id, @p_status)";
-            NpgsqlParameter[] parameters = {
-        new NpgsqlParameter("p_id", idProduk),
-        new NpgsqlParameter("p_status", statusBaru)
-    };
-
-            DBHelper.EksekusiNonQuery(query, parameters);
+            _context.UpdateStatusProduk(idProduk, statusBaru);
         }
 
+        // Mengambil data untuk Card Katalog (dipanggil oleh FormKatalog)
         public DataTable DapatkanKatalogProduk(int idKategoriFilter = 0)
         {
-            string query = @"
-        SELECT 
-            p.id_produk, 
-            p.nama_produk, 
-            p.harga_jual, 
-            p.stok, 
-            k.nama_kategori,
-            p.is_nonaktif
-        FROM produk p
-        LEFT JOIN kategori k ON p.id_kategori = k.id_kategori
-        WHERE (p.id_kategori = @p_id OR @p_id = 0)
-        AND p.is_nonaktif = false
-        ORDER BY p.nama_produk";
-
-            NpgsqlParameter[] parameters = {
-        new NpgsqlParameter("p_id", idKategoriFilter)
-    };
-
-            return DBHelper.EksekusiQuery(query, parameters);
+            return _context.AmbilKatalog(idKategoriFilter);
         }
 
+        // Mengupdate stok, baik tambah maupun kurangi/busuk (dipanggil oleh FormKatalog)
         public void UpdateStok(int idProduk, int jumlahPerubahan)
         {
-            string query = @"UPDATE produk 
-                     SET stok = GREATEST(stok + @p_jumlah, 0) 
-                     WHERE id_produk = @p_id";
-
-            NpgsqlParameter[] parameters = {
-        new NpgsqlParameter("p_jumlah", jumlahPerubahan),
-        new NpgsqlParameter("p_id", idProduk)
-    };
-
-            // Eksekusi transaksi ke database
-            DBHelper.EksekusiNonQuery(query, parameters);
+            _context.UpdateStok(idProduk, jumlahPerubahan);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace greenPointofSales.Models
+namespace greenPointofSales.Models.Entity
 {
     //association
     public static class SesiPengguna

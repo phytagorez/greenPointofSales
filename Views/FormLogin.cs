@@ -1,5 +1,5 @@
 using greenPointofSales.Helpers;
-using greenPointofSales.Models;
+using greenPointofSales.Models.Entity;
 using greenPointofSales.Views;
 using Npgsql;
 using System;

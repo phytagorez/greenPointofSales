@@ -1,5 +1,6 @@
 ﻿using greenPointofSales.Helpers;
-using greenPointofSales.Models;
+using greenPointofSales.Models.Context;
+using greenPointofSales.Models.Entity;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -9,91 +10,56 @@ namespace greenPointofSales.Controllers
 {
     public class TransaksiController
     {
-        // Behavior: Membuat nomor invoice otomatis berdasarkan tanggal hari ini
+        private readonly TransaksiContext _trxContext = new TransaksiContext();
+        private readonly ProdukContext _produkContext = new ProdukContext();
+
         public string GenerateNoInvoice()
         {
-            string tgl = DateTime.Now.ToString("yyyyMMdd"); // Format: 20231027
+            string tgl = DateTime.Now.ToString("yyyyMMdd");
             string prefix = $"INV-{tgl}-";
 
-            // Mencari jumlah transaksi yang sudah ada hari ini
-            string query = "SELECT COUNT(*) FROM transaksi WHERE no_invoice LIKE @p";
-            NpgsqlParameter[] parameters = { new NpgsqlParameter("p", prefix + "%") };
+            // Mengambil urutan berikutnya
+            int jumlahInvoiceHariIni = _trxContext.GetCountInvoice(prefix);
+            int urutanNext = jumlahInvoiceHariIni + 1;
 
-            object result = DBHelper.EksekusiScalar(query, parameters) ?? 0;
-            int urutanNext = Convert.ToInt32(result) + 1;
-
-            // Mengembalikan format: INV-20231027-001
+            // Format D3 memastikan hasil seperti 001, 002, dst.
             return prefix + urutanNext.ToString("D3");
         }
 
-        // Method Utama: Menyimpan seluruh objek TransaksiModel
         public void ProsesSimpanTransaksi(TransaksiModel transaksi)
         {
-            if (transaksi == null) throw new ArgumentNullException(nameof(transaksi));
-            if (transaksi.Items.Count == 0) throw new InvalidOperationException("Tidak ada item di keranjang belanja.");
-
-            try
+            // 1. Validasi Objek Utama
+            if (transaksi == null)
             {
-                // 1. Simpan Header Transaksi dan ambil ID Auto-Increment-nya
-                int idTransaksiBaru = SimpanHeader(transaksi);
+                throw new ArgumentNullException(nameof(transaksi), "Data transaksi tidak ditemukan.");
+            }
 
-                // 2. Simpan semua Detail dan Update Stok Produk
-                foreach (var detail in transaksi.Items)
+            // 2. Validasi Keranjang Belanja (Sangat penting untuk UI)
+            if (transaksi.Items == null || transaksi.Items.Count == 0)
+            {
+                throw new InvalidOperationException("Gagal menyimpan: Keranjang belanja masih kosong.");
+            }
+
+            // 3. Simpan Header Transaksi dan ambil ID-nya
+            int idTrx = _trxContext.InsertHeader(transaksi);
+
+            if (idTrx > 0)
+            {
+                // 4. Proses setiap item dalam keranjang
+                foreach (var item in transaksi.Items)
                 {
-                    SimpanDetail(idTransaksiBaru, detail);
-                    PotongStokProduk(detail.IdProduk, detail.Jumlah);
+                    // Simpan detail transaksi
+                    _trxContext.InsertDetail(idTrx, item);
+
+                    // Update stok produk (dikali -1 karena barang keluar/berkurang)
+                    int jumlahKeluar = item.Jumlah * -1;
+                    _produkContext.UpdateStok(item.IdProduk, jumlahKeluar);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                // Error dilempar ke UI agar bisa ditampilkan oleh UIHelper.Error
-                throw new Exception("Gagal memproses transaksi: " + ex.Message);
+                throw new Exception("Gagal membuat header transaksi di database.");
             }
-        }
-
-        private int SimpanHeader(TransaksiModel trx)
-        {
-            string query = @"INSERT INTO transaksi (id_pengguna, no_invoice, total_harga, total_bayar, kembalian) 
-                             VALUES (@idp, @inv, @total, @bayar, @kembali) RETURNING id_transaksi";
-
-            NpgsqlParameter[] parameters = {
-                new NpgsqlParameter("idp", trx.IdPengguna),
-                new NpgsqlParameter("inv", trx.NoInvoice),
-                new NpgsqlParameter("total", trx.TotalHarga),
-                new NpgsqlParameter("bayar", trx.TotalBayar),
-                new NpgsqlParameter("kembali", trx.HitungKembalian())
-            };
-
-            return Convert.ToInt32(DBHelper.EksekusiScalar(query, parameters));
-        }
-
-        private void SimpanDetail(int idTrx, DetailTransaksiModel item)
-        {
-            string query = @"INSERT INTO detail_transaksi (id_transaksi, id_produk, jumlah, harga_satuan, subtotal) 
-                             VALUES (@idT, @idP, @qty, @harga, @sub)";
-
-            NpgsqlParameter[] parameters = {
-                new NpgsqlParameter("idT", idTrx),
-                new NpgsqlParameter("idP", item.IdProduk),
-                new NpgsqlParameter("qty", item.Jumlah),
-                new NpgsqlParameter("harga", item.HargaSatuan),
-                new NpgsqlParameter("sub", item.HitungSubtotal())
-            };
-
-            DBHelper.EksekusiNonQuery(query, parameters);
-        }
-
-        private void PotongStokProduk(int idProduk, int jumlahBeli)
-        {
-            // Menggunakan fungsi GREATEST agar stok tidak minus di bawah 0 jika ada kesalahan hitung
-            string query = "UPDATE produk SET stok = GREATEST(stok - @qty, 0) WHERE id_produk = @id";
-
-            NpgsqlParameter[] parameters = {
-                new NpgsqlParameter("qty", jumlahBeli),
-                new NpgsqlParameter("id", idProduk)
-            };
-
-            DBHelper.EksekusiNonQuery(query, parameters);
         }
     }
 }

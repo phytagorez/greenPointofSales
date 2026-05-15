@@ -1,5 +1,5 @@
 ﻿using greenPointofSales.Controllers;
-using greenPointofSales.Models;
+using greenPointofSales.Models.Entity;
 using System;
 using System.Windows.Forms;
 

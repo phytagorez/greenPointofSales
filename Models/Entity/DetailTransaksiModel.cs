@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace greenPointofSales.Models
+namespace greenPointofSales.Models.Entity
 {
     public interface INotaItem
     {
