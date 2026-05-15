@@ -38,12 +38,24 @@
             lblPengelolaan = new Label();
             lblLaporan = new Label();
             label1 = new Label();
-            pictureBox1 = new PictureBox();
+            pbMenu = new PictureBox();
             lblTTransaksi = new Label();
             lblJTarnsaksi = new Label();
             lblTKaryawan = new Label();
             lblTPBusuk = new Label();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            pbTTransaksi = new PictureBox();
+            pbJTransaksi = new PictureBox();
+            pbTKaryawan = new PictureBox();
+            pbTPbusuk = new PictureBox();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            ((System.ComponentModel.ISupportInitialize)pbMenu).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbTTransaksi).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbJTransaksi).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbTKaryawan).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbTPbusuk).BeginInit();
             SuspendLayout();
             // 
             // btnMenuKaryawan
@@ -58,12 +70,13 @@
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
             btnMenuKaryawan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKaryawan.Location = new Point(27, 341);
+            btnMenuKaryawan.Location = new Point(27, 342);
             btnMenuKaryawan.Margin = new Padding(3, 4, 3, 4);
             btnMenuKaryawan.Name = "btnMenuKaryawan";
-            btnMenuKaryawan.Size = new Size(149, 48);
+            btnMenuKaryawan.Size = new Size(149, 53);
             btnMenuKaryawan.TabIndex = 0;
-            btnMenuKaryawan.Text = "   Manajemen Karyawan";
+            btnMenuKaryawan.Text = "   Manajemen     Karyawan";
+            btnMenuKaryawan.TextAlign = ContentAlignment.MiddleLeft;
             btnMenuKaryawan.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKaryawan.UseVisualStyleBackColor = false;
             btnMenuKaryawan.Click += btnMenuKaryawan_Click;
@@ -99,14 +112,15 @@
             btnLogout.FlatAppearance.MouseOverBackColor = Color.FromArgb(235, 235, 200);
             btnLogout.FlatStyle = FlatStyle.Flat;
             btnLogout.ForeColor = Color.Black;
-            btnLogout.Image = Properties.Resources.logout;
+            btnLogout.Image = Properties.Resources.log_out;
             btnLogout.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLogout.Location = new Point(32, 679);
+            btnLogout.Location = new Point(43, 679);
             btnLogout.Margin = new Padding(3, 4, 3, 4);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(111, 32);
+            btnLogout.Size = new Size(90, 36);
             btnLogout.TabIndex = 2;
-            btnLogout.Text = "     Logout";
+            btnLogout.Text = "Logout";
+            btnLogout.TextAlign = ContentAlignment.MiddleLeft;
             btnLogout.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnLogout.UseVisualStyleBackColor = false;
             btnLogout.Click += btnLogout_Click;
@@ -126,9 +140,10 @@
             btnMenuKatalog.Location = new Point(27, 281);
             btnMenuKatalog.Margin = new Padding(4);
             btnMenuKatalog.Name = "btnMenuKatalog";
-            btnMenuKatalog.Size = new Size(149, 48);
+            btnMenuKatalog.Size = new Size(149, 53);
             btnMenuKatalog.TabIndex = 3;
-            btnMenuKatalog.Text = "   Manajemen Produk      ";
+            btnMenuKatalog.Text = "   Manajemen     Produk      ";
+            btnMenuKatalog.TextAlign = ContentAlignment.MiddleLeft;
             btnMenuKatalog.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKatalog.UseVisualStyleBackColor = false;
             btnMenuKatalog.Click += btnMenuKatlog_Click;
@@ -144,7 +159,7 @@
             btnMenuDashboard.Font = new Font("Georgia", 10.2F);
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
-            btnMenuDashboard.ImageAlign = ContentAlignment.TopLeft;
+            btnMenuDashboard.ImageAlign = ContentAlignment.MiddleLeft;
             btnMenuDashboard.Location = new Point(27, 96);
             btnMenuDashboard.Margin = new Padding(3, 4, 3, 4);
             btnMenuDashboard.Name = "btnMenuDashboard";
@@ -214,28 +229,29 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(65, 30);
+            label1.Location = new Point(67, 26);
             label1.Name = "label1";
             label1.Size = new Size(56, 22);
             label1.TabIndex = 9;
             label1.Text = "Menu";
             // 
-            // pictureBox1
+            // pbMenu
             // 
-            pictureBox1.BackColor = Color.Transparent;
-            pictureBox1.Image = Properties.Resources.list;
-            pictureBox1.Location = new Point(32, 28);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(26, 26);
-            pictureBox1.TabIndex = 10;
-            pictureBox1.TabStop = false;
+            pbMenu.BackColor = Color.Transparent;
+            pbMenu.Image = Properties.Resources.list;
+            pbMenu.Location = new Point(34, 24);
+            pbMenu.Name = "pbMenu";
+            pbMenu.Size = new Size(26, 26);
+            pbMenu.TabIndex = 10;
+            pbMenu.TabStop = false;
             // 
             // lblTTransaksi
             // 
             lblTTransaksi.AutoSize = true;
             lblTTransaksi.BackColor = Color.Transparent;
             lblTTransaksi.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTTransaksi.Location = new Point(285, 96);
+            lblTTransaksi.ForeColor = Color.FromArgb(64, 64, 64);
+            lblTTransaksi.Location = new Point(284, 99);
             lblTTransaksi.Name = "lblTTransaksi";
             lblTTransaksi.Size = new Size(137, 22);
             lblTTransaksi.TabIndex = 11;
@@ -246,7 +262,8 @@
             lblJTarnsaksi.AutoSize = true;
             lblJTarnsaksi.BackColor = Color.Transparent;
             lblJTarnsaksi.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblJTarnsaksi.Location = new Point(538, 96);
+            lblJTarnsaksi.ForeColor = Color.FromArgb(64, 64, 64);
+            lblJTarnsaksi.Location = new Point(537, 99);
             lblJTarnsaksi.Name = "lblJTarnsaksi";
             lblJTarnsaksi.Size = new Size(155, 22);
             lblJTarnsaksi.TabIndex = 12;
@@ -257,7 +274,8 @@
             lblTKaryawan.AutoSize = true;
             lblTKaryawan.BackColor = Color.Transparent;
             lblTKaryawan.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTKaryawan.Location = new Point(803, 96);
+            lblTKaryawan.ForeColor = Color.FromArgb(64, 64, 64);
+            lblTKaryawan.Location = new Point(802, 99);
             lblTKaryawan.Name = "lblTKaryawan";
             lblTKaryawan.Size = new Size(140, 22);
             lblTKaryawan.TabIndex = 13;
@@ -268,24 +286,120 @@
             lblTPBusuk.AutoSize = true;
             lblTPBusuk.BackColor = Color.Transparent;
             lblTPBusuk.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTPBusuk.Location = new Point(1051, 96);
+            lblTPBusuk.ForeColor = Color.FromArgb(64, 64, 64);
+            lblTPBusuk.Location = new Point(1053, 99);
             lblTPBusuk.Name = "lblTPBusuk";
             lblTPBusuk.Size = new Size(175, 22);
             lblTPBusuk.TabIndex = 14;
             lblTPBusuk.Text = "Total Produk Busuk";
             // 
+            // pbTTransaksi
+            // 
+            pbTTransaksi.BackColor = Color.Transparent;
+            pbTTransaksi.Image = Properties.Resources.receipt1;
+            pbTTransaksi.Location = new Point(226, 99);
+            pbTTransaksi.Name = "pbTTransaksi";
+            pbTTransaksi.Size = new Size(52, 57);
+            pbTTransaksi.TabIndex = 15;
+            pbTTransaksi.TabStop = false;
+            // 
+            // pbJTransaksi
+            // 
+            pbJTransaksi.BackColor = Color.Transparent;
+            pbJTransaksi.Image = Properties.Resources.badge_dollar_sign;
+            pbJTransaksi.Location = new Point(484, 99);
+            pbJTransaksi.Name = "pbJTransaksi";
+            pbJTransaksi.Size = new Size(52, 57);
+            pbJTransaksi.TabIndex = 16;
+            pbJTransaksi.TabStop = false;
+            // 
+            // pbTKaryawan
+            // 
+            pbTKaryawan.BackColor = Color.Transparent;
+            pbTKaryawan.Image = Properties.Resources.users;
+            pbTKaryawan.Location = new Point(744, 99);
+            pbTKaryawan.Name = "pbTKaryawan";
+            pbTKaryawan.Size = new Size(52, 57);
+            pbTKaryawan.TabIndex = 17;
+            pbTKaryawan.TabStop = false;
+            // 
+            // pbTPbusuk
+            // 
+            pbTPbusuk.BackColor = Color.Transparent;
+            pbTPbusuk.Image = Properties.Resources.package_x;
+            pbTPbusuk.Location = new Point(1001, 99);
+            pbTPbusuk.Name = "pbTPbusuk";
+            pbTPbusuk.Size = new Size(52, 57);
+            pbTPbusuk.TabIndex = 18;
+            pbTPbusuk.TabStop = false;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
+            label2.Font = new Font("Modern No. 20", 13.7999992F, FontStyle.Bold);
+            label2.Location = new Point(284, 131);
+            label2.Name = "label2";
+            label2.Size = new Size(78, 25);
+            label2.TabIndex = 19;
+            label2.Text = "Angka";
+            label2.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Modern No. 20", 13.7999992F, FontStyle.Bold);
+            label3.Location = new Point(537, 131);
+            label3.Name = "label3";
+            label3.Size = new Size(78, 25);
+            label3.TabIndex = 20;
+            label3.Text = "Angka";
+            label3.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Modern No. 20", 13.7999992F, FontStyle.Bold);
+            label4.Location = new Point(802, 131);
+            label4.Name = "label4";
+            label4.Size = new Size(78, 25);
+            label4.TabIndex = 21;
+            label4.Text = "Angka";
+            label4.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.Transparent;
+            label5.Font = new Font("Modern No. 20", 13.7999992F, FontStyle.Bold);
+            label5.Location = new Point(1053, 131);
+            label5.Name = "label5";
+            label5.Size = new Size(78, 25);
+            label5.TabIndex = 22;
+            label5.Text = "Angka";
+            label5.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // FormDashboardOwner
             // 
-            AutoScaleDimensions = new SizeF(120F, 120F);
-            AutoScaleMode = AutoScaleMode.Dpi;
+            AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.Dash_P_O;
             BackgroundImageLayout = ImageLayout.Zoom;
             ClientSize = new Size(1280, 720);
+            Controls.Add(label5);
+            Controls.Add(label4);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(pbTPbusuk);
+            Controls.Add(pbTKaryawan);
+            Controls.Add(pbJTransaksi);
+            Controls.Add(pbTTransaksi);
             Controls.Add(lblTPBusuk);
             Controls.Add(lblTKaryawan);
             Controls.Add(lblJTarnsaksi);
             Controls.Add(lblTTransaksi);
-            Controls.Add(pictureBox1);
+            Controls.Add(pbMenu);
             Controls.Add(label1);
             Controls.Add(lblLaporan);
             Controls.Add(lblPengelolaan);
@@ -303,7 +417,11 @@
             Name = "FormDashboardOwner";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormDashboardOwner";
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbMenu).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbTTransaksi).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbJTransaksi).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbTKaryawan).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbTPbusuk).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -320,10 +438,18 @@
         private Label lblPengelolaan;
         private Label lblLaporan;
         private Label label1;
-        private PictureBox pictureBox1;
+        private PictureBox pbMenu;
         private Label lblTTransaksi;
         private Label lblJTarnsaksi;
         private Label lblTKaryawan;
         private Label lblTPBusuk;
+        private PictureBox pbTTransaksi;
+        private PictureBox pbJTransaksi;
+        private PictureBox pbTKaryawan;
+        private PictureBox pbTPbusuk;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private Label label5;
     }
 }
