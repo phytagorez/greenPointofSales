@@ -13,6 +13,7 @@ namespace greenPointofSales
         public FormTambahKaryawan()
         {
             InitializeComponent();
+
             dgvKaryawan.ReadOnly = true;
             dgvKaryawan.AllowUserToAddRows = false;
             dgvKaryawan.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -59,37 +60,98 @@ namespace greenPointofSales
         {
             try
             {
+                // VALIDASI INPUT FORM
+                if (string.IsNullOrWhiteSpace(txtUserBaru.Text))
+                {
+                    MessageBox.Show("Username tidak boleh kosong!", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtUserBaru.Focus();
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtPassBaru.Text))
+                {
+                    MessageBox.Show("Password tidak boleh kosong!", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtPassBaru.Focus();
+                    return;
+                }
+
+                if (cmbJenisKelamin.SelectedItem == null)
+                {
+                    MessageBox.Show("Jenis Kelamin harus dipilih!", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cmbJenisKelamin.Focus();
+                    return;
+                }
+
+                // BUILD OBJECT
                 var pengguna = new PenggunaModel();
 
-                //mapping encap
-                pengguna.Username = txtUserBaru.Text.Trim();
-                pengguna.Password = txtPassBaru.Text.Trim();
-                pengguna.NamaLengkap = txtNamaLengkap.Text.Trim();
-                pengguna.NoHp = txtNoHp.Text.Trim();
-                pengguna.Email = txtEmail.Text.Trim();
-                pengguna.TglLahir = dtpTanggalLahir.Value;
-                pengguna.TglMulaiKerja = dtpTanggalMulaiKerja.Value;
-                pengguna.JenisKelamin = cmbJenisKelamin.SelectedItem?.ToString() ?? "";
+                // SET PROPERTIES dengan error handling per property
+                try
+                {
+                    pengguna.Username = txtUserBaru.Text.Trim();
+                    pengguna.Password = txtPassBaru.Text.Trim();
+                    pengguna.NamaLengkap = txtNamaLengkap.Text.Trim();
+                    pengguna.NoHp = txtNoHp.Text.Trim();
+                    pengguna.Email = txtEmail.Text.Trim();
+                    pengguna.TglLahir = dtpTanggalLahir.Value;
+                    pengguna.TglMulaiKerja = dtpTanggalMulaiKerja.Value;
+                    pengguna.JenisKelamin = cmbJenisKelamin.SelectedItem?.ToString() ?? "";
+                    pengguna.Role = "Kasir"; // Fixed role
+                }
+                catch (ArgumentException argEx)
+                {
+                    MessageBox.Show(
+                        $"❌ Validasi data gagal:\n\n{argEx.Message}",
+                        "Input Tidak Valid",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+                    return;
+                }
 
-                //fixed
-                pengguna.Role = "Kasir";
-
-                //dommit db
+                // SIMPAN KE DATABASE
                 _controller.TambahKaryawan(pengguna);
 
-                MessageBox.Show($"Akun Kasir atas nama '{pengguna.NamaLengkap}' berhasil didaftarkan!", "Sukses",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    $"✅ Akun Kasir atas nama '{pengguna.NamaLengkap}' berhasil didaftarkan!\n\n" +
+                    $"Username: {pengguna.Username}\n" +
+                    $"Password: {pengguna.Password}\n\n" +
+                    $"📌 Catat kredensial ini untuk login kasir nanti.",
+                    "Sukses Tambah Karyawan",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
 
+                // REFRESH DATA DI GRID & BERSIHKAN FORM
                 MuatDataKaryawan();
                 BersihkanInputan();
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException validationEx)
             {
-                MessageBox.Show(ex.Message, "Peringatan Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    $"⚠️ Validasi gagal:\n\n{validationEx.Message}",
+                    "Peringatan Validasi",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Sistem Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // TANGKAP ERROR DATABASE LENGKAP
+                string errorDetail = $"❌ Sistem Error:\n\n" +
+                    $"Message: {ex.Message}\n\n" +
+                    $"Type: {ex.GetType().Name}\n\n" +
+                    $"Stack Trace:\n{ex.StackTrace}";
+
+                MessageBox.Show(
+                    errorDetail,
+                    "Error Sistem - Database Problem",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+
+                // Log ke console untuk debugging (opsional)
+                Console.WriteLine("[ERROR] " + errorDetail);
             }
         }
 
@@ -106,7 +168,7 @@ namespace greenPointofSales
             bool statusSaatIni = Convert.ToBoolean(dgvKaryawan.SelectedRows[0].Cells["is_active"]?.Value ?? false);
             string userLogin = SesiPengguna.PenggunaAktif?.Username ?? string.Empty;
 
-            //self-deactivation
+            //self-deactivation protection
             if (username.ToLower() == "ejak")
             {
                 MessageBox.Show("Akun utama tidak bisa diubah statusnya!", "Akses Ditolak",
@@ -127,17 +189,18 @@ namespace greenPointofSales
             try
             {
                 _controller.UbahStatusAktif(username, !statusSaatIni);
-                MessageBox.Show($"Akun berhasil di-{aksi}!", "Sukses",
+                MessageBox.Show($"✅ Akun berhasil di-{aksi}!", "Sukses",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 MuatDataKaryawan();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Gagal {aksi}: " + ex.Message);
+                MessageBox.Show($"❌ Gagal {aksi}:\n\n{ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        //update button
+        //update button status
         private void dgvKaryawan_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvKaryawan.SelectedRows.Count == 0) return;
@@ -155,6 +218,7 @@ namespace greenPointofSales
             cmbJenisKelamin.SelectedIndex = -1;
             dtpTanggalLahir.Value = DateTime.Now.AddYears(-17);
             dtpTanggalMulaiKerja.Value = DateTime.Now;
+            txtUserBaru.Focus();
         }
     }
 }

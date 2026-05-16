@@ -1,6 +1,7 @@
 ﻿using greenPointofSales.Helpers;
 using greenPointofSales.Models.Entity;
 using Npgsql;
+using System;
 
 namespace greenPointofSales.Models.Context
 {
@@ -15,7 +16,8 @@ namespace greenPointofSales.Models.Context
 
         public int InsertHeader(TransaksiModel trx)
         {
-            string query = @"INSERT INTO transaksi (no_invoice, id_pengguna, tgl_transaksi, total_harga, total_bayar, total_kembali) 
+            // SINKRONISASI: total_kembali diganti menjadi kembalian sesuai skema baru kamu
+            string query = @"INSERT INTO transaksi (no_invoice, id_pengguna, tgl_transaksi, total_harga, total_bayar, kembalian) 
                              VALUES (@inv, @idU, @tgl, @total, @bayar, @kembali) RETURNING id_transaksi";
 
             NpgsqlParameter[] parameters = {

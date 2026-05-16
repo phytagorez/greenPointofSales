@@ -52,15 +52,12 @@
             txtUsername.PlaceholderText = "Username";
             txtUsername.Size = new Size(360, 35);
             txtUsername.TabIndex = 2;
-            txtUsername.MouseEnter += txtUsername_MouseEnter_1;
-            txtUsername.MouseLeave += txtUsername_MouseLeave_1;
             // 
             // txtPassword
             // 
             txtPassword.Anchor = AnchorStyles.None;
             txtPassword.BackColor = Color.Beige;
             txtPassword.BorderStyle = BorderStyle.None;
-            txtPassword.CharacterCasing = CharacterCasing.Upper;
             txtPassword.Cursor = Cursors.Hand;
             txtPassword.Font = new Font("Poppins", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             txtPassword.Location = new Point(479, 390);
@@ -70,8 +67,6 @@
             txtPassword.PlaceholderText = "Password";
             txtPassword.Size = new Size(360, 35);
             txtPassword.TabIndex = 3;
-            txtPassword.MouseEnter += txtPassword_MouseEnter_1;
-            txtPassword.MouseLeave += txtPassword_MouseLeave_1;
             // 
             // btnLogin
             // 
