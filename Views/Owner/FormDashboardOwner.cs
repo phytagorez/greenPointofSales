@@ -40,7 +40,7 @@ namespace greenPointofSales.Views
 
         private void btnMenuDashboard_MouseEnter(object sender, EventArgs e)
         {
-            btnMenuDashboard.BackColor = Color.FromArgb(0, 128, 0);
+            btnMenuDashboard.BackColor = Color.FromArgb(22, 97, 14);
         }
     }
 }
