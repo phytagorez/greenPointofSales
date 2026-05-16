@@ -33,12 +33,12 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             flpKeranjang = new FlowLayoutPanel();
             pnlCheckout = new Panel();
-            cmbMetodeBayar = new ComboBox();
-            label1 = new Label();
-            lblTotalHarga = new Label();
             panel1 = new Panel();
-            txtUangBayar = new TextBox();
             lblKembalian = new Label();
+            txtUangBayar = new TextBox();
+            lblTotalHarga = new Label();
+            label1 = new Label();
+            cmbMetodeBayar = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -110,36 +110,6 @@
             pnlCheckout.TabIndex = 1;
             pnlCheckout.Paint += pnlCheckout_Paint;
             // 
-            // cmbMetodeBayar
-            // 
-            cmbMetodeBayar.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbMetodeBayar.FormattingEnabled = true;
-            cmbMetodeBayar.Items.AddRange(new object[] { "Tunai", "Non-Tunai" });
-            cmbMetodeBayar.Location = new Point(15, 62);
-            cmbMetodeBayar.Name = "cmbMetodeBayar";
-            cmbMetodeBayar.Size = new Size(151, 34);
-            cmbMetodeBayar.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Poppins", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(15, 11);
-            label1.Name = "label1";
-            label1.Size = new Size(126, 30);
-            label1.TabIndex = 1;
-            label1.Text = "Total Harga: ";
-            // 
-            // lblTotalHarga
-            // 
-            lblTotalHarga.AutoSize = true;
-            lblTotalHarga.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTotalHarga.Location = new Point(147, 11);
-            lblTotalHarga.Name = "lblTotalHarga";
-            lblTotalHarga.Size = new Size(50, 30);
-            lblTotalHarga.TabIndex = 2;
-            lblTotalHarga.Text = "Rp 0";
-            // 
             // panel1
             // 
             panel1.Controls.Add(lblKembalian);
@@ -149,23 +119,53 @@
             panel1.Size = new Size(341, 156);
             panel1.TabIndex = 3;
             // 
+            // lblKembalian
+            // 
+            lblKembalian.AutoSize = true;
+            lblKembalian.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblKembalian.Location = new Point(23, 82);
+            lblKembalian.Name = "lblKembalian";
+            lblKembalian.Size = new Size(132, 20);
+            lblKembalian.TabIndex = 4;
+            lblKembalian.Text = "Kembalian: Rp 0";
+            // 
             // txtUangBayar
             // 
             txtUangBayar.Location = new Point(23, 21);
             txtUangBayar.Name = "txtUangBayar";
-            txtUangBayar.Size = new Size(125, 30);
+            txtUangBayar.Size = new Size(125, 24);
             txtUangBayar.TabIndex = 0;
             txtUangBayar.TextChanged += textBox1_TextChanged;
             // 
-            // lblKembalian
+            // lblTotalHarga
             // 
-            lblKembalian.AutoSize = true;
-            lblKembalian.Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblKembalian.Location = new Point(23, 82);
-            lblKembalian.Name = "lblKembalian";
-            lblKembalian.Size = new Size(150, 30);
-            lblKembalian.TabIndex = 4;
-            lblKembalian.Text = "Kembalian: Rp 0";
+            lblTotalHarga.AutoSize = true;
+            lblTotalHarga.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTotalHarga.Location = new Point(147, 11);
+            lblTotalHarga.Name = "lblTotalHarga";
+            lblTotalHarga.Size = new Size(44, 20);
+            lblTotalHarga.TabIndex = 2;
+            lblTotalHarga.Text = "Rp 0";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(15, 11);
+            label1.Name = "label1";
+            label1.Size = new Size(120, 20);
+            label1.TabIndex = 1;
+            label1.Text = "Total Harga: ";
+            // 
+            // cmbMetodeBayar
+            // 
+            cmbMetodeBayar.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbMetodeBayar.FormattingEnabled = true;
+            cmbMetodeBayar.Items.AddRange(new object[] { "Tunai", "Non-Tunai" });
+            cmbMetodeBayar.Location = new Point(15, 62);
+            cmbMetodeBayar.Name = "cmbMetodeBayar";
+            cmbMetodeBayar.Size = new Size(151, 26);
+            cmbMetodeBayar.TabIndex = 0;
             // 
             // FormTransaksi
             // 
@@ -173,7 +173,7 @@
             AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(1280, 720);
             Controls.Add(splitContainer1);
-            Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
             Name = "FormTransaksi";

@@ -1,5 +1,6 @@
 ﻿using greenPointofSales.Controllers;
 using greenPointofSales.Helpers;
+using greenPointofSales.Models.Entity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -610,6 +611,32 @@ namespace greenPointofSales.Views
         {
             int selectedCategory = Convert.ToInt32(cmbFilterKategori.SelectedValue ?? 0);
             TampilkanKatalog(selectedCategory);
+        }
+        private void btnMenuDashboard_Click(object sender, EventArgs e)
+        {
+            new FormDashboardOwner().ShowDialog();
+        }
+
+        private void btnMenuProduk_Click(object sender, EventArgs e)
+        {
+            new FormManajemenProduk().ShowDialog();
+        }
+
+        private void btnMenuKaryawan_Click(object sender, EventArgs e)
+        {
+            new FormTambahKaryawan().ShowDialog();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            SesiPengguna.Logout();
+            this.Close();
+            Application.OpenForms["FormLogin"]?.Show();
+        }
+
+        private void cmbFilterKategori_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 } 

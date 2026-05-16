@@ -70,7 +70,7 @@
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
             btnMenuKaryawan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKaryawan.Location = new Point(27, 342);
+            btnMenuKaryawan.Location = new Point(27, 329);
             btnMenuKaryawan.Margin = new Padding(3, 4, 3, 4);
             btnMenuKaryawan.Name = "btnMenuKaryawan";
             btnMenuKaryawan.Size = new Size(149, 53);
@@ -93,7 +93,7 @@
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
             btnMenuProduk.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuProduk.Location = new Point(27, 183);
+            btnMenuProduk.Location = new Point(27, 174);
             btnMenuProduk.Margin = new Padding(3, 4, 3, 4);
             btnMenuProduk.Name = "btnMenuProduk";
             btnMenuProduk.Size = new Size(149, 48);
@@ -137,7 +137,7 @@
             btnMenuKatalog.ForeColor = Color.Black;
             btnMenuKatalog.Image = Properties.Resources.boxes;
             btnMenuKatalog.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKatalog.Location = new Point(27, 281);
+            btnMenuKatalog.Location = new Point(27, 269);
             btnMenuKatalog.Margin = new Padding(4);
             btnMenuKatalog.Name = "btnMenuKatalog";
             btnMenuKatalog.Size = new Size(149, 53);
@@ -160,7 +160,7 @@
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
             btnMenuDashboard.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuDashboard.Location = new Point(27, 96);
+            btnMenuDashboard.Location = new Point(27, 87);
             btnMenuDashboard.Margin = new Padding(3, 4, 3, 4);
             btnMenuDashboard.Name = "btnMenuDashboard";
             btnMenuDashboard.Size = new Size(149, 48);
@@ -182,7 +182,7 @@
             btnLaporan.ForeColor = Color.Black;
             btnLaporan.Image = Properties.Resources.bar_chart;
             btnLaporan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLaporan.Location = new Point(27, 442);
+            btnLaporan.Location = new Point(27, 428);
             btnLaporan.Margin = new Padding(3, 4, 3, 4);
             btnLaporan.Name = "btnLaporan";
             btnLaporan.Size = new Size(149, 48);
@@ -196,7 +196,7 @@
             lblMaster.AutoSize = true;
             lblMaster.BackColor = Color.Transparent;
             lblMaster.Font = new Font("Modern No. 20", 12F, FontStyle.Bold);
-            lblMaster.Location = new Point(12, 157);
+            lblMaster.Location = new Point(10, 148);
             lblMaster.Name = "lblMaster";
             lblMaster.Size = new Size(71, 22);
             lblMaster.TabIndex = 6;
@@ -207,7 +207,7 @@
             lblPengelolaan.AutoSize = true;
             lblPengelolaan.BackColor = Color.Transparent;
             lblPengelolaan.Font = new Font("Modern No. 20", 12F, FontStyle.Bold);
-            lblPengelolaan.Location = new Point(12, 251);
+            lblPengelolaan.Location = new Point(10, 239);
             lblPengelolaan.Name = "lblPengelolaan";
             lblPengelolaan.Size = new Size(120, 22);
             lblPengelolaan.TabIndex = 7;
@@ -218,7 +218,7 @@
             lblLaporan.AutoSize = true;
             lblLaporan.BackColor = Color.Transparent;
             lblLaporan.Font = new Font("Modern No. 20", 12F, FontStyle.Bold);
-            lblLaporan.Location = new Point(12, 414);
+            lblLaporan.Location = new Point(10, 400);
             lblLaporan.Name = "lblLaporan";
             lblLaporan.Size = new Size(87, 22);
             lblLaporan.TabIndex = 8;
@@ -229,7 +229,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(67, 26);
+            label1.Location = new Point(67, 25);
             label1.Name = "label1";
             label1.Size = new Size(56, 22);
             label1.TabIndex = 9;

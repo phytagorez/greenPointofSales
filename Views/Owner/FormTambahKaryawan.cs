@@ -1,5 +1,6 @@
 ﻿using greenPointofSales.Controllers;
 using greenPointofSales.Models.Entity;
+using greenPointofSales.Views;
 using System;
 using System.Windows.Forms;
 
@@ -155,6 +156,24 @@ namespace greenPointofSales
             cmbJenisKelamin.SelectedIndex = -1;
             dtpTanggalLahir.Value = DateTime.Now.AddYears(-17);
             dtpTanggalMulaiKerja.Value = DateTime.Now;
+        }
+        private void btnMenuDashboard_Click(object sender, EventArgs e)
+        {
+            new FormDashboardOwner().ShowDialog();
+        }
+        private void btnMenuProduk_Click(object sender, EventArgs e)
+        {
+            new FormManajemenProduk().ShowDialog();
+        }
+        private void btnMenuKatalog_Click(object sender, EventArgs e)
+        {
+            new FormKatalog().ShowDialog();
+        }
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            SesiPengguna.Logout();
+            this.Close();
+            Application.OpenForms["FormLogin"]?.Show();
         }
     }
 }

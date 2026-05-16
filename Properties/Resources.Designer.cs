@@ -213,6 +213,26 @@ namespace greenPointofSales.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Manajemen_Karyawan_O {
+            get {
+                object obj = ResourceManager.GetObject("Manajemen Karyawan_O", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MKaryawan_P {
+            get {
+                object obj = ResourceManager.GetObject("MKaryawan_P", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap package_x {
             get {
                 object obj = ResourceManager.GetObject("package-x", resourceCulture);
@@ -233,6 +253,16 @@ namespace greenPointofSales.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Produk_O {
+            get {
+                object obj = ResourceManager.GetObject("Produk_O", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap receipt {
             get {
                 object obj = ResourceManager.GetObject("receipt", resourceCulture);
@@ -246,6 +276,16 @@ namespace greenPointofSales.Properties {
         public static System.Drawing.Bitmap receipt1 {
             get {
                 object obj = ResourceManager.GetObject("receipt1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap search {
+            get {
+                object obj = ResourceManager.GetObject("search", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

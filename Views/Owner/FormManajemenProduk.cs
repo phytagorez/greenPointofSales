@@ -16,7 +16,7 @@ namespace greenPointofSales.Views
             InitializeComponent();
 
             SetupDataGridView();
-            
+
             MuatKategori();
             MuatDataProduk();
         }
@@ -144,6 +144,28 @@ namespace greenPointofSales.Views
             txtStok.Clear();
             cmbKategori.SelectedIndex = -1;
             txtNamaProduk.Focus();
+        }
+
+        private void btnMenuDashboard_Click(object sender, EventArgs e)
+        {
+            new FormDashboardOwner().ShowDialog();
+        }
+
+        private void btnMenuKatalog_Click(object sender, EventArgs e)
+        {
+            new FormKatalog().ShowDialog();
+        }
+
+        private void btnMenuKaryawan_Click(object sender, EventArgs e)
+        {
+            new FormTambahKaryawan().ShowDialog();
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            SesiPengguna.Logout();
+            this.Close();
+            Application.OpenForms["FormLogin"]?.Show();
         }
     }
 }
