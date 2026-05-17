@@ -24,7 +24,7 @@ namespace greenPointofSales.Models
         // 2. Simpan Karyawan Baru
         public void SimpanKaryawan(PenggunaModel pengguna)
         {
-            string query = "CALL sp_tambah_karyawan(@p_u, @p_p, @p_n, @p_hp, @p_tgl, @p_jk, @p_eml)";
+            string query = "CALL sp_tambah_karyawan(@p_u, @p_p, @p_n, @p_hp, @p_tgl::date, @p_jk, @p_eml)";
             NpgsqlParameter[] parameters = {
                 new NpgsqlParameter("p_u", pengguna.Username),
                 new NpgsqlParameter("p_p", pengguna.Password),

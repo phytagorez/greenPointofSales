@@ -19,7 +19,7 @@ namespace greenPointofSales.Models.Entity
         public virtual string Username
         {
             get { return _username; }
-            set 
+            set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
@@ -47,6 +47,7 @@ namespace greenPointofSales.Models.Entity
 
     public class PenggunaModel : AkunDasar
     {
+        public int IdPengguna;
         private string _password = string.Empty;
         private string _namaLengkap = string.Empty;
         private string _noHp = string.Empty;
@@ -55,6 +56,7 @@ namespace greenPointofSales.Models.Entity
         private string _email = string.Empty;
         private DateTime _tglMulaiKerja;
 
+        // ===== REVISI: Password bisa >= 6 karakter (tidak ada batas atas) =====
         public string Password
         {
             get { return _password; }
@@ -62,16 +64,16 @@ namespace greenPointofSales.Models.Entity
             {
                 if (string.IsNullOrWhiteSpace(value) || value.Length < 6)
                 {
-                    throw new ArgumentException("Password sangat lemah! Minimal harus 6 karakter.");
-
+                    throw new ArgumentException("Password harus minimal 6 karakter!");
                 }
+                // ✅ Sekarang password bisa lebih dari 6 karakter, tidak ada batasan atas
                 _password = value;
             }
         }
 
         public string NamaLengkap
         {
-            get {return _namaLengkap; }
+            get { return _namaLengkap; }
             set
             {
                 if (string.IsNullOrWhiteSpace(value) || value.Length < 3)
@@ -128,7 +130,7 @@ namespace greenPointofSales.Models.Entity
             get { return _email; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value)) 
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     throw new ArgumentException("Email tidak boleh kosong.");
                 }
@@ -159,7 +161,7 @@ namespace greenPointofSales.Models.Entity
         }
 
         public bool IsActive { get; set; } = true;
-       
+
 
         public override string TampilkanInfo()
         {
