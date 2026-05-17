@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             txtUserBaru = new TextBox();
             txtPassBaru = new TextBox();
             txtNamaLengkap = new TextBox();
@@ -62,6 +62,7 @@
             // 
             txtUserBaru.BackColor = Color.White;
             txtUserBaru.BorderStyle = BorderStyle.None;
+            txtUserBaru.Font = new Font("Palatino Linotype", 12F);
             txtUserBaru.Location = new Point(239, 234);
             txtUserBaru.Multiline = true;
             txtUserBaru.Name = "txtUserBaru";
@@ -72,6 +73,7 @@
             // 
             txtPassBaru.BackColor = Color.White;
             txtPassBaru.BorderStyle = BorderStyle.None;
+            txtPassBaru.Font = new Font("Palatino Linotype", 12F);
             txtPassBaru.Location = new Point(965, 234);
             txtPassBaru.Multiline = true;
             txtPassBaru.Name = "txtPassBaru";
@@ -82,6 +84,7 @@
             // 
             txtNamaLengkap.BackColor = Color.White;
             txtNamaLengkap.BorderStyle = BorderStyle.None;
+            txtNamaLengkap.Font = new Font("Palatino Linotype", 12F);
             txtNamaLengkap.Location = new Point(239, 137);
             txtNamaLengkap.Multiline = true;
             txtNamaLengkap.Name = "txtNamaLengkap";
@@ -121,7 +124,7 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Palatino Linotype", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Palatino Linotype", 12F);
             label1.Location = new Point(974, 338);
             label1.Name = "label1";
             label1.Size = new Size(59, 27);
@@ -130,32 +133,36 @@
             // 
             // dtpTanggalMulaiKerja
             // 
-            dtpTanggalMulaiKerja.Location = new Point(965, 143);
+            dtpTanggalMulaiKerja.Font = new Font("Palatino Linotype", 12F);
+            dtpTanggalMulaiKerja.Location = new Point(965, 141);
             dtpTanggalMulaiKerja.Name = "dtpTanggalMulaiKerja";
-            dtpTanggalMulaiKerja.Size = new Size(239, 27);
+            dtpTanggalMulaiKerja.Size = new Size(239, 34);
             dtpTanggalMulaiKerja.TabIndex = 12;
             // 
             // dtpTanggalLahir
             // 
-            dtpTanggalLahir.Location = new Point(602, 143);
+            dtpTanggalLahir.Font = new Font("Palatino Linotype", 12F);
+            dtpTanggalLahir.Location = new Point(602, 141);
             dtpTanggalLahir.Name = "dtpTanggalLahir";
-            dtpTanggalLahir.Size = new Size(238, 27);
+            dtpTanggalLahir.Size = new Size(238, 34);
             dtpTanggalLahir.TabIndex = 13;
             // 
             // cmbJenisKelamin
             // 
             cmbJenisKelamin.FlatStyle = FlatStyle.Flat;
+            cmbJenisKelamin.Font = new Font("Palatino Linotype", 12F);
             cmbJenisKelamin.FormattingEnabled = true;
             cmbJenisKelamin.Items.AddRange(new object[] { "Laki-laki", "Perempuan" });
             cmbJenisKelamin.Location = new Point(239, 337);
             cmbJenisKelamin.Name = "cmbJenisKelamin";
-            cmbJenisKelamin.Size = new Size(238, 28);
+            cmbJenisKelamin.Size = new Size(238, 35);
             cmbJenisKelamin.TabIndex = 14;
             // 
             // txtNoHp
             // 
             txtNoHp.BackColor = Color.White;
             txtNoHp.BorderStyle = BorderStyle.None;
+            txtNoHp.Font = new Font("Palatino Linotype", 12F);
             txtNoHp.Location = new Point(602, 234);
             txtNoHp.Multiline = true;
             txtNoHp.Name = "txtNoHp";
@@ -166,6 +173,7 @@
             // 
             txtEmail.BackColor = Color.White;
             txtEmail.BorderStyle = BorderStyle.None;
+            txtEmail.Font = new Font("Palatino Linotype", 12F);
             txtEmail.Location = new Point(602, 331);
             txtEmail.Multiline = true;
             txtEmail.Name = "txtEmail";
@@ -180,7 +188,7 @@
             btnNonaktifkan.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnNonaktifkan.FlatStyle = FlatStyle.Flat;
             btnNonaktifkan.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnNonaktifkan.ForeColor = Color.Black;
+            btnNonaktifkan.ForeColor = SystemColors.ControlText;
             btnNonaktifkan.Location = new Point(717, 395);
             btnNonaktifkan.Name = "btnNonaktifkan";
             btnNonaktifkan.Size = new Size(165, 35);
@@ -380,7 +388,7 @@
             tbSearchBar.BackColor = Color.Transparent;
             tbSearchBar.BorderColor = Color.Transparent;
             tbSearchBar.BorderRadius = 15;
-            tbSearchBar.CustomizableEdges = customizableEdges1;
+            tbSearchBar.CustomizableEdges = customizableEdges3;
             tbSearchBar.DefaultText = "";
             tbSearchBar.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             tbSearchBar.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -398,7 +406,7 @@
             tbSearchBar.PlaceholderForeColor = Color.Black;
             tbSearchBar.PlaceholderText = "Search ...";
             tbSearchBar.SelectedText = "";
-            tbSearchBar.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            tbSearchBar.ShadowDecoration.CustomizableEdges = customizableEdges4;
             tbSearchBar.Size = new Size(300, 30);
             tbSearchBar.TabIndex = 29;
             // 
