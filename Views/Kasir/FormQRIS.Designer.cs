@@ -98,7 +98,9 @@
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
             Name = "FormQRIS";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormQRIS";
+            Load += FormQRIS_Load;
             ((System.ComponentModel.ISupportInitialize)picQRIS).EndInit();
             ResumeLayout(false);
             PerformLayout();

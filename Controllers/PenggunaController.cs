@@ -1,4 +1,5 @@
 ﻿using greenPointofSales.Models;
+using greenPointofSales.Models.Context;
 using greenPointofSales.Models.Entity;
 using System;
 using System.Data;
@@ -8,36 +9,29 @@ namespace greenPointofSales.Controllers
     public class PenggunaController
     {
         private readonly PenggunaContext _context = new PenggunaContext();
+        private readonly SesiPenggunaContext _sesiContext = new SesiPenggunaContext();
 
         public string? AutentikasiLogin(string username, string password)
         {
-            // Validasi: Pastikan input tidak kosong atau cuma spasi
-            if (string.IsNullOrWhiteSpace(username))
-            {
-                return null;
-            }
-            else if (string.IsNullOrWhiteSpace(password))
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 return null;
             }
             else
             {
-                // Jika input valid, baru tanya ke database
-                string? role = _context.ValidasiLogin(username, password);
+                string? role = _sesiContext.ValidasiLogin(username, password);
                 return role;
             }
         }
 
         public void TambahKaryawan(PenggunaModel pengguna)
         {
-            // Cek apakah objek pengguna ada
             if (pengguna == null)
             {
                 throw new ArgumentNullException(nameof(pengguna), "Objek data karyawan kosong.");
             }
             else
             {
-                // Eksekusi penyimpanan
                 _context.SimpanKaryawan(pengguna);
             }
         }
@@ -52,14 +46,12 @@ namespace greenPointofSales.Controllers
             }
             else
             {
-                // Return tabel kosong agar Grid/Tabel di UI tidak error 'Null Reference'
                 return new DataTable();
             }
         }
 
         public void UbahStatusAktif(string username, bool statusBaru)
         {
-            // Validasi string menggunakan IsNullOrWhiteSpace agar input " " (spasi) tertolak
             if (string.IsNullOrWhiteSpace(username))
             {
                 throw new ArgumentException("Username tidak boleh kosong.");
@@ -68,6 +60,14 @@ namespace greenPointofSales.Controllers
             {
                 _context.UpdateStatus(username, statusBaru);
             }
+        }
+        public void UbahDataKaryawan(PenggunaModel pengguna)
+        {
+            if (pengguna == null)
+            {
+                throw new ArgumentNullException(nameof(pengguna));
+            }
+            _context.UpdateDataKaryawan(pengguna);
         }
     }
 }

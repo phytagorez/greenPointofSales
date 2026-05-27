@@ -35,6 +35,15 @@
             pnlCheckout = new Panel();
             pnlTunai = new Panel();
             btnBayar = new Button();
+            lblTotalHarga = new Label();
+            panel1 = new Panel();
+            txtUangBayar = new TextBox();
+            lblTotalHarga = new Label();
+            panel1 = new Panel();
+            txtUangBayar = new TextBox();
+            lblTotalHarga = new Label();
+            panel1 = new Panel();
+            txtUangBayar = new TextBox();
             lblKembalian = new Label();
             txtUangBayar = new TextBox();
             lblTotalHarga = new Label();
@@ -186,7 +195,7 @@
             AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(1280, 720);
             Controls.Add(splitContainer1);
-            Font = new Font("Poppins", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
             Name = "FormTransaksi";

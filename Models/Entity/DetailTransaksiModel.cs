@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace greenPointofSales.Models.Entity
 {
@@ -12,11 +10,10 @@ namespace greenPointofSales.Models.Entity
     public abstract class EntitasDetail : INotaItem
     {
         private int _idProduk;
-        private int _jumlah;
+        private decimal _jumlah;
         private decimal _hargaSatuan;
 
-        // Constructor di Abstract Class untuk memaksa validasi awal
-        protected EntitasDetail(int idProduk, string namaProduk, int jumlah, decimal hargaSatuan)
+        protected EntitasDetail(int idProduk, string namaProduk, decimal jumlah, decimal hargaSatuan)
         {
             this.IdProduk = idProduk;
             this.NamaProduk = namaProduk;
@@ -36,12 +33,12 @@ namespace greenPointofSales.Models.Entity
 
         public string NamaProduk { get; set; } = string.Empty;
 
-        public virtual int Jumlah
+        public virtual decimal Jumlah
         {
             get { return _jumlah; }
             set
             {
-                if (value <= 0) throw new ArgumentException("Jumlah minimal 1.");
+                if (value < 0) throw new ArgumentException("Jumlah tidak boleh negatif.");
                 _jumlah = value;
             }
         }
@@ -64,8 +61,7 @@ namespace greenPointofSales.Models.Entity
 
     public class DetailTransaksiModel : EntitasDetail
     {
-        // Menggunakan keyword 'base' untuk melempar parameter ke EntitasDetail
-        public DetailTransaksiModel(int idProduk, string namaProduk, int jumlah, decimal hargaSatuan)
+        public DetailTransaksiModel(int idProduk, string namaProduk, decimal jumlah, decimal hargaSatuan)
             : base(idProduk, namaProduk, jumlah, hargaSatuan) { }
     }
 }

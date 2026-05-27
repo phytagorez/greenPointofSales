@@ -168,7 +168,6 @@
             btnMenuDashboard.Text = "   Dashboard";
             btnMenuDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuDashboard.UseVisualStyleBackColor = false;
-            btnMenuDashboard.MouseEnter += btnMenuDashboard_MouseEnter;
             // 
             // btnLaporan
             // 

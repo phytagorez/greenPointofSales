@@ -19,14 +19,15 @@ namespace greenPointofSales.Models.Context
 
         public void TambahProduk(ProdukModel produk)
         {
-            string query = "CALL sp_tambah_produk(@p_kode, @p_nama, @p_id_kat, @p_harga_beli, @p_harga_jual, @p_stok)";
+            string query = "CALL sp_tambah_produk(@p_kode, @p_nama, @p_id_kat, @p_harga_beli, @p_harga_jual, @p_stok, @p_satuan)";
             NpgsqlParameter[] parameters = {
                 new NpgsqlParameter("p_kode", produk.KodeProduk),
                 new NpgsqlParameter("p_nama", produk.NamaProduk),
                 new NpgsqlParameter("p_id_kat", produk.IdKategori),
                 new NpgsqlParameter("p_harga_beli", produk.HargaBeli),
                 new NpgsqlParameter("p_harga_jual", produk.HargaJual),
-                new NpgsqlParameter("p_stok", produk.Stok)
+                new NpgsqlParameter("p_stok", produk.Stok),
+                new NpgsqlParameter("p_satuan", produk.Satuan)
             };
             DBHelper.EksekusiNonQuery(query, parameters);
         }
@@ -44,19 +45,19 @@ namespace greenPointofSales.Models.Context
         public DataTable AmbilKatalog(int idKategoriFilter)
         {
             string query = @"
-                SELECT p.id_produk, p.nama_produk, p.harga_jual, p.stok, k.nama_kategori, p.is_nonaktif
+                SELECT p.id_produk, p.nama_produk, p.harga_jual, p.stok, p.satuan, k.nama_kategori, p.is_nonaktif
                 FROM produk p
                 LEFT JOIN kategori k ON p.id_kategori = k.id_kategori
                 WHERE (p.id_kategori = @p_id OR @p_id = 0) AND p.is_nonaktif = false
                 ORDER BY p.nama_produk";
             NpgsqlParameter[] parameters = {
-        new NpgsqlParameter("p_id", idKategoriFilter)
-    };
+                new NpgsqlParameter("p_id", idKategoriFilter)
+            };
 
             return DBHelper.EksekusiQuery(query, parameters);
         }
 
-        public void UpdateStok(int idProduk, int jumlahPerubahan)
+        public void UpdateStok(int idProduk, decimal jumlahPerubahan)
         {
             string query = "UPDATE produk SET stok = GREATEST(stok + @p_jumlah, 0) WHERE id_produk = @p_id";
             NpgsqlParameter[] parameters = {

@@ -10,12 +10,10 @@ namespace greenPointofSales.Models.Entity
         private int _idPengguna;
         private decimal _totalBayar;
 
-        // Aggregation: Transaksi "memiliki" daftar DetailTransaksiModel
         public List<DetailTransaksiModel> Items { get; private set; }
 
         public DateTime TglTransaksi { get; set; }
 
-        // Constructor Wajib: Transaksi tidak boleh tercipta tanpa Invoice dan Kasir
         public TransaksiModel(string noInvoice, int idPengguna)
         {
             this.NoInvoice = noInvoice;
@@ -44,8 +42,6 @@ namespace greenPointofSales.Models.Entity
             }
         }
 
-        // Properti Read-Only (Hanya getter)
-        // Menjumlahkan subtotal dari semua item di List menggunakan LINQ
         public decimal TotalHarga
         {
             get
@@ -67,28 +63,23 @@ namespace greenPointofSales.Models.Entity
             }
         }
 
-        // Behavior: Hitung Kembalian
         public decimal HitungKembalian()
         {
             return this.TotalBayar - this.TotalHarga;
         }
 
-        // Behavior: Menambah item ke keranjang dengan logika cek duplikat
         public void TambahItem(DetailTransaksiModel itemBaru)
         {
             if (itemBaru == null) throw new ArgumentNullException(nameof(itemBaru));
 
-            // Cari apakah produk yang sama sudah ada di keranjang
             var itemAda = Items.FirstOrDefault(x => x.IdProduk == itemBaru.IdProduk);
 
             if (itemAda != null)
             {
-                // Jika ada, cukup tambahkan jumlahnya saja
                 itemAda.Jumlah += itemBaru.Jumlah;
             }
             else
             {
-                // Jika belum ada, masukkan sebagai item baru
                 Items.Add(itemBaru);
             }
         }

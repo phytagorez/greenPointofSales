@@ -56,7 +56,6 @@ namespace greenPointofSales.Models.Entity
         private string _email = string.Empty;
         private DateTime _tglMulaiKerja;
 
-        // ===== REVISI: Password bisa >= 6 karakter (tidak ada batas atas) =====
         public string Password
         {
             get { return _password; }
@@ -66,7 +65,6 @@ namespace greenPointofSales.Models.Entity
                 {
                     throw new ArgumentException("Password harus minimal 6 karakter!");
                 }
-                // ✅ Sekarang password bisa lebih dari 6 karakter, tidak ada batasan atas
                 _password = value;
             }
         }

@@ -6,7 +6,7 @@ namespace greenPointofSales.Models.Entity
     public interface IBarangJualan
     {
         string TampilkanDetail();
-        void KurangiStok(int jumlah);
+        void KurangiStok(decimal jumlah);
     }
 
     //validasi
@@ -43,14 +43,16 @@ namespace greenPointofSales.Models.Entity
         }
 
         public abstract string TampilkanDetail();
-        public abstract void KurangiStok(int jumlah);
+        public abstract void KurangiStok(decimal jumlah);
     }
 
     public class ProdukModel : EntitasProduk
     {
         private decimal _hargaBeli;
         private decimal _hargaJual;
-        private int _stok;
+        private decimal _stok;
+
+        public string Satuan { get; set; } = "Pcs";
 
         public decimal HargaBeli
         {
@@ -78,16 +80,16 @@ namespace greenPointofSales.Models.Entity
             }
         }
 
-        public int Stok
+        public decimal Stok
         {
             get { return _stok; }
-            private set { _stok = value; }
+            set { _stok = value; }
         }
 
         public bool IsNonaktif { get; set; }
 
         //stok
-        public void TambahStokAwal(int jumlah)
+        public void TambahStokAwal(decimal jumlah)
         {
             if (jumlah < 0)
             {
@@ -97,7 +99,7 @@ namespace greenPointofSales.Models.Entity
         }
 
         //stok busuk
-        public void SusutkanBarangBusuk(int jumlahBusuk)
+        public void SusutkanBarangBusuk(decimal jumlahBusuk)
         {
             if (jumlahBusuk > Stok)
             {
@@ -107,7 +109,7 @@ namespace greenPointofSales.Models.Entity
 
             if (Stok == 0)
             {
-                IsNonaktif = true; // Sudah diperbarui
+                IsNonaktif = true;
             }
         }
 
@@ -127,10 +129,10 @@ namespace greenPointofSales.Models.Entity
 
         public override string TampilkanDetail()
         {
-            return $"[{KodeProduk}] {NamaProduk} - Rp{HargaJual}";
+            return $"[{KodeProduk}] {NamaProduk} - Rp{HargaJual}/{Satuan}";
         }
 
-        public override void KurangiStok(int jumlah)
+        public override void KurangiStok(decimal jumlah)
         {
             if (jumlah > Stok)
             {
