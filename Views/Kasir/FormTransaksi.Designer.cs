@@ -35,15 +35,6 @@
             pnlCheckout = new Panel();
             pnlTunai = new Panel();
             btnBayar = new Button();
-            lblTotalHarga = new Label();
-            panel1 = new Panel();
-            txtUangBayar = new TextBox();
-            lblTotalHarga = new Label();
-            panel1 = new Panel();
-            txtUangBayar = new TextBox();
-            lblTotalHarga = new Label();
-            panel1 = new Panel();
-            txtUangBayar = new TextBox();
             lblKembalian = new Label();
             txtUangBayar = new TextBox();
             lblTotalHarga = new Label();
@@ -110,6 +101,7 @@
             // 
             // pnlCheckout
             // 
+            pnlCheckout.Controls.Add(btnBayar);
             pnlCheckout.Controls.Add(pnlTunai);
             pnlCheckout.Controls.Add(lblTotalHarga);
             pnlCheckout.Controls.Add(label1);
@@ -122,7 +114,6 @@
             // 
             // pnlTunai
             // 
-            pnlTunai.Controls.Add(btnBayar);
             pnlTunai.Controls.Add(lblKembalian);
             pnlTunai.Controls.Add(txtUangBayar);
             pnlTunai.Location = new Point(3, 112);
@@ -132,7 +123,7 @@
             // 
             // btnBayar
             // 
-            btnBayar.Location = new Point(23, 115);
+            btnBayar.Location = new Point(244, 59);
             btnBayar.Name = "btnBayar";
             btnBayar.Size = new Size(94, 29);
             btnBayar.TabIndex = 5;
@@ -154,7 +145,7 @@
             // 
             txtUangBayar.Location = new Point(23, 21);
             txtUangBayar.Name = "txtUangBayar";
-            txtUangBayar.Size = new Size(125, 30);
+            txtUangBayar.Size = new Size(125, 24);
             txtUangBayar.TabIndex = 0;
             txtUangBayar.TextChanged += txtUangBayar_TextChanged;
             // 
@@ -185,7 +176,7 @@
             cmbMetodeBayar.Items.AddRange(new object[] { "Tunai", "Non-Tunai" });
             cmbMetodeBayar.Location = new Point(15, 62);
             cmbMetodeBayar.Name = "cmbMetodeBayar";
-            cmbMetodeBayar.Size = new Size(151, 34);
+            cmbMetodeBayar.Size = new Size(151, 26);
             cmbMetodeBayar.TabIndex = 0;
             cmbMetodeBayar.SelectedIndexChanged += cmbMetodeBayar_SelectedIndexChanged;
             // 

@@ -4,6 +4,7 @@ using greenPointofSales.Models.Context;
 using greenPointofSales.Models.Entity;
 using greenPointofSales.Views.Kasir;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
@@ -16,6 +17,9 @@ namespace greenPointofSales.Views
         private readonly ProdukController _produkController = new ProdukController();
         private readonly TransaksiContext _transaksiContext = new TransaksiContext();
 
+        private Dictionary<int, string> _satuanProduk = new Dictionary<int, string>();
+        private Dictionary<int, decimal> _stokProduk = new Dictionary<int, decimal>();
+
         public FormTransaksi()
         {
             InitializeComponent();
@@ -24,7 +28,6 @@ namespace greenPointofSales.Views
 
         private void InitializeAwalTransaksi()
         {
-            // SAFETY VALIDATION: Cek kesiapan nama komponen desainer UI kamu
             if (cmbMetodeBayar == null || flpKatalog == null || lblTotalHarga == null ||
                 pnlTunai == null || txtUangBayar == null || lblKembalian == null ||
                 btnBayar == null || flpKeranjang == null)
@@ -45,10 +48,7 @@ namespace greenPointofSales.Views
             }
 
             string noInvoice = GenerateNoInvoice();
-
-            // Ambil ID Kasir asli hasil login dinamis dari SesiPengguna
             int idKasir = SesiPengguna.PenggunaAktif != null ? SesiPengguna.PenggunaAktif.IdPengguna : 1;
-
             _transaksiAktif = new TransaksiModel(noInvoice, idKasir);
 
             if (cmbMetodeBayar.Items.Count == 0)
@@ -73,14 +73,21 @@ namespace greenPointofSales.Views
         private void MuatKatalogProduk()
         {
             flpKatalog.Controls.Clear();
+            _satuanProduk.Clear();
+            _stokProduk.Clear();
+
             DataTable dtProduk = _produkController.DapatkanKatalogProduk();
 
             foreach (DataRow row in dtProduk.Rows)
             {
                 int id = Convert.ToInt32(row["id_produk"]);
-                string nama = row["nama_produk"].ToString();
+                string nama = row["nama_produk"].ToString() ?? "";
                 decimal harga = Convert.ToDecimal(row["harga_jual"]);
-                int stok = Convert.ToInt32(row["stok"]);
+                decimal stok = Convert.ToDecimal(row["stok"]);
+                string satuan = row["satuan"]?.ToString() ?? "Pcs";
+
+                _satuanProduk[id] = satuan;
+                _stokProduk[id] = stok;
 
                 Panel card = new Panel
                 {
@@ -92,8 +99,8 @@ namespace greenPointofSales.Views
                 };
 
                 Label lblNama = new Label { Text = nama, Dock = DockStyle.Top, Height = 45, Font = new Font("Segoe UI", 9, FontStyle.Bold), TextAlign = ContentAlignment.MiddleCenter };
-                Label lblHarga = new Label { Text = $"Rp {harga:N0}", Dock = DockStyle.Top, Height = 25, TextAlign = ContentAlignment.MiddleCenter, ForeColor = Color.ForestGreen };
-                Label lblStok = new Label { Text = $"Stok: {stok}", Dock = DockStyle.Bottom, Height = 20, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 8, FontStyle.Italic), ForeColor = stok <= 5 ? Color.Red : Color.Gray };
+                Label lblHarga = new Label { Text = $"Rp {harga:N0}/{satuan}", Dock = DockStyle.Top, Height = 25, TextAlign = ContentAlignment.MiddleCenter, ForeColor = Color.ForestGreen };
+                Label lblStok = new Label { Text = $"Stok: {stok:0.##} {satuan}", Dock = DockStyle.Bottom, Height = 20, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 8, FontStyle.Italic), ForeColor = stok <= 5 ? Color.Red : Color.Gray };
 
                 card.Controls.Add(lblHarga);
                 card.Controls.Add(lblNama);
@@ -109,21 +116,25 @@ namespace greenPointofSales.Views
             }
         }
 
-        private void TambahKeKeranjang(int id, string nama, decimal harga, int stokMaks)
+        private void TambahKeKeranjang(int id, string nama, decimal harga, decimal stokMaks)
         {
+            string satuan = _satuanProduk.ContainsKey(id) ? _satuanProduk[id] : "Pcs";
+            decimal takaran = satuan.ToLower() == "kg" ? 0.25m : 1m;
+
             var itemAda = _transaksiAktif.Items.Find(x => x.IdProduk == id);
-            if (itemAda != null && itemAda.Jumlah >= stokMaks)
+
+            if (itemAda != null && (itemAda.Jumlah + takaran) > stokMaks)
             {
                 UIHelper.Peringatan("Stok barang di toko tidak mencukupi batas pembelian!");
                 return;
             }
-            if (stokMaks <= 0)
+            if (stokMaks < takaran)
             {
-                UIHelper.Peringatan("Produk jualan saat ini sedang kosong!");
+                UIHelper.Peringatan("Produk jualan saat ini sedang kosong atau tidak cukup untuk takaran awal!");
                 return;
             }
 
-            DetailTransaksiModel itemBaru = new DetailTransaksiModel(id, nama, 1, harga);
+            DetailTransaksiModel itemBaru = new DetailTransaksiModel(id, nama, takaran, harga);
             _transaksiAktif.TambahItem(itemBaru);
 
             RenderUlangKeranjang();
@@ -136,6 +147,9 @@ namespace greenPointofSales.Views
 
             foreach (var item in _transaksiAktif.Items)
             {
+                string satuan = _satuanProduk.ContainsKey(item.IdProduk) ? _satuanProduk[item.IdProduk] : "Pcs";
+                decimal takaran = satuan.ToLower() == "kg" ? 0.25m : 1m;
+
                 Panel cardBarang = new Panel
                 {
                     Width = flpKeranjang.Width - 25,
@@ -148,13 +162,13 @@ namespace greenPointofSales.Views
                 Label lblNama = new Label { Text = item.NamaProduk, Location = new Point(8, 8), Width = 150, Font = new Font("Segoe UI", 9, FontStyle.Bold) };
                 Label lblSub = new Label { Text = $"Rp {item.HitungSubtotal():N0}", Location = new Point(8, 34), Width = 120, ForeColor = Color.Navy };
 
-                Button btnMin = new Button { Text = "-", Location = new Point(cardBarang.Width - 110, 15), Width = 30, Height = 30, Font = new Font("Segoe UI", 10, FontStyle.Bold) };
-                Label lblQty = new Label { Text = item.Jumlah.ToString(), Location = new Point(cardBarang.Width - 75, 20), Width = 30, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 10, FontStyle.Bold) };
+                Button btnMin = new Button { Text = "-", Location = new Point(cardBarang.Width - 135, 15), Width = 30, Height = 30, Font = new Font("Segoe UI", 10, FontStyle.Bold) };
+                Label lblQty = new Label { Text = $"{item.Jumlah:0.##} {satuan}", Location = new Point(cardBarang.Width - 100, 20), Width = 55, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 9, FontStyle.Bold) };
                 Button btnPlus = new Button { Text = "+", Location = new Point(cardBarang.Width - 40, 15), Width = 30, Height = 30, Font = new Font("Segoe UI", 10, FontStyle.Bold) };
 
                 btnMin.Click += (s, e) =>
                 {
-                    item.Jumlah--;
+                    item.Jumlah -= takaran;
                     if (item.Jumlah <= 0) _transaksiAktif.Items.Remove(item);
                     RenderUlangKeranjang();
                     HitungTotalBawah();
@@ -162,9 +176,18 @@ namespace greenPointofSales.Views
 
                 btnPlus.Click += (s, e) =>
                 {
-                    item.Jumlah++;
-                    RenderUlangKeranjang();
-                    HitungTotalBawah();
+                    decimal stokMaks = _stokProduk.ContainsKey(item.IdProduk) ? _stokProduk[item.IdProduk] : 0m;
+
+                    if (item.Jumlah + takaran > stokMaks)
+                    {
+                        UIHelper.Peringatan("Stok barang tidak mencukupi!");
+                    }
+                    else
+                    {
+                        item.Jumlah += takaran;
+                        RenderUlangKeranjang();
+                        HitungTotalBawah();
+                    }
                 };
 
                 cardBarang.Controls.Add(lblNama);
@@ -185,20 +208,15 @@ namespace greenPointofSales.Views
 
         private void cmbMetodeBayar_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmbMetodeBayar.Text == "Non-Tunai / QRIS")
+            if (cmbMetodeBayar.Text == "Tunai")
             {
-                pnlTunai.Visible = false;
-                lblKembalian.Visible = false;
-                btnBayar.Text = "TAMPILKAN LAYAR QRIS";
-                btnBayar.BackColor = Color.RoyalBlue;
+                pnlTunai.Visible = true;
             }
             else
             {
-                pnlTunai.Visible = true;
-                lblKembalian.Visible = true;
-                btnBayar.Text = "KONFIRMASI TRANSAKSI";
-                btnBayar.BackColor = Color.Green;
+                pnlTunai.Visible = false;
                 txtUangBayar.Clear();
+                lblKembalian.Text = "Kembalian: Rp 0";
             }
         }
 
@@ -236,26 +254,13 @@ namespace greenPointofSales.Views
 
         private void btnBayar_Click(object sender, EventArgs e)
         {
-            if (_transaksiAktif.Items.Count == 0)
+            if (_transaksiAktif == null || _transaksiAktif.Items.Count == 0)
             {
                 UIHelper.Peringatan("Keranjang belanja masih kosong!");
                 return;
             }
 
-            if (cmbMetodeBayar.Text == "Non-Tunai / QRIS")
-            {
-                using (FormQRIS popUp = new FormQRIS(_transaksiAktif.TotalHarga))
-                {
-                    var hasilDitekan = popUp.ShowDialog();
-
-                    if (hasilDitekan == DialogResult.OK)
-                    {
-                        _transaksiAktif.TotalBayar = _transaksiAktif.TotalHarga;
-                        EksekusiSimpanPenjualan();
-                    }
-                }
-            }
-            else
+            if (cmbMetodeBayar.Text == "Tunai")
             {
                 if (decimal.TryParse(txtUangBayar.Text, out decimal nominalBayar))
                 {
@@ -273,6 +278,17 @@ namespace greenPointofSales.Views
                     UIHelper.Peringatan("Masukkan nominal angka uang pembayaran tunai dengan benar!");
                 }
             }
+            else
+            {
+                _transaksiAktif.TotalBayar = _transaksiAktif.TotalHarga;
+
+                using var formQris = new FormQRIS(_transaksiAktif.TotalHarga);
+
+                if (formQris.ShowDialog() == DialogResult.OK)
+                {
+                    EksekusiSimpanPenjualan();
+                }
+            }
         }
 
         private void EksekusiSimpanPenjualan()
@@ -283,8 +299,8 @@ namespace greenPointofSales.Views
 
                 foreach (var item in _transaksiAktif.Items)
                 {
-                    _transaksiContext.InsertDetail(idTrxBaru, item);
-                    _produkController.UpdateStok(item.IdProduk, -item.Jumlah);
+                    decimal jumlahKeluar = item.Jumlah * -1m;
+                    _produkController.UpdateStok(item.IdProduk, jumlahKeluar);
                 }
 
                 UIHelper.Sukses("✓ Transaksi Berhasil Diproses & Stok Berhasil Diperbarui!");

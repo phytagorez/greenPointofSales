@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             txtNamaProduk = new TextBox();
             txtHargaJual = new TextBox();
             txtHargaBeli = new TextBox();
@@ -50,6 +52,7 @@
             btnMenuProduk = new Button();
             btnMenuKaryawan = new Button();
             tbSearchBar = new Guna.UI2.WinForms.Guna2TextBox();
+            cmbSatuan = new Guna.UI2.WinForms.Guna2ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvProduk).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbMenu).BeginInit();
             SuspendLayout();
@@ -121,7 +124,7 @@
             btnSimpan.FlatStyle = FlatStyle.Flat;
             btnSimpan.Font = new Font("Modern No. 20", 12F);
             btnSimpan.ForeColor = Color.Black;
-            btnSimpan.Location = new Point(931, 610);
+            btnSimpan.Location = new Point(491, 657);
             btnSimpan.Name = "btnSimpan";
             btnSimpan.Size = new Size(94, 29);
             btnSimpan.TabIndex = 6;
@@ -150,7 +153,7 @@
             btnBusuk.FlatStyle = FlatStyle.Flat;
             btnBusuk.Font = new Font("Modern No. 20", 12F);
             btnBusuk.ForeColor = Color.Black;
-            btnBusuk.Location = new Point(1072, 610);
+            btnBusuk.Location = new Point(850, 657);
             btnBusuk.Name = "btnBusuk";
             btnBusuk.Size = new Size(94, 29);
             btnBusuk.TabIndex = 14;
@@ -353,7 +356,7 @@
             tbSearchBar.BackColor = Color.Transparent;
             tbSearchBar.BorderColor = Color.Transparent;
             tbSearchBar.BorderRadius = 15;
-            tbSearchBar.CustomizableEdges = customizableEdges1;
+            tbSearchBar.CustomizableEdges = customizableEdges5;
             tbSearchBar.DefaultText = "";
             tbSearchBar.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             tbSearchBar.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -371,9 +374,27 @@
             tbSearchBar.PlaceholderForeColor = Color.Black;
             tbSearchBar.PlaceholderText = "Search ...";
             tbSearchBar.SelectedText = "";
-            tbSearchBar.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            tbSearchBar.ShadowDecoration.CustomizableEdges = customizableEdges6;
             tbSearchBar.Size = new Size(300, 30);
             tbSearchBar.TabIndex = 34;
+            // 
+            // cmbSatuan
+            // 
+            cmbSatuan.BackColor = Color.Transparent;
+            cmbSatuan.CustomizableEdges = customizableEdges7;
+            cmbSatuan.DrawMode = DrawMode.OwnerDrawFixed;
+            cmbSatuan.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbSatuan.FocusedColor = Color.FromArgb(94, 148, 255);
+            cmbSatuan.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            cmbSatuan.Font = new Font("Segoe UI", 10F);
+            cmbSatuan.ForeColor = Color.FromArgb(68, 88, 112);
+            cmbSatuan.ItemHeight = 30;
+            cmbSatuan.Items.AddRange(new object[] { "Ikat", "Kg", "Pcs" });
+            cmbSatuan.Location = new Point(931, 604);
+            cmbSatuan.Name = "cmbSatuan";
+            cmbSatuan.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            cmbSatuan.Size = new Size(233, 36);
+            cmbSatuan.TabIndex = 35;
             // 
             // FormManajemenProduk
             // 
@@ -381,6 +402,7 @@
             BackColor = Color.White;
             BackgroundImage = Properties.Resources.Produk_O;
             ClientSize = new Size(1280, 720);
+            Controls.Add(cmbSatuan);
             Controls.Add(tbSearchBar);
             Controls.Add(pbMenu);
             Controls.Add(label2);
@@ -434,5 +456,6 @@
         private Button btnMenuProduk;
         private Button btnMenuKaryawan;
         private Guna.UI2.WinForms.Guna2TextBox tbSearchBar;
+        private Guna.UI2.WinForms.Guna2ComboBox cmbSatuan;
     }
 }

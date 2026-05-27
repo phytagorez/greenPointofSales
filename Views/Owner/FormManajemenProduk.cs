@@ -59,47 +59,42 @@ namespace greenPointofSales.Views
 
         private void btnSimpan_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtNamaProduk.Text) || cmbKategori.SelectedValue == null)
+            if (cmbKategori.SelectedIndex == -1 || cmbSatuan.SelectedIndex == -1)
             {
-                UIHelper.Peringatan("Nama produk dan Kategori wajib diisi!");
+                UIHelper.Peringatan("Pastikan Kategori dan Satuan sudah dipilih!");
                 return;
             }
 
-            if (!decimal.TryParse(txtHargaBeli.Text.Trim(), out decimal hargaBeli) ||
-                !decimal.TryParse(txtHargaJual.Text.Trim(), out decimal hargaJual) ||
-                !int.TryParse(txtStok.Text.Trim(), out int stok))
+            if (decimal.TryParse(txtStok.Text.Replace(',', '.'), out decimal nilaiStok))
             {
-                UIHelper.Peringatan("Harga dan Stok harus berupa angka yang valid!");
-                return;
-            }
-
-            try
-            {
-                var produk = new ProdukModel
+                try
                 {
-                    NamaProduk = txtNamaProduk.Text.Trim(),
-                    IdKategori = Convert.ToInt32(cmbKategori.SelectedValue),
-                    HargaBeli = hargaBeli,
-                    HargaJual = hargaJual
-                };
+                    var produkBaru = new ProdukModel
+                    {
+                        NamaProduk = txtNamaProduk.Text.Trim(),
+                        IdKategori = Convert.ToInt32(cmbKategori.SelectedValue),
+                        HargaBeli = Convert.ToDecimal(txtHargaBeli.Text),
+                        HargaJual = Convert.ToDecimal(txtHargaJual.Text),
+                        Stok = nilaiStok,
+                        Satuan = cmbSatuan.SelectedItem?.ToString() ?? "Pcs"
+                    };
 
-                produk.TambahStokAwal(stok);
-                produk.GenerateKodeOtomatis();
+                    produkBaru.GenerateKodeOtomatis();
+                    _controller.TambahProduk(produkBaru);
 
-                _controller.TambahProduk(produk);
+                    UIHelper.Sukses("Produk baru berhasil disimpan!");
 
-                UIHelper.Sukses("Produk berhasil disimpan!");
-
-                MuatDataProduk();
-                BersihkanForm();
+                    MuatDataProduk();
+                    BersihkanForm();
+                }
+                catch (Exception ex)
+                {
+                    UIHelper.Error(ex.Message);
+                }
             }
-            catch (ArgumentException ex)
+            else
             {
-                UIHelper.Peringatan(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                UIHelper.Error($"Terjadi kesalahan sistem: {ex.Message}");
+                UIHelper.Peringatan("Format stok tidak valid. Gunakan angka (contoh: 4,5 atau 4.5).");
             }
         }
 
@@ -136,16 +131,6 @@ namespace greenPointofSales.Views
             }
         }
 
-        private void BersihkanForm()
-        {
-            txtNamaProduk.Clear();
-            txtHargaBeli.Clear();
-            txtHargaJual.Clear();
-            txtStok.Clear();
-            cmbKategori.SelectedIndex = -1;
-            txtNamaProduk.Focus();
-        }
-
         private void btnMenuDashboard_Click(object sender, EventArgs e)
         {
             new FormDashboardOwner().ShowDialog();
@@ -163,9 +148,38 @@ namespace greenPointofSales.Views
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            SesiPengguna.Logout();
-            this.Close();
-            Application.OpenForms["FormLogin"]?.Show();
+            string nama = SesiPengguna.PenggunaAktif?.Username ?? "Pengguna";
+            string role = SesiPengguna.PenggunaAktif?.Role ?? "Sistem";
+
+            bool yakinKeluar = UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?");
+
+            if (yakinKeluar)
+            {
+                SesiPengguna.Logout();
+
+                for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+                {
+                    var formAktif = Application.OpenForms[i];
+
+                    if (formAktif != null && formAktif.Name != "FormLogin")
+                    {
+                        formAktif.Close();
+                    }
+                }
+
+                Application.OpenForms["FormLogin"]?.Show();
+            }
+        }
+
+        private void BersihkanForm()
+        {
+            txtNamaProduk.Clear();
+            txtHargaBeli.Clear();
+            txtHargaJual.Clear();
+            txtStok.Clear();
+            cmbKategori.SelectedIndex = -1;
+            cmbSatuan.SelectedIndex = -1;
+            txtNamaProduk.Focus();
         }
     }
 }

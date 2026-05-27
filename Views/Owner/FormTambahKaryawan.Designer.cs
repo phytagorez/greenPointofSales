@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             txtUserBaru = new TextBox();
             txtPassBaru = new TextBox();
             txtNamaLengkap = new TextBox();
@@ -54,6 +54,7 @@
             btnMenuProduk = new Button();
             btnMenuKaryawan = new Button();
             tbSearchBar = new Guna.UI2.WinForms.Guna2TextBox();
+            btnUpdate = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvKaryawan).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbMenu).BeginInit();
             SuspendLayout();
@@ -100,7 +101,7 @@
             btnSimpan.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnSimpan.FlatStyle = FlatStyle.Flat;
             btnSimpan.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnSimpan.Location = new Point(576, 395);
+            btnSimpan.Location = new Point(494, 387);
             btnSimpan.Name = "btnSimpan";
             btnSimpan.Size = new Size(100, 35);
             btnSimpan.TabIndex = 8;
@@ -118,6 +119,7 @@
             dgvKaryawan.RowHeadersWidth = 51;
             dgvKaryawan.Size = new Size(1010, 219);
             dgvKaryawan.TabIndex = 9;
+            dgvKaryawan.CellClick += dgvKaryawan_CellClick;
             dgvKaryawan.SelectionChanged += dgvKaryawan_SelectionChanged;
             // 
             // label1
@@ -189,7 +191,7 @@
             btnNonaktifkan.FlatStyle = FlatStyle.Flat;
             btnNonaktifkan.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnNonaktifkan.ForeColor = SystemColors.ControlText;
-            btnNonaktifkan.Location = new Point(717, 395);
+            btnNonaktifkan.Location = new Point(641, 394);
             btnNonaktifkan.Name = "btnNonaktifkan";
             btnNonaktifkan.Size = new Size(165, 35);
             btnNonaktifkan.TabIndex = 17;
@@ -388,7 +390,7 @@
             tbSearchBar.BackColor = Color.Transparent;
             tbSearchBar.BorderColor = Color.Transparent;
             tbSearchBar.BorderRadius = 15;
-            tbSearchBar.CustomizableEdges = customizableEdges3;
+            tbSearchBar.CustomizableEdges = customizableEdges1;
             tbSearchBar.DefaultText = "";
             tbSearchBar.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             tbSearchBar.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -406,15 +408,33 @@
             tbSearchBar.PlaceholderForeColor = Color.Black;
             tbSearchBar.PlaceholderText = "Search ...";
             tbSearchBar.SelectedText = "";
-            tbSearchBar.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            tbSearchBar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             tbSearchBar.Size = new Size(300, 30);
             tbSearchBar.TabIndex = 29;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.BackColor = Color.White;
+            btnUpdate.Cursor = Cursors.Hand;
+            btnUpdate.FlatAppearance.BorderSize = 0;
+            btnUpdate.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btnUpdate.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btnUpdate.FlatStyle = FlatStyle.Flat;
+            btnUpdate.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnUpdate.Location = new Point(860, 394);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(100, 35);
+            btnUpdate.TabIndex = 30;
+            btnUpdate.Text = "Update";
+            btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // FormTambahKaryawan
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.MKaryawan_P;
             ClientSize = new Size(1280, 720);
+            Controls.Add(btnUpdate);
             Controls.Add(tbSearchBar);
             Controls.Add(pbMenu);
             Controls.Add(label2);
@@ -475,5 +495,6 @@
         private Button btnMenuProduk;
         private Button btnMenuKaryawan;
         private Guna.UI2.WinForms.Guna2TextBox tbSearchBar;
+        private Button btnUpdate;
     }
 }

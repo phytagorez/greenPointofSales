@@ -1,4 +1,5 @@
 ﻿using greenPointofSales.Controllers;
+using greenPointofSales.Helpers;
 using greenPointofSales.Models.Entity;
 using greenPointofSales.Views;
 using System;
@@ -61,7 +62,6 @@ namespace greenPointofSales
         {
             try
             {
-                // VALIDASI INPUT FORM
                 if (string.IsNullOrWhiteSpace(txtUserBaru.Text))
                 {
                     MessageBox.Show("Username tidak boleh kosong!", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -83,10 +83,8 @@ namespace greenPointofSales
                     return;
                 }
 
-                // BUILD OBJECT
                 var pengguna = new PenggunaModel();
 
-                // SET PROPERTIES dengan error handling per property
                 try
                 {
                     pengguna.Username = txtUserBaru.Text.Trim();
@@ -97,7 +95,7 @@ namespace greenPointofSales
                     pengguna.TglLahir = dtpTanggalLahir.Value;
                     pengguna.TglMulaiKerja = dtpTanggalMulaiKerja.Value;
                     pengguna.JenisKelamin = cmbJenisKelamin.SelectedItem?.ToString() ?? "";
-                    pengguna.Role = "Kasir"; // Fixed role
+                    pengguna.Role = "Kasir";
                 }
                 catch (ArgumentException argEx)
                 {
@@ -110,7 +108,6 @@ namespace greenPointofSales
                     return;
                 }
 
-                // SIMPAN KE DATABASE
                 _controller.TambahKaryawan(pengguna);
 
                 MessageBox.Show(
@@ -123,7 +120,6 @@ namespace greenPointofSales
                     MessageBoxIcon.Information
                 );
 
-                // REFRESH DATA DI GRID & BERSIHKAN FORM
                 MuatDataKaryawan();
                 BersihkanInputan();
             }
@@ -138,7 +134,6 @@ namespace greenPointofSales
             }
             catch (Exception ex)
             {
-                // TANGKAP ERROR DATABASE LENGKAP
                 string errorDetail = $"❌ Sistem Error:\n\n" +
                     $"Message: {ex.Message}\n\n" +
                     $"Type: {ex.GetType().Name}\n\n" +
@@ -151,7 +146,6 @@ namespace greenPointofSales
                     MessageBoxIcon.Error
                 );
 
-                // Log ke console untuk debugging (opsional)
                 Console.WriteLine("[ERROR] " + errorDetail);
             }
         }
@@ -235,9 +229,81 @@ namespace greenPointofSales
         }
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            SesiPengguna.Logout();
-            this.Close();
-            Application.OpenForms["FormLogin"]?.Show();
+            string nama = SesiPengguna.PenggunaAktif?.Username ?? "Pengguna";
+            string role = SesiPengguna.PenggunaAktif?.Role ?? "Sistem";
+
+            bool yakinKeluar = UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?");
+
+            if (yakinKeluar)
+            {
+                SesiPengguna.Logout();
+
+                for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+                {
+                    var formAktif = Application.OpenForms[i];
+
+                    if (formAktif != null && formAktif.Name != "FormLogin")
+                    {
+                        formAktif.Close();
+                    }
+                }
+
+                Application.OpenForms["FormLogin"]?.Show();
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtUserBaru.Text) || string.IsNullOrWhiteSpace(txtNamaLengkap.Text))
+            {
+                UIHelper.Peringatan("Silakan pilih karyawan yang ingin diubah terlebih dahulu!");
+                return;
+            }
+
+            try
+            {
+                var karyawan = new PenggunaModel
+                {
+                    Username = txtUserBaru.Text.Trim(),
+                    Password = txtPassBaru.Text.Trim(),
+                    NamaLengkap = txtNamaLengkap.Text.Trim(),
+                    NoHp = txtNoHp.Text.Trim(),
+                    TglLahir = dtpTanggalLahir.Value,
+                    JenisKelamin = cmbJenisKelamin.SelectedItem?.ToString() ?? "Laki-laki",
+                    Email = txtEmail.Text.Trim()
+                };
+
+                _controller.UbahDataKaryawan(karyawan);
+                UIHelper.Sukses("Data karyawan berhasil diperbarui!");
+
+                MuatDataKaryawan();
+                BersihkanInputan();
+                txtUserBaru.ReadOnly = false;
+            }
+            catch (Exception ex)
+            {
+                UIHelper.Error(ex.Message);
+            }
+        }
+
+        private void dgvKaryawan_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var row = dgvKaryawan.Rows[e.RowIndex];
+
+            txtUserBaru.Text = row.Cells["username"].Value?.ToString() ?? string.Empty;
+            txtUserBaru.ReadOnly = true;
+            txtPassBaru.Text = string.Empty;
+            txtNamaLengkap.Text = row.Cells["nama_lengkap"].Value?.ToString() ?? string.Empty;
+            txtNoHp.Text = row.Cells["no_hp"].Value?.ToString() ?? string.Empty;
+            txtEmail.Text = row.Cells["email"].Value?.ToString() ?? string.Empty;
+            cmbJenisKelamin.SelectedItem = row.Cells["jenis_kelamin"].Value?.ToString();
+
+            if (DateTime.TryParse(row.Cells["tgl_lahir"].Value?.ToString(), out DateTime tglLahir))
+            {
+                dtpTanggalLahir.Value = tglLahir;
+            }
         }
     }
 }
