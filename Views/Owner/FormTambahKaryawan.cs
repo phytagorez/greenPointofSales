@@ -305,5 +305,25 @@ namespace greenPointofSales
                 dtpTanggalLahir.Value = tglLahir;
             }
         }
+        private void tbSearchBar_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string keyword = tbSearchBar.Text.Trim();
+
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    dgvKaryawan.DataSource = _controller.CariKaryawan(keyword);
+                }
+                else
+                {
+                    MuatDataKaryawan();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Gagal mencari karyawan: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

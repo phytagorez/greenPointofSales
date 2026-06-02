@@ -2,6 +2,7 @@
 using greenPointofSales.Helpers;
 using greenPointofSales.Models.Entity;
 using System;
+using System.Data;
 using System.Windows.Forms;
 
 namespace greenPointofSales.Views
@@ -56,7 +57,28 @@ namespace greenPointofSales.Views
                 UIHelper.Error("Gagal memuat tabel: " + ex.Message);
             }
         }
+        private void tbSearchBar_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string keyword = tbSearchBar.Text.Trim();
 
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    DataTable dtHasilCari = _controller.CariProdukNama(keyword);
+
+                    dgvProduk.DataSource = dtHasilCari;
+                }
+                else
+                {
+                    dgvProduk.DataSource = _controller.DapatkanSemuaProduk();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Gagal mencari produk: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void btnSimpan_Click(object sender, EventArgs e)
         {
             if (cmbKategori.SelectedIndex == -1 || cmbSatuan.SelectedIndex == -1)

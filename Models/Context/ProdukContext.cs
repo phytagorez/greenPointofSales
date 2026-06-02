@@ -66,5 +66,21 @@ namespace greenPointofSales.Models.Context
             };
             DBHelper.EksekusiNonQuery(query, parameters);
         }
+        public DataTable AmbilProdukBerdasarkanNama(string keyword)
+        {
+            string query = @"
+                SELECT p.id_produk, p.kode_produk, p.nama_produk, k.nama_kategori, 
+                p.harga_beli, p.harga_jual, p.stok, p.satuan, p.tanggal_masuk, p.is_nonaktif
+                FROM produk p
+                LEFT JOIN kategori k ON p.id_kategori = k.id_kategori
+                WHERE (p.nama_produk ILIKE @keyword OR p.kode_produk ILIKE @keyword) 
+                      AND p.is_nonaktif = false
+                ORDER BY p.nama_produk";
+
+            NpgsqlParameter[] parameters = {
+                new NpgsqlParameter("keyword", "%" + keyword + "%")
+            };
+            return DBHelper.EksekusiQuery(query, parameters);
+        }
     }
 }

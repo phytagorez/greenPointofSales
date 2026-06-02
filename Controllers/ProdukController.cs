@@ -40,5 +40,11 @@ namespace greenPointofSales.Controllers
         {
             _context.UpdateStok(idProduk, jumlahPerubahan);
         }
+        public DataTable CariProdukNama(string keyword)
+        {
+            if (string.IsNullOrEmpty(keyword))
+                return DapatkanSemuaProduk();
+            return _context.AmbilProdukBerdasarkanNama(keyword);
+        }
     }
 }

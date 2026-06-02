@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             flpKatalog = new FlowLayoutPanel();
-            cmbFilterKategori = new ComboBox();
             label1 = new Label();
             btnKSay = new Button();
             btnKBua = new Button();
@@ -46,32 +45,24 @@
             btnLogout = new Button();
             btnMenuProduk = new Button();
             btnMenuKaryawan = new Button();
+            btnKAll = new Button();
             ((System.ComponentModel.ISupportInitialize)pbMenu).BeginInit();
             SuspendLayout();
             // 
             // flpKatalog
             // 
             flpKatalog.BackColor = Color.White;
-            flpKatalog.Location = new Point(185, 94);
+            flpKatalog.Location = new Point(209, 94);
             flpKatalog.Name = "flpKatalog";
-            flpKatalog.Size = new Size(1091, 619);
+            flpKatalog.Size = new Size(970, 620);
             flpKatalog.TabIndex = 0;
-            // 
-            // cmbFilterKategori
-            // 
-            cmbFilterKategori.FormattingEnabled = true;
-            cmbFilterKategori.Location = new Point(632, 60);
-            cmbFilterKategori.Name = "cmbFilterKategori";
-            cmbFilterKategori.Size = new Size(151, 28);
-            cmbFilterKategori.TabIndex = 1;
-            cmbFilterKategori.SelectedIndexChanged += cmbFilterKategori_SelectedIndexChanged_1;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.FromArgb(148, 172, 137);
             label1.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(216, 60);
+            label1.Location = new Point(200, 17);
             label1.Name = "label1";
             label1.Size = new Size(0, 18);
             label1.TabIndex = 2;
@@ -81,7 +72,8 @@
             btnKSay.BackColor = Color.FromArgb(148, 172, 137);
             btnKSay.FlatStyle = FlatStyle.Flat;
             btnKSay.Font = new Font("Constantia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnKSay.Location = new Point(211, 60);
+            btnKSay.ForeColor = Color.Black;
+            btnKSay.Location = new Point(350, 60);
             btnKSay.Name = "btnKSay";
             btnKSay.Size = new Size(118, 28);
             btnKSay.TabIndex = 3;
@@ -94,7 +86,8 @@
             btnKBua.BackColor = Color.FromArgb(148, 172, 137);
             btnKBua.FlatStyle = FlatStyle.Flat;
             btnKBua.Font = new Font("Constantia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnKBua.Location = new Point(352, 60);
+            btnKBua.ForeColor = Color.Black;
+            btnKBua.Location = new Point(491, 60);
             btnKBua.Name = "btnKBua";
             btnKBua.Size = new Size(118, 28);
             btnKBua.TabIndex = 4;
@@ -107,7 +100,8 @@
             btnKBmb.BackColor = Color.FromArgb(148, 172, 137);
             btnKBmb.FlatStyle = FlatStyle.Flat;
             btnKBmb.Font = new Font("Constantia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnKBmb.Location = new Point(493, 60);
+            btnKBmb.ForeColor = Color.Black;
+            btnKBmb.Location = new Point(632, 60);
             btnKBmb.Name = "btnKBmb";
             btnKBmb.Size = new Size(118, 28);
             btnKBmb.TabIndex = 5;
@@ -117,7 +111,7 @@
             // 
             // panel1
             // 
-            panel1.Location = new Point(205, 69);
+            panel1.Location = new Point(209, 71);
             panel1.Name = "panel1";
             panel1.Size = new Size(421, 33);
             panel1.TabIndex = 11;
@@ -279,7 +273,7 @@
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
             btnMenuProduk.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuProduk.Location = new Point(29, 174);
+            btnMenuProduk.Location = new Point(27, 174);
             btnMenuProduk.Margin = new Padding(3, 4, 3, 4);
             btnMenuProduk.Name = "btnMenuProduk";
             btnMenuProduk.Size = new Size(149, 48);
@@ -312,6 +306,20 @@
             btnMenuKaryawan.UseVisualStyleBackColor = false;
             btnMenuKaryawan.Click += btnMenuKaryawan_Click;
             // 
+            // btnKAll
+            // 
+            btnKAll.BackColor = Color.FromArgb(148, 172, 137);
+            btnKAll.FlatStyle = FlatStyle.Flat;
+            btnKAll.Font = new Font("Constantia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnKAll.ForeColor = Color.Black;
+            btnKAll.Location = new Point(210, 60);
+            btnKAll.Name = "btnKAll";
+            btnKAll.Size = new Size(118, 28);
+            btnKAll.TabIndex = 23;
+            btnKAll.Text = "All";
+            btnKAll.TextAlign = ContentAlignment.TopCenter;
+            btnKAll.UseVisualStyleBackColor = false;
+            // 
             // FormKatalog
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -319,6 +327,7 @@
             BackgroundImage = Properties.Resources.AManajemen_Produk;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1280, 720);
+            Controls.Add(btnKAll);
             Controls.Add(pbMenu);
             Controls.Add(label2);
             Controls.Add(lblLaporan);
@@ -334,7 +343,6 @@
             Controls.Add(btnKBua);
             Controls.Add(btnKSay);
             Controls.Add(label1);
-            Controls.Add(cmbFilterKategori);
             Controls.Add(flpKatalog);
             Controls.Add(panel1);
             DoubleBuffered = true;
@@ -351,7 +359,6 @@
         #endregion
 
         private FlowLayoutPanel flpKatalog;
-        private ComboBox cmbFilterKategori;
         private Label label1;
         private Button btnKSay;
         private Button btnKBua;
@@ -368,5 +375,6 @@
         private Button btnLogout;
         private Button btnMenuProduk;
         private Button btnMenuKaryawan;
+        private Button btnKAll;
     }
 }

@@ -38,29 +38,31 @@
             // 
             // picQRIS
             // 
-            picQRIS.Location = new Point(57, 62);
+            picQRIS.BackgroundImage = Properties.Resources.Qris;
+            picQRIS.BackgroundImageLayout = ImageLayout.Zoom;
+            picQRIS.Location = new Point(67, 62);
             picQRIS.Name = "picQRIS";
-            picQRIS.Size = new Size(430, 564);
+            picQRIS.Size = new Size(404, 564);
             picQRIS.TabIndex = 0;
             picQRIS.TabStop = false;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Poppins", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(120, 9);
             label1.Name = "label1";
-            label1.Size = new Size(309, 50);
+            label1.Size = new Size(314, 32);
             label1.TabIndex = 1;
             label1.Text = "SCAN UNTUK BAYAR";
             // 
             // lblTotalQRIS
             // 
             lblTotalQRIS.AutoSize = true;
-            lblTotalQRIS.Font = new Font("Poppins", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTotalQRIS.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblTotalQRIS.Location = new Point(200, 629);
             lblTotalQRIS.Name = "lblTotalQRIS";
-            lblTotalQRIS.Size = new Size(118, 36);
+            lblTotalQRIS.Size = new Size(107, 25);
             lblTotalQRIS.TabIndex = 2;
             lblTotalQRIS.Text = "Total: Rp 0";
             // 
@@ -86,7 +88,7 @@
             // 
             // FormQRIS
             // 
-            AutoScaleDimensions = new SizeF(10F, 30F);
+            AutoScaleDimensions = new SizeF(10F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(540, 739);
             Controls.Add(btnBatalQRIS);
@@ -94,7 +96,7 @@
             Controls.Add(lblTotalQRIS);
             Controls.Add(label1);
             Controls.Add(picQRIS);
-            Font = new Font("Poppins", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
             Name = "FormQRIS";

@@ -47,15 +47,15 @@ namespace greenPointofSales
                 {
                     IdPengguna = idPengguna,
                     Username = username,
-                    Role = role,
-                    NamaLengkap = namaLengkap  // ← Simpan nama lengkap juga
+                    Role = role!,
+                    NamaLengkap = namaLengkap!  // ← Simpan nama lengkap juga
                 });
 
                 // 🎉 REVISI: Tampilkan welcome message sebelum buka dashboard
-                TampilkanWelcomeMessage(role, namaLengkap);
+                TampilkanWelcomeMessage(role!, namaLengkap!);
 
                 // 3. Buka dashboard setelah welcome message di-close
-                BukaDashboard(role);
+                BukaDashboard(role!);
             }
             catch (Exception ex)
             {

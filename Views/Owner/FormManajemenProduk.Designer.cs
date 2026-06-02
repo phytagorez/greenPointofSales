@@ -41,7 +41,7 @@
             dgvProduk = new DataGridView();
             btnBusuk = new Button();
             pbMenu = new PictureBox();
-            label2 = new Label();
+            lblMenu = new Label();
             lblLaporan = new Label();
             lblPengelolaan = new Label();
             lblMaster = new Label();
@@ -53,14 +53,25 @@
             btnMenuKaryawan = new Button();
             tbSearchBar = new Guna.UI2.WinForms.Guna2TextBox();
             cmbSatuan = new Guna.UI2.WinForms.Guna2ComboBox();
+            label1 = new Label();
+            label3 = new Label();
+            panel1 = new Panel();
+            label6 = new Label();
+            label5 = new Label();
+            panel2 = new Panel();
+            label7 = new Label();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvProduk).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbMenu).BeginInit();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // txtNamaProduk
             // 
             txtNamaProduk.BackColor = Color.White;
             txtNamaProduk.BorderStyle = BorderStyle.None;
+            txtNamaProduk.Font = new Font("Modern No. 20", 12F);
             txtNamaProduk.ForeColor = Color.Black;
             txtNamaProduk.Location = new Point(247, 495);
             txtNamaProduk.Multiline = true;
@@ -72,6 +83,7 @@
             // 
             txtHargaJual.BackColor = Color.White;
             txtHargaJual.BorderStyle = BorderStyle.None;
+            txtHargaJual.Font = new Font("Modern No. 20", 12F);
             txtHargaJual.ForeColor = Color.Black;
             txtHargaJual.Location = new Point(589, 604);
             txtHargaJual.Multiline = true;
@@ -83,6 +95,7 @@
             // 
             txtHargaBeli.BackColor = Color.White;
             txtHargaBeli.BorderStyle = BorderStyle.None;
+            txtHargaBeli.Font = new Font("Modern No. 20", 12F);
             txtHargaBeli.ForeColor = Color.Black;
             txtHargaBeli.Location = new Point(589, 495);
             txtHargaBeli.Multiline = true;
@@ -94,6 +107,7 @@
             // 
             txtStok.BackColor = Color.White;
             txtStok.BorderStyle = BorderStyle.None;
+            txtStok.Font = new Font("Modern No. 20", 12F);
             txtStok.ForeColor = Color.Black;
             txtStok.Location = new Point(247, 604);
             txtStok.Multiline = true;
@@ -107,11 +121,12 @@
             cmbKategori.BackColor = Color.White;
             cmbKategori.Cursor = Cursors.Hand;
             cmbKategori.FlatStyle = FlatStyle.Flat;
+            cmbKategori.Font = new Font("Modern No. 20", 12F);
             cmbKategori.ForeColor = Color.Black;
             cmbKategori.FormattingEnabled = true;
             cmbKategori.Location = new Point(931, 501);
             cmbKategori.Name = "cmbKategori";
-            cmbKategori.Size = new Size(233, 28);
+            cmbKategori.Size = new Size(233, 30);
             cmbKategori.TabIndex = 5;
             // 
             // btnSimpan
@@ -124,7 +139,7 @@
             btnSimpan.FlatStyle = FlatStyle.Flat;
             btnSimpan.Font = new Font("Modern No. 20", 12F);
             btnSimpan.ForeColor = Color.Black;
-            btnSimpan.Location = new Point(491, 657);
+            btnSimpan.Location = new Point(589, 657);
             btnSimpan.Name = "btnSimpan";
             btnSimpan.Size = new Size(94, 29);
             btnSimpan.TabIndex = 6;
@@ -142,6 +157,7 @@
             dgvProduk.RowHeadersWidth = 51;
             dgvProduk.Size = new Size(1009, 328);
             dgvProduk.TabIndex = 7;
+            dgvProduk.Click += tbSearchBar_TextChanged;
             // 
             // btnBusuk
             // 
@@ -153,7 +169,7 @@
             btnBusuk.FlatStyle = FlatStyle.Flat;
             btnBusuk.Font = new Font("Modern No. 20", 12F);
             btnBusuk.ForeColor = Color.Black;
-            btnBusuk.Location = new Point(850, 657);
+            btnBusuk.Location = new Point(728, 657);
             btnBusuk.Name = "btnBusuk";
             btnBusuk.Size = new Size(94, 29);
             btnBusuk.TabIndex = 14;
@@ -171,17 +187,18 @@
             pbMenu.TabIndex = 33;
             pbMenu.TabStop = false;
             // 
-            // label2
+            // lblMenu
             // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.Black;
-            label2.Location = new Point(67, 25);
-            label2.Name = "label2";
-            label2.Size = new Size(56, 22);
-            label2.TabIndex = 32;
-            label2.Text = "Menu";
+            lblMenu.AutoSize = true;
+            lblMenu.BackColor = Color.Transparent;
+            lblMenu.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblMenu.ForeColor = Color.Black;
+            lblMenu.Location = new Point(67, 25);
+            lblMenu.Name = "lblMenu";
+            lblMenu.Size = new Size(56, 22);
+            lblMenu.TabIndex = 32;
+            lblMenu.Text = "Menu";
+            lblMenu.TextChanged += tbSearchBar_TextChanged;
             // 
             // lblLaporan
             // 
@@ -377,24 +394,114 @@
             tbSearchBar.ShadowDecoration.CustomizableEdges = customizableEdges6;
             tbSearchBar.Size = new Size(300, 30);
             tbSearchBar.TabIndex = 34;
+            tbSearchBar.TextChanged += tbSearchBar_TextChanged;
             // 
             // cmbSatuan
             // 
-            cmbSatuan.BackColor = Color.Transparent;
+            cmbSatuan.BackColor = Color.White;
             cmbSatuan.CustomizableEdges = customizableEdges7;
             cmbSatuan.DrawMode = DrawMode.OwnerDrawFixed;
             cmbSatuan.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSatuan.FocusedColor = Color.FromArgb(94, 148, 255);
             cmbSatuan.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            cmbSatuan.Font = new Font("Segoe UI", 10F);
-            cmbSatuan.ForeColor = Color.FromArgb(68, 88, 112);
+            cmbSatuan.Font = new Font("Modern No. 20", 12F);
+            cmbSatuan.ForeColor = Color.Black;
             cmbSatuan.ItemHeight = 30;
             cmbSatuan.Items.AddRange(new object[] { "Ikat", "Kg", "Pcs" });
             cmbSatuan.Location = new Point(931, 604);
             cmbSatuan.Name = "cmbSatuan";
             cmbSatuan.ShadowDecoration.CustomizableEdges = customizableEdges8;
             cmbSatuan.Size = new Size(233, 36);
+            cmbSatuan.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
             cmbSatuan.TabIndex = 35;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(684, 1);
+            label1.Name = "label1";
+            label1.Size = new Size(150, 26);
+            label1.TabIndex = 36;
+            label1.Text = "Satuan Produk";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.FromArgb(148, 172, 137);
+            label3.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(350, 2);
+            label3.Name = "label3";
+            label3.Size = new Size(108, 26);
+            label3.TabIndex = 37;
+            label3.Text = "Harga Beli";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(148, 172, 137);
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(label5);
+            panel1.Controls.Add(label3);
+            panel1.Location = new Point(247, 463);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(917, 30);
+            panel1.TabIndex = 38;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.BackColor = Color.Transparent;
+            label6.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Location = new Point(1, 2);
+            label6.Name = "label6";
+            label6.Size = new Size(141, 26);
+            label6.TabIndex = 39;
+            label6.Text = "Nama Produk";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.Transparent;
+            label5.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(684, 2);
+            label5.Name = "label5";
+            label5.Size = new Size(91, 26);
+            label5.TabIndex = 38;
+            label5.Text = "Kategori";
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.FromArgb(148, 172, 137);
+            panel2.Controls.Add(label7);
+            panel2.Controls.Add(label4);
+            panel2.Controls.Add(label1);
+            panel2.Location = new Point(247, 573);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(917, 30);
+            panel2.TabIndex = 39;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.BackColor = Color.FromArgb(148, 172, 137);
+            label7.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Location = new Point(1, 1);
+            label7.Name = "label7";
+            label7.Size = new Size(130, 26);
+            label7.TabIndex = 38;
+            label7.Text = "Stok Produk";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.FromArgb(148, 172, 137);
+            label4.Font = new Font("Times New Roman", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(350, 2);
+            label4.Name = "label4";
+            label4.Size = new Size(109, 26);
+            label4.TabIndex = 37;
+            label4.Text = "Harga Jual";
             // 
             // FormManajemenProduk
             // 
@@ -402,10 +509,11 @@
             BackColor = Color.White;
             BackgroundImage = Properties.Resources.Produk_O;
             ClientSize = new Size(1280, 720);
+            Controls.Add(panel1);
             Controls.Add(cmbSatuan);
             Controls.Add(tbSearchBar);
             Controls.Add(pbMenu);
-            Controls.Add(label2);
+            Controls.Add(lblMenu);
             Controls.Add(lblLaporan);
             Controls.Add(lblPengelolaan);
             Controls.Add(lblMaster);
@@ -423,6 +531,7 @@
             Controls.Add(txtHargaBeli);
             Controls.Add(txtHargaJual);
             Controls.Add(txtNamaProduk);
+            Controls.Add(panel2);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormManajemenProduk";
@@ -430,6 +539,10 @@
             Text = "FormManajemenProduk";
             ((System.ComponentModel.ISupportInitialize)dgvProduk).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbMenu).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -445,7 +558,7 @@
         private DataGridView dgvProduk;
         private Button btnBusuk;
         private PictureBox pbMenu;
-        private Label label2;
+        private Label lblMenu;
         private Label lblLaporan;
         private Label lblPengelolaan;
         private Label lblMaster;
@@ -457,5 +570,13 @@
         private Button btnMenuKaryawan;
         private Guna.UI2.WinForms.Guna2TextBox tbSearchBar;
         private Guna.UI2.WinForms.Guna2ComboBox cmbSatuan;
+        private Label label1;
+        private Label label3;
+        private Panel panel1;
+        private Label label6;
+        private Label label5;
+        private Panel panel2;
+        private Label label7;
+        private Label label4;
     }
 }

@@ -13,13 +13,14 @@ namespace greenPointofSales.Views
 {
     public partial class FormTransaksi : Form
     {
-        private TransaksiModel _transaksiAktif;
+        private TransaksiModel? _transaksiAktif;
         private readonly ProdukController _produkController = new ProdukController();
         private readonly TransaksiContext _transaksiContext = new TransaksiContext();
 
         private Dictionary<int, string> _satuanProduk = new Dictionary<int, string>();
         private Dictionary<int, decimal> _stokProduk = new Dictionary<int, decimal>();
-
+        private DataTable _dtProdukSemua = new DataTable();
+        private int _idKategoriAktif = 0;
         public FormTransaksi()
         {
             InitializeComponent();
@@ -58,8 +59,20 @@ namespace greenPointofSales.Views
             }
             cmbMetodeBayar.SelectedIndex = 0;
 
+            var kasir = SesiPengguna.PenggunaAktif;
+            if (kasir != null)
+            {
+                tbNamaKasir.Text = $"{kasir.NamaLengkap}";
+            }
+            else
+            {
+                tbNamaKasir.Text = "-";
+            }
+
             MuatKatalogProduk();
             HitungTotalBawah();
+
+            tbSearchTrans.TextChanged += tbSearchTrans_TextChanged;
         }
 
         private string GenerateNoInvoice()
@@ -70,13 +83,18 @@ namespace greenPointofSales.Views
             return prefix + (count + 1).ToString("D3");
         }
 
-        private void MuatKatalogProduk()
+        private void MuatKatalogProduk(DataTable? dtOverride = null)
         {
             flpKatalog.Controls.Clear();
             _satuanProduk.Clear();
             _stokProduk.Clear();
 
-            DataTable dtProduk = _produkController.DapatkanKatalogProduk();
+            if (dtOverride == null)
+            {
+                _dtProdukSemua = _produkController.DapatkanKatalogProduk();
+            }
+
+            DataTable dtProduk = dtOverride ?? _dtProdukSemua;
 
             foreach (DataRow row in dtProduk.Rows)
             {
@@ -121,7 +139,7 @@ namespace greenPointofSales.Views
             string satuan = _satuanProduk.ContainsKey(id) ? _satuanProduk[id] : "Pcs";
             decimal takaran = satuan.ToLower() == "kg" ? 0.25m : 1m;
 
-            var itemAda = _transaksiAktif.Items.Find(x => x.IdProduk == id);
+            var itemAda = _transaksiAktif?.Items.Find(x => x.IdProduk == id);
 
             if (itemAda != null && (itemAda.Jumlah + takaran) > stokMaks)
             {
@@ -135,7 +153,7 @@ namespace greenPointofSales.Views
             }
 
             DetailTransaksiModel itemBaru = new DetailTransaksiModel(id, nama, takaran, harga);
-            _transaksiAktif.TambahItem(itemBaru);
+            _transaksiAktif?.TambahItem(itemBaru);
 
             RenderUlangKeranjang();
             HitungTotalBawah();
@@ -145,7 +163,7 @@ namespace greenPointofSales.Views
         {
             flpKeranjang.Controls.Clear();
 
-            foreach (var item in _transaksiAktif.Items)
+            foreach (var item in _transaksiAktif!.Items)
             {
                 string satuan = _satuanProduk.ContainsKey(item.IdProduk) ? _satuanProduk[item.IdProduk] : "Pcs";
                 decimal takaran = satuan.ToLower() == "kg" ? 0.25m : 1m;
@@ -202,7 +220,7 @@ namespace greenPointofSales.Views
 
         private void HitungTotalBawah()
         {
-            lblTotalHarga.Text = $"Rp {_transaksiAktif.TotalHarga:N0}";
+            lblTotalHarga.Text = $"Rp {_transaksiAktif?.TotalHarga:N0}";
             HitungKembalianManual();
         }
 
@@ -231,7 +249,7 @@ namespace greenPointofSales.Views
 
             if (decimal.TryParse(txtUangBayar.Text, out decimal uangMasuk))
             {
-                decimal totalBelanja = _transaksiAktif.TotalHarga;
+                decimal totalBelanja = _transaksiAktif!.TotalHarga;
                 decimal sisaKembalian = uangMasuk - totalBelanja;
 
                 if (sisaKembalian >= 0)
@@ -295,9 +313,9 @@ namespace greenPointofSales.Views
         {
             try
             {
-                int idTrxBaru = _transaksiContext.InsertHeader(_transaksiAktif);
+                int idTrxBaru = _transaksiContext.InsertHeader(_transaksiAktif!);
 
-                foreach (var item in _transaksiAktif.Items)
+                foreach (var item in _transaksiAktif!.Items)
                 {
                     decimal jumlahKeluar = item.Jumlah * -1m;
                     _produkController.UpdateStok(item.IdProduk, jumlahKeluar);
@@ -312,6 +330,93 @@ namespace greenPointofSales.Views
             catch (Exception ex)
             {
                 UIHelper.Error("Gagal menyimpan transaksi ke database:\n" + ex.Message);
+            }
+        }
+        private void tbSearchTrans_TextChanged(object? sender, EventArgs e)
+        {
+            string keyword = tbSearchTrans.Text.Trim().ToLower();
+
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                MuatKatalogProduk(_dtProdukSemua);
+                return;
+            }
+
+            DataTable dtFiltered = _dtProdukSemua.Clone();
+
+            foreach (DataRow row in _dtProdukSemua.Rows)
+            {
+                string nama = row["nama_produk"]?.ToString()?.ToLower() ?? "";
+
+                if (nama.Contains(keyword))
+                {
+                    dtFiltered.ImportRow(row);
+                }
+            }
+
+            MuatKatalogProduk(dtFiltered);
+
+            if (dtFiltered.Rows.Count == 0)
+            {
+                Label lblKosong = new Label
+                {
+                    Text = $"Produk \"{tbSearchTrans.Text}\" tidak ditemukan.",
+                    ForeColor = Color.Gray,
+                    Font = new Font("Segoe UI", 9, FontStyle.Italic),
+                    AutoSize = true,
+                    Margin = new Padding(10)
+                };
+                flpKatalog.Controls.Add(lblKosong);
+            }
+        }
+        private void FilterKategori(int idKategori)
+        {
+            _idKategoriAktif = idKategori;
+            tbSearchTrans.Text = "";
+            _dtProdukSemua = _produkController.DapatkanKatalogProduk(idKategori);
+            MuatKatalogProduk(_dtProdukSemua);
+        }
+        private void btnKAll_Click(object sender, EventArgs e)
+        {
+            FilterKategori(0);
+        }
+
+        private void btnKSay_Click(object sender, EventArgs e)
+        {
+            FilterKategori(1);
+        }
+
+        private void btnKBua_Click(object sender, EventArgs e)
+        {
+            FilterKategori(2);
+        }
+
+        private void btnKBmb_Click(object sender, EventArgs e)
+        {
+            FilterKategori(3);
+        }
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            string nama = SesiPengguna.PenggunaAktif?.Username ?? "Pengguna";
+            string role = SesiPengguna.PenggunaAktif?.Role ?? "Sistem";
+
+            bool yakinKeluar = UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?");
+
+            if (yakinKeluar)
+            {
+                SesiPengguna.Logout();
+
+                for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+                {
+                    var formAktif = Application.OpenForms[i];
+
+                    if (formAktif != null && formAktif.Name != "FormLogin")
+                    {
+                        formAktif.Close();
+                    }
+                }
+
+                Application.OpenForms["FormLogin"]?.Show();
             }
         }
     }

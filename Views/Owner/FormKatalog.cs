@@ -15,6 +15,7 @@ namespace greenPointofSales.Views
     {
         private readonly ProdukController _controller = new ProdukController();
         private List<ProductCardData> _currentProducts = new List<ProductCardData>();
+        private Button? btnKategoriAktif = null;
 
         private static class UIConstants
         {
@@ -79,9 +80,6 @@ namespace greenPointofSales.Views
         {
             try
             {
-                cmbFilterKategori.SelectedIndexChanged -= cmbFilterKategori_SelectedIndexChanged;
-                cmbFilterKategori.DataSource = null;
-
                 DataTable dtKategori = _controller.DapatkanKategori();
 
                 if (dtKategori == null || dtKategori.Rows.Count == 0)
@@ -89,73 +87,71 @@ namespace greenPointofSales.Views
                     MessageBox.Show("Database kategori kosong atau tidak terhubung.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+                btnKAll.Tag = 0;
+                InisialisasiEventTombol(btnKAll);
 
-                if (!dtKategori.Columns.Contains("id_kategori") || !dtKategori.Columns.Contains("nama_kategori"))
-                {
-                    MessageBox.Show("Struktur database tidak sesuai.\nKolom 'id_kategori' atau 'nama_kategori' tidak ditemukan.", "Error Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                DataTable dtFiltered = new DataTable();
-                dtFiltered.Columns.Add("id_kategori", typeof(int));
-                dtFiltered.Columns.Add("nama_kategori", typeof(string));
-
-                DataRow rowSemua = dtFiltered.NewRow();
-                rowSemua["id_kategori"] = 0;
-                rowSemua["nama_kategori"] = "All";
-                dtFiltered.Rows.Add(rowSemua);
-
+                // Set tombol All sebagai tombol aktif pertama kali
+                SetTombolAktif(btnKAll);
                 foreach (DataRow row in dtKategori.Rows)
                 {
-                    DataRow newRow = dtFiltered.NewRow();
-                    newRow["id_kategori"] = row["id_kategori"];
-                    newRow["nama_kategori"] = row["nama_kategori"];
-                    dtFiltered.Rows.Add(newRow);
+                    int idKategori = Convert.ToInt32(row["id_kategori"]);
+                    string namaKategori = row["nama_kategori"]?.ToString() ?? "";
+
+                    if (namaKategori.ToLower().Contains("sayur"))
+                    {
+                        btnKSay.Tag = idKategori;
+                        InisialisasiEventTombol(btnKSay);
+                    }
+                    else if (namaKategori.ToLower().Contains("buah"))
+                    {
+                        btnKBua.Tag = idKategori;
+                        InisialisasiEventTombol(btnKBua);
+                    }
+                    else if (namaKategori.ToLower().Contains("bumbu"))
+                    {
+                        btnKBmb.Tag = idKategori;
+                        InisialisasiEventTombol(btnKBmb);
+                    }
                 }
-
-                cmbFilterKategori.DataSource = dtFiltered;
-                cmbFilterKategori.DisplayMember = "nama_kategori";
-                cmbFilterKategori.ValueMember = "id_kategori";
-                cmbFilterKategori.SelectedIndex = 0;
-
-                cmbFilterKategori.SelectedIndexChanged += cmbFilterKategori_SelectedIndexChanged;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saat memuat kategori:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error saat inisialisasi tombol kategori:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void cmbFilterKategori_SelectedIndexChanged(object? sender, EventArgs e)
+        private void InisialisasiEventTombol(Button btn)
         {
-            try
+            btn.Click -= TombolKategori_Click;
+            btn.Click += TombolKategori_Click;
+
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.Cursor = Cursors.Hand;
+        }
+        private void TombolKategori_Click(object? sender, EventArgs e)
+        {
+            if (sender is Button btnTerpilih)
             {
-                if (cmbFilterKategori.SelectedValue == null) return;
+                SetTombolAktif(btnTerpilih);
 
-                int idTerpilih = 0;
-                object val = cmbFilterKategori.SelectedValue;
-
-                if (val is int id)
-                {
-                    idTerpilih = id;
-                }
-                else if (val is DataRowView drv)
-                {
-                    idTerpilih = Convert.ToInt32(drv["id_kategori"]);
-                }
-                else if (val != null && int.TryParse(val.ToString(), out int parsedId))
-                {
-                    idTerpilih = parsedId;
-                }
+                int idTerpilih = Convert.ToInt32(btnTerpilih.Tag ?? 0);
 
                 TampilkanKatalog(idTerpilih);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error saat filter kategori:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
+        private void SetTombolAktif(Button btnBaru)
+        {
+            if (btnKategoriAktif != null)
+            {
+                btnKategoriAktif.BackColor = Color.FromArgb(163, 177, 138);
+                btnKategoriAktif.ForeColor = Color.White;
+            }
 
+            btnBaru.BackColor = Color.FromArgb(114, 140, 107);
+            btnBaru.ForeColor = Color.White;
+
+            btnKategoriAktif = btnBaru;
+        }
         private void TampilkanKatalog(int idKategori)
         {
             try
@@ -609,8 +605,16 @@ namespace greenPointofSales.Views
         /// </summary>
         private void RefreshCatalog()
         {
-            int selectedCategory = Convert.ToInt32(cmbFilterKategori.SelectedValue ?? 0);
+            int selectedCategory = 0;
+
+            if (btnKategoriAktif != null && btnKategoriAktif.Tag != null)
+            {
+                selectedCategory = Convert.ToInt32(btnKategoriAktif.Tag);
+            }
+
             TampilkanKatalog(selectedCategory);
+            //int selectedCategory = Convert.ToInt32(cmbFilterKategori.SelectedValue ?? 0);
+            //TampilkanKatalog(selectedCategory);
         }
         private void btnMenuDashboard_Click(object sender, EventArgs e)
         {

@@ -68,5 +68,40 @@ namespace greenPointofSales.Models
 
             DBHelper.EksekusiNonQuery(query, parameters);
         }
+        public DataTable CariKaryawan(string keyword)
+        {
+            string query = @"
+                SELECT username, nama_lengkap, jenis_kelamin, no_hp, email, tgl_lahir, tgl_mulai_kerja, is_active 
+                FROM pengguna 
+                WHERE role = 'Kasir'
+                  AND (
+                      LOWER(username)     LIKE LOWER(@keyword) OR
+                      LOWER(nama_lengkap) LIKE LOWER(@keyword) OR
+                      LOWER(email)        LIKE LOWER(@keyword) OR
+                      LOWER(no_hp)        LIKE LOWER(@keyword)
+                  )
+                ORDER BY tgl_mulai_kerja DESC";
+
+            NpgsqlParameter[] parameters = {
+                new NpgsqlParameter("keyword", $"%{keyword}%")
+            };
+
+            return DBHelper.EksekusiQuery(query, parameters);
+        }
+        public DataTable AmbilKaryawanBerdasarkanNama(string keyword)
+        {
+            string query = @"
+                SELECT username, nama_lengkap, jenis_kelamin, no_hp, email, tgl_lahir, tgl_mulai_kerja, is_active
+                FROM pengguna
+                WHERE role = 'Kasir' 
+                      AND (nama_lengkap ILIKE @keyword OR username ILIKE @keyword)
+                ORDER BY nama_lengkap";
+
+            NpgsqlParameter[] parameters = {
+                new NpgsqlParameter("keyword", "%" + keyword + "%")
+            };
+
+            return DBHelper.EksekusiQuery(query, parameters);
+        }
     }
 }

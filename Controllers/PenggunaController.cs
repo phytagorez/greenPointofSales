@@ -69,5 +69,12 @@ namespace greenPointofSales.Controllers
             }
             _context.UpdateDataKaryawan(pengguna);
         }
+        public DataTable CariKaryawan(string keyword)
+        {
+            if (string.IsNullOrWhiteSpace(keyword))
+                return DapatkanSemuaKaryawan();
+
+            return _context.CariKaryawan(keyword);
+        }
     }
 }

@@ -101,7 +101,7 @@
             btnSimpan.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnSimpan.FlatStyle = FlatStyle.Flat;
             btnSimpan.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnSimpan.Location = new Point(494, 387);
+            btnSimpan.Location = new Point(497, 394);
             btnSimpan.Name = "btnSimpan";
             btnSimpan.Size = new Size(100, 35);
             btnSimpan.TabIndex = 8;
@@ -191,7 +191,7 @@
             btnNonaktifkan.FlatStyle = FlatStyle.Flat;
             btnNonaktifkan.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnNonaktifkan.ForeColor = SystemColors.ControlText;
-            btnNonaktifkan.Location = new Point(641, 394);
+            btnNonaktifkan.Location = new Point(644, 394);
             btnNonaktifkan.Name = "btnNonaktifkan";
             btnNonaktifkan.Size = new Size(165, 35);
             btnNonaktifkan.TabIndex = 17;
@@ -219,6 +219,7 @@
             label2.Size = new Size(56, 22);
             label2.TabIndex = 27;
             label2.Text = "Menu";
+            label2.TextChanged += tbSearchBar_TextChanged;
             // 
             // lblLaporan
             // 
@@ -411,6 +412,7 @@
             tbSearchBar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             tbSearchBar.Size = new Size(300, 30);
             tbSearchBar.TabIndex = 29;
+            tbSearchBar.TextChanged += tbSearchBar_TextChanged;
             // 
             // btnUpdate
             // 
@@ -464,6 +466,7 @@
             Name = "FormTambahKaryawan";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormTambahKaryawan";
+            Click += tbSearchBar_TextChanged;
             ((System.ComponentModel.ISupportInitialize)dgvKaryawan).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbMenu).EndInit();
             ResumeLayout(false);
