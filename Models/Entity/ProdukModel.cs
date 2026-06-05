@@ -126,6 +126,7 @@ namespace greenPointofSales.Models.Entity
 
             KodeProduk = $"{singkatan}-{angka}";
         }
+        //pakek query (trigger) 1
 
         public override string TampilkanDetail()
         {

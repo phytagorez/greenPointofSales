@@ -189,6 +189,7 @@
             btnLaporan.Text = "   Laporan";
             btnLaporan.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnLaporan.UseVisualStyleBackColor = false;
+            btnLaporan.Click += btnLaporan_Click;
             // 
             // lblMaster
             // 

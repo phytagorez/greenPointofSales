@@ -161,7 +161,7 @@ namespace greenPointofSales
 
             string username = dgvKaryawan.SelectedRows[0].Cells["username"]?.Value?.ToString() ?? string.Empty;
             bool statusSaatIni = Convert.ToBoolean(dgvKaryawan.SelectedRows[0].Cells["is_active"]?.Value ?? false);
-            string userLogin = SesiPengguna.PenggunaAktif?.Username ?? string.Empty;
+            string userLogin = SesiPenggunaModel.PenggunaAktif?.Username ?? string.Empty;
 
             //self-deactivation protection
             if (username.ToLower() == "ejak")
@@ -229,14 +229,14 @@ namespace greenPointofSales
         }
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            string nama = SesiPengguna.PenggunaAktif?.Username ?? "Pengguna";
-            string role = SesiPengguna.PenggunaAktif?.Role ?? "Sistem";
+            string nama = SesiPenggunaModel.PenggunaAktif?.Username ?? "Pengguna";
+            string role = SesiPenggunaModel.PenggunaAktif?.Role ?? "Sistem";
 
             bool yakinKeluar = UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?");
 
             if (yakinKeluar)
             {
-                SesiPengguna.Logout();
+                SesiPenggunaModel.Logout();
 
                 for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
                 {

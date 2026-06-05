@@ -46,5 +46,10 @@ namespace greenPointofSales.Controllers
                 return DapatkanSemuaProduk();
             return _context.AmbilProdukBerdasarkanNama(keyword);
         }
+
+        public int AmbilTotalStokKritis(decimal batas = 5)
+        {
+            return _context.DapatkanJumlahStokKritis(batas);
+        }
     }
 }

@@ -633,14 +633,14 @@ namespace greenPointofSales.Views
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            string nama = SesiPengguna.PenggunaAktif?.Username ?? "Pengguna";
-            string role = SesiPengguna.PenggunaAktif?.Role ?? "Sistem";
+            string nama = SesiPenggunaModel.PenggunaAktif?.Username ?? "Pengguna";
+            string role = SesiPenggunaModel.PenggunaAktif?.Role ?? "Sistem";
 
             bool yakinKeluar = UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?");
 
             if (yakinKeluar)
             {
-                SesiPengguna.Logout();
+                SesiPenggunaModel.Logout();
 
                 for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
                 {

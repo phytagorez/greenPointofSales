@@ -1,4 +1,5 @@
-﻿using greenPointofSales.Models;
+﻿using greenPointofSales.Helpers;
+using greenPointofSales.Models;
 using greenPointofSales.Models.Context;
 using greenPointofSales.Models.Entity;
 using System;
@@ -11,17 +12,43 @@ namespace greenPointofSales.Controllers
         private readonly PenggunaContext _context = new PenggunaContext();
         private readonly SesiPenggunaContext _sesiContext = new SesiPenggunaContext();
 
-        public string? AutentikasiLogin(string username, string password)
+        public string? ProsesLogin(string username, string password)
         {
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
+                throw new ArgumentException("Username dan Password tidak boleh kosong.");
+            }
+
+            // KUNCI UTAMA: Pastikan id_pengguna, role, dan nama_lengkap ikut di-SELECT!
+            string query = "SELECT id_pengguna, role, nama_lengkap FROM pengguna WHERE username=@u AND password=@p AND is_active=true";
+
+            Npgsql.NpgsqlParameter[] parameters = {
+        new Npgsql.NpgsqlParameter("u", username.Trim()),
+        new Npgsql.NpgsqlParameter("p", password)
+    };
+
+            // Eksekusi ke database
+            DataTable dtUser = DBHelper.EksekusiQuery(query, parameters);
+
+            // Jika data tidak ditemukan
+            if (dtUser.Rows.Count == 0)
+            {
                 return null;
             }
-            else
+
+            // Pemetaan ke model (Eror kemarin terjadi karena id_pengguna di bawah ini dicari tapi di SELECT atas ga ada)
+            var pengguna = new PenggunaModel
             {
-                string? role = _sesiContext.ValidasiLogin(username, password);
-                return role;
-            }
+                IdPengguna = Convert.ToInt32(dtUser.Rows[0]["id_pengguna"]),
+                Username = username.Trim(),
+                Role = dtUser.Rows[0]["role"].ToString() ?? "",
+                NamaLengkap = dtUser.Rows[0]["nama_lengkap"].ToString() ?? ""
+            };
+
+            // Daftarkan ke sesi aktif
+            SesiPenggunaModel.Login(pengguna);
+
+            return pengguna.Role;
         }
 
         public void TambahKaryawan(PenggunaModel pengguna)

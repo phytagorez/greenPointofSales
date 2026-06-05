@@ -28,19 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             splitContainer1 = new SplitContainer();
             flpKatalog = new FlowLayoutPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
             pnlCheckout = new Panel();
+            label3 = new Label();
+            btnBayar = new Button();
             pnlTunai = new Panel();
             label2 = new Label();
             lblKembalian = new Label();
             txtUangBayar = new TextBox();
-            btnBayar = new Button();
             lblTotalHarga = new Label();
             label1 = new Label();
             cmbMetodeBayar = new ComboBox();
@@ -56,7 +57,6 @@
             lblNamaKasir = new Label();
             tbNamaKasir = new TextBox();
             btnLogout = new Button();
-            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -114,6 +114,7 @@
             // 
             pnlCheckout.BackColor = Color.FromArgb(148, 172, 137);
             pnlCheckout.Controls.Add(label3);
+            pnlCheckout.Controls.Add(btnBayar);
             pnlCheckout.Controls.Add(pnlTunai);
             pnlCheckout.Controls.Add(lblTotalHarga);
             pnlCheckout.Controls.Add(label1);
@@ -123,10 +124,30 @@
             pnlCheckout.Size = new Size(297, 215);
             pnlCheckout.TabIndex = 1;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(15, 54);
+            label3.Name = "label3";
+            label3.Size = new Size(115, 22);
+            label3.TabIndex = 4;
+            label3.Text = "Pembayaran:";
+            // 
+            // btnBayar
+            // 
+            btnBayar.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnBayar.Location = new Point(192, 11);
+            btnBayar.Name = "btnBayar";
+            btnBayar.Size = new Size(94, 29);
+            btnBayar.TabIndex = 5;
+            btnBayar.Text = "Bayar";
+            btnBayar.UseVisualStyleBackColor = true;
+            btnBayar.Click += btnBayar_Click;
+            // 
             // pnlTunai
             // 
             pnlTunai.Controls.Add(label2);
-            pnlTunai.Controls.Add(btnBayar);
             pnlTunai.Controls.Add(lblKembalian);
             pnlTunai.Controls.Add(txtUangBayar);
             pnlTunai.Location = new Point(0, 83);
@@ -162,17 +183,6 @@
             txtUangBayar.Size = new Size(125, 29);
             txtUangBayar.TabIndex = 0;
             txtUangBayar.TextChanged += txtUangBayar_TextChanged;
-            // 
-            // btnBayar
-            // 
-            btnBayar.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnBayar.Location = new Point(96, 98);
-            btnBayar.Name = "btnBayar";
-            btnBayar.Size = new Size(94, 29);
-            btnBayar.TabIndex = 5;
-            btnBayar.Text = "Bayar";
-            btnBayar.UseVisualStyleBackColor = true;
-            btnBayar.Click += btnBayar_Click;
             // 
             // lblTotalHarga
             // 
@@ -219,7 +229,7 @@
             tbSearchTrans.BackColor = Color.Transparent;
             tbSearchTrans.BorderColor = Color.Transparent;
             tbSearchTrans.BorderRadius = 15;
-            tbSearchTrans.CustomizableEdges = customizableEdges5;
+            tbSearchTrans.CustomizableEdges = customizableEdges1;
             tbSearchTrans.DefaultText = "";
             tbSearchTrans.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             tbSearchTrans.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -237,7 +247,7 @@
             tbSearchTrans.PlaceholderForeColor = Color.Black;
             tbSearchTrans.PlaceholderText = "Cari Produk...";
             tbSearchTrans.SelectedText = "";
-            tbSearchTrans.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            tbSearchTrans.ShadowDecoration.CustomizableEdges = customizableEdges2;
             tbSearchTrans.Size = new Size(300, 30);
             tbSearchTrans.TabIndex = 1;
             // 
@@ -315,12 +325,12 @@
             // guna2PictureBox1
             // 
             guna2PictureBox1.BackgroundImage = Properties.Resources.list;
-            guna2PictureBox1.CustomizableEdges = customizableEdges7;
+            guna2PictureBox1.CustomizableEdges = customizableEdges3;
             guna2PictureBox1.FillColor = Color.Transparent;
             guna2PictureBox1.ImageRotate = 0F;
             guna2PictureBox1.Location = new Point(488, 41);
             guna2PictureBox1.Name = "guna2PictureBox1";
-            guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges4;
             guna2PictureBox1.Size = new Size(0, 0);
             guna2PictureBox1.TabIndex = 29;
             guna2PictureBox1.TabStop = false;
@@ -381,16 +391,6 @@
             btnLogout.UseVisualStyleBackColor = false;
             btnLogout.Click += btnLogout_Click;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(15, 54);
-            label3.Name = "label3";
-            label3.Size = new Size(115, 22);
-            label3.TabIndex = 4;
-            label3.Text = "Pembayaran:";
-            // 
             // FormTransaksi
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -412,6 +412,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
             Name = "FormTransaksi";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "FormTransaksi";
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);

@@ -101,7 +101,7 @@ namespace greenPointofSales.Models.Entity
             set
             {
                 int umur = DateTime.Now.Year - value.Year;
-                if (value.Date > DateTime.Now.AddYears(-umur)) umur--; //validasi kabisat/bulan
+                if (value.Date > DateTime.Now.AddYears(-umur)) umur--;
 
                 if (umur < 17)
                     throw new ArgumentException("Karyawan tidak boleh di bawah umur (minimal 17 tahun).");

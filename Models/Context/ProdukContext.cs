@@ -1,6 +1,7 @@
 ﻿using greenPointofSales.Helpers;
 using greenPointofSales.Models.Entity;
 using Npgsql;
+using System;
 using System.Data;
 
 namespace greenPointofSales.Models.Context
@@ -57,15 +58,45 @@ namespace greenPointofSales.Models.Context
             return DBHelper.EksekusiQuery(query, parameters);
         }
 
-        public void UpdateStok(int idProduk, decimal jumlahPerubahan)
+        // PERBAIKAN DI SINI: Tambahkan jenisTransaksi dan keterangan di dalam kurung parameter
+        public void UpdateStok(int idProduk, decimal jumlahPerubahan, string jenisTransaksi = "Penyesuaian Manual", string keterangan = "Update dari sistem")
         {
-            string query = "UPDATE produk SET stok = GREATEST(stok + @p_jumlah, 0) WHERE id_produk = @p_id";
-            NpgsqlParameter[] parameters = {
-                new NpgsqlParameter("p_jumlah", jumlahPerubahan),
-                new NpgsqlParameter("p_id", idProduk)
-            };
-            DBHelper.EksekusiNonQuery(query, parameters);
+            using (var conn = DBHelper.BukaKoneksi())
+            using (var tx = conn.BeginTransaction())
+            {
+                try
+                {
+                    // 1. Update tabel produk
+                    string queryUpdate = "UPDATE produk SET stok = GREATEST(stok + @jumlah, 0) WHERE id_produk = @id";
+                    using (var cmd = new NpgsqlCommand(queryUpdate, conn, tx))
+                    {
+                        cmd.Parameters.AddWithValue("jumlah", jumlahPerubahan);
+                        cmd.Parameters.AddWithValue("id", idProduk);
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // 2. Catat ke riwayat
+                    string queryRiwayat = @"INSERT INTO riwayat_stok (id_produk, perubahan_stok, jenis_transaksi, keterangan) 
+                                    VALUES (@id, @jumlah, @jenis, @ket)";
+                    using (var cmdHist = new NpgsqlCommand(queryRiwayat, conn, tx))
+                    {
+                        cmdHist.Parameters.AddWithValue("id", idProduk);
+                        cmdHist.Parameters.AddWithValue("jumlah", jumlahPerubahan);
+                        cmdHist.Parameters.AddWithValue("jenis", jenisTransaksi);
+                        cmdHist.Parameters.AddWithValue("ket", keterangan);
+                        cmdHist.ExecuteNonQuery();
+                    }
+
+                    tx.Commit();
+                }
+                catch
+                {
+                    tx.Rollback();
+                    throw;
+                }
+            }
         }
+
         public DataTable AmbilProdukBerdasarkanNama(string keyword)
         {
             string query = @"
@@ -81,6 +112,17 @@ namespace greenPointofSales.Models.Context
                 new NpgsqlParameter("keyword", "%" + keyword + "%")
             };
             return DBHelper.EksekusiQuery(query, parameters);
+        }
+
+        public int DapatkanJumlahStokKritis(decimal batas)
+        {
+            string query = "SELECT fn_hitung_stok_kritis(@batas)";
+            NpgsqlParameter[] parameters = {
+                new NpgsqlParameter("batas", batas)
+            };
+
+            object? result = DBHelper.EksekusiScalar(query, parameters);
+            return Convert.ToInt32(result ?? 0);
         }
     }
 }

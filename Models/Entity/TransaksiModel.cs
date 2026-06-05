@@ -9,10 +9,22 @@ namespace greenPointofSales.Models.Entity
         private string _noInvoice = string.Empty;
         private int _idPengguna;
         private decimal _totalBayar;
+        private string _metodePembayaran = "Tunai";
 
         public List<DetailTransaksiModel> Items { get; private set; }
 
         public DateTime TglTransaksi { get; set; }
+
+        public string MetodePembayaran
+        {
+            get { return _metodePembayaran; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Metode pembayaran harus ditentukan.");
+                _metodePembayaran = value;
+            }
+        }
 
         public TransaksiModel(string noInvoice, int idPengguna)
         {

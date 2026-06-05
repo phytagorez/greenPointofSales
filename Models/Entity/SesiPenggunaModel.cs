@@ -3,7 +3,7 @@
 namespace greenPointofSales.Models.Entity
 {
     //association
-    public static class SesiPengguna
+    public static class SesiPenggunaModel
     {
         public static PenggunaModel? PenggunaAktif { get; private set; }
 
