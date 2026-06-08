@@ -466,6 +466,7 @@
             Name = "FormTambahKaryawan";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormTambahKaryawan";
+            Load += FormTambahKaryawan_Load;
             Click += tbSearchBar_TextChanged;
             ((System.ComponentModel.ISupportInitialize)dgvKaryawan).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbMenu).EndInit();

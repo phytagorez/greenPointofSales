@@ -56,6 +56,7 @@
             flpKatalog.Name = "flpKatalog";
             flpKatalog.Size = new Size(970, 620);
             flpKatalog.TabIndex = 0;
+            flpKatalog.Paint += flpKatalog_Paint;
             // 
             // label1
             // 

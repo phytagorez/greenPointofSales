@@ -69,11 +69,66 @@ namespace greenPointofSales.Views
 
         private class ProductCardData
         {
-            public int IdProduk { get; set; }
-            public string NamaProduk { get; set; } = string.Empty;
-            public decimal HargaJual { get; set; }
-            public int Stok { get; set; }
-            public string NamaKategori { get; set; } = string.Empty;
+            public int _idProduk;
+            public string _namaProduk = string.Empty;
+            public decimal _hargaJual;
+            public int _stok;
+            public string _namaKategori  = string.Empty;
+
+            public int IdProduk
+            {
+                get => _idProduk;
+                set
+                {
+                    if (value <= 0)
+                        throw new ArgumentException("ID Produk tidak valid, harus lebih besar dari 0.");
+                    _idProduk = value;
+                }
+            }
+
+            public string NamaProduk
+            {
+                get => _namaProduk;
+                set
+                {
+                    if (string.IsNullOrWhiteSpace(value))
+                        throw new ArgumentException("Nama produk tidak boleh kosong.");
+                    _namaProduk = value.Trim();
+                }
+            }
+
+            public decimal HargaJual
+            {
+                get => _hargaJual;
+                set
+                {
+                    if (value < 0)
+                        throw new ArgumentException("Harga jual tidak boleh negatif.");
+                    _hargaJual = value;
+                }
+            }
+
+            public int Stok
+            {
+                get => _stok;
+                set
+                {
+                    if (value < 0)
+                        throw new ArgumentException("Stok produk tidak boleh negatif");
+                    _stok= value;
+                }
+            }
+
+            public string NamaKategori
+            {
+                get => _namaKategori;
+                set
+                {
+                    if (string.IsNullOrWhiteSpace(value))
+                        throw new ArgumentException("Nama kategori tidak boleh kosong.");
+                    _namaKategori = value.Trim();
+                }
+            }
         }
 
         private void MuatFilterKategori()
@@ -235,24 +290,15 @@ namespace greenPointofSales.Views
             };
 
             // TOP LINE INDICATOR
-            Panel line = new Panel
-            {
-                Height = 6,
-                Dock = DockStyle.Top,
-                BackColor = lineColor
-            };
+            Panel line = new Panel {Height = 6,Dock = DockStyle.Top,BackColor = lineColor};
 
             // PRODUCT NAME
             Label lblNama = new Label
             {
                 Text = product.NamaProduk,
                 Font = UIConstants.FontProdukName,
-                Top = 12,
-                Left = 12,
-                Width = 236,
-                Height = 40,
-                AutoSize = false,
-                AutoEllipsis = true,
+                Top = 12, Left = 12, Width = 236, Height = 40,
+                AutoSize = false, AutoEllipsis = true,
                 ForeColor = UIConstants.TextPrimary
             };
 
@@ -261,29 +307,20 @@ namespace greenPointofSales.Views
             {
                 Text = "Rp " + product.HargaJual.ToString("N0"),
                 Font = UIConstants.FontHarga,
-                Top = 55,
-                Left = 12,
-                Width = 236,
+                Top = 55, Left = 12, Width = 236,
                 ForeColor = UIConstants.TextHarga,
-                AutoSize = false,
-                AutoEllipsis = true
+                AutoSize = false, AutoEllipsis = true
             };
 
             // STOCK STATUS
-            string stokText = product.Stok < 5
-                ? $"⚠ Stok: {product.Stok} (RENDAH!)"
-                : $"✓ Stok: {product.Stok}";
-
+            string stokText = product.Stok < 5 ? $"⚠ Stok: {product.Stok} (RENDAH!)" : $"✓ Stok: {product.Stok}";
             Label lblStok = new Label
             {
                 Text = stokText,
                 Font = UIConstants.FontStok,
-                Top = 85,
-                Left = 12,
-                Width = 236,
+                Top = 85, Left = 12, Width = 236,
                 ForeColor = stokLabelColor,
-                AutoSize = false,
-                AutoEllipsis = true
+                AutoSize = false, AutoEllipsis = true
             };
 
             // CATEGORY
@@ -291,23 +328,14 @@ namespace greenPointofSales.Views
             {
                 Text = $"📂 {product.NamaKategori}",
                 Font = UIConstants.FontKategori,
-                Top = 105,
-                Left = 12,
-                Width = 236,
+                Top = 105, Left = 12, Width = 236,
                 ForeColor = UIConstants.TextSecondary,
-                AutoEllipsis = true,
-                AutoSize = false
+                AutoEllipsis = true, AutoSize = false
             };
 
             // DIVIDER LINE
             Panel divider = new Panel
-            {
-                Height = 1,
-                BackColor = Color.FromArgb(200, 200, 200),
-                Top = 130,
-                Left = 12,
-                Width = 236
-            };
+            {Height = 1, BackColor = Color.FromArgb(200, 200, 200), Top = 130, Left = 12, Width = 236};
 
             // ============================================
             // UPDATE BUTTON - IMPROVED UI
@@ -325,35 +353,11 @@ namespace greenPointofSales.Views
                 TextAlign = ContentAlignment.MiddleCenter
             };
             btnUpdate.FlatAppearance.BorderSize = 0;
-            btnUpdate.FlatAppearance.MouseDownBackColor = UIConstants.ButtonColors.UpdateActive;
-            btnUpdate.FlatAppearance.MouseOverBackColor = UIConstants.ButtonColors.UpdateHover;
+            btnUpdate.MouseEnter += (s, e) => { btnUpdate.BackColor = UIConstants.ButtonColors.UpdateHover; };
+            btnUpdate.MouseLeave += (s, e) => { btnUpdate.BackColor = UIConstants.ButtonColors.UpdateNormal; };
+            btnUpdate.Click += (s, e) => { HandleUpdateStok(product); };
 
-            btnUpdate.MouseEnter += (s, e) =>
-            {
-                btnUpdate.BackColor = UIConstants.ButtonColors.UpdateHover;
-                btnUpdate.Font = new Font(UIConstants.FontButton.FontFamily, 9, FontStyle.Bold | FontStyle.Underline);
-            };
 
-            btnUpdate.MouseLeave += (s, e) =>
-            {
-                btnUpdate.BackColor = UIConstants.ButtonColors.UpdateNormal;
-                btnUpdate.Font = UIConstants.FontButton;
-            };
-
-            btnUpdate.MouseDown += (s, e) =>
-            {
-                btnUpdate.BackColor = UIConstants.ButtonColors.UpdateActive;
-            };
-
-            btnUpdate.MouseUp += (s, e) =>
-            {
-                btnUpdate.BackColor = UIConstants.ButtonColors.UpdateHover;
-            };
-
-            btnUpdate.Click += (s, e) =>
-            {
-                HandleUpdateStok(product);
-            };
 
             // ============================================
             // BUSUK BUTTON - IMPROVED UI
@@ -371,35 +375,9 @@ namespace greenPointofSales.Views
                 TextAlign = ContentAlignment.MiddleCenter
             };
             btnBusuk.FlatAppearance.BorderSize = 0;
-            btnBusuk.FlatAppearance.MouseDownBackColor = UIConstants.ButtonColors.BusukActive;
-            btnBusuk.FlatAppearance.MouseOverBackColor = UIConstants.ButtonColors.BusukHover;
-
-            btnBusuk.MouseEnter += (s, e) =>
-            {
-                btnBusuk.BackColor = UIConstants.ButtonColors.BusukHover;
-                btnBusuk.Font = new Font(UIConstants.FontButton.FontFamily, 9, FontStyle.Bold | FontStyle.Underline);
-            };
-
-            btnBusuk.MouseLeave += (s, e) =>
-            {
-                btnBusuk.BackColor = UIConstants.ButtonColors.BusukNormal;
-                btnBusuk.Font = UIConstants.FontButton;
-            };
-
-            btnBusuk.MouseDown += (s, e) =>
-            {
-                btnBusuk.BackColor = UIConstants.ButtonColors.BusukActive;
-            };
-
-            btnBusuk.MouseUp += (s, e) =>
-            {
-                btnBusuk.BackColor = UIConstants.ButtonColors.BusukHover;
-            };
-
-            btnBusuk.Click += (s, e) =>
-            {
-                HandleBusukStok(product);
-            };
+            btnBusuk.MouseEnter += (s, e) => { btnBusuk.BackColor = UIConstants.ButtonColors.BusukHover; };
+            btnBusuk.MouseLeave += (s, e) => { btnBusuk.BackColor = UIConstants.ButtonColors.BusukNormal; };
+            btnBusuk.Click += (s, e) => { HandleBusukStok(product); };
 
             // INFO BUTTON - LIHAT DETAIL
             Button btnInfo = new Button
@@ -415,23 +393,8 @@ namespace greenPointofSales.Views
                 TextAlign = ContentAlignment.MiddleCenter
             };
             btnInfo.FlatAppearance.BorderSize = 0;
-            btnInfo.FlatAppearance.MouseOverBackColor = Color.FromArgb(17, 129, 147);
-
-            btnInfo.MouseEnter += (s, e) =>
-            {
-                btnInfo.BackColor = Color.FromArgb(17, 129, 147);
-            };
-
-            btnInfo.MouseLeave += (s, e) =>
-            {
-                btnInfo.BackColor = Color.FromArgb(23, 162, 184);
-            };
-
-            btnInfo.Click += (s, e) =>
-            {
-                ShowProductDetails(product);
-            };
-
+            btnInfo.Click += (s, e) => { ShowProductDetails(product); };
+            
             // COPY ID BUTTON - UTILITY
             Button btnCopyId = new Button
             {
@@ -446,18 +409,6 @@ namespace greenPointofSales.Views
                 TextAlign = ContentAlignment.MiddleCenter
             };
             btnCopyId.FlatAppearance.BorderSize = 0;
-            btnCopyId.FlatAppearance.MouseOverBackColor = Color.FromArgb(73, 80, 87);
-
-            btnCopyId.MouseEnter += (s, e) =>
-            {
-                btnCopyId.BackColor = Color.FromArgb(73, 80, 87);
-            };
-
-            btnCopyId.MouseLeave += (s, e) =>
-            {
-                btnCopyId.BackColor = Color.FromArgb(108, 117, 125);
-            };
-
             btnCopyId.Click += (s, e) =>
             {
                 Clipboard.SetText(product.IdProduk.ToString());
@@ -477,16 +428,8 @@ namespace greenPointofSales.Views
             card.Controls.Add(btnCopyId);
 
             // CARD HOVER EFFECTS
-            card.MouseEnter += (s, e) =>
-            {
-                card.BackColor = hoverBgColor;
-                card.BorderStyle = BorderStyle.FixedSingle;
-            };
-
-            card.MouseLeave += (s, e) =>
-            {
-                card.BackColor = bgColor;
-            };
+            card.MouseEnter += (s, e) => { card.BackColor = hoverBgColor; };
+            card.MouseLeave += (s, e) => { card.BackColor = bgColor; };
 
             flpKatalog.Controls.Add(card);
         }
@@ -504,20 +447,12 @@ namespace greenPointofSales.Views
             string input = Microsoft.VisualBasic.Interaction.InputBox(prompt, title, "");
 
             // VALIDASI INPUT
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                return; // User cancel
-            }
+            if (string.IsNullOrWhiteSpace(input)) return; // User cancel
 
-            if (!int.TryParse(input, out int jumlah))
-            {
-                UIHelper.Error("❌ Input harus berupa angka yang valid!");
-                return;
-            }
 
-            if (jumlah <= 0)
+            if (!int.TryParse(input, out int jumlah) || jumlah <= 0)
             {
-                UIHelper.Error("❌ Jumlah harus lebih besar dari 0!");
+                UIHelper.Error("❌ Input harus berupa angka positif yang valid!");
                 return;
             }
 
@@ -547,20 +482,11 @@ namespace greenPointofSales.Views
             string input = Microsoft.VisualBasic.Interaction.InputBox(prompt, title, "");
 
             // VALIDASI INPUT
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                return; // User cancel
-            }
+            if (string.IsNullOrWhiteSpace(input)) return; // User cancel
 
-            if (!int.TryParse(input, out int jumlah))
+            if (!int.TryParse(input, out int jumlah) || jumlah <= 0)
             {
-                UIHelper.Error("❌ Input harus berupa angka yang valid!");
-                return;
-            }
-
-            if (jumlah <= 0)
-            {
-                UIHelper.Error("❌ Jumlah harus lebih besar dari 0!");
+                UIHelper.Error("❌ Input harus berupa angka positif yang valid!");
                 return;
             }
 
@@ -589,7 +515,7 @@ namespace greenPointofSales.Views
         private void ShowProductDetails(ProductCardData product)
         {
             string message = $"📦 DETAIL PRODUK\n\n" +
-                           $"{'━'.ToString().PadRight(35, '━')}\n" +
+                           $"{new string('━', 35)}\n" +
                            $"Nama Produk  : {product.NamaProduk}\n" +
                            $"Harga Jual   : Rp {product.HargaJual:N0}\n" +
                            $"Stok         : {product.Stok} unit\n" +
@@ -613,52 +539,34 @@ namespace greenPointofSales.Views
             }
 
             TampilkanKatalog(selectedCategory);
-            //int selectedCategory = Convert.ToInt32(cmbFilterKategori.SelectedValue ?? 0);
-            //TampilkanKatalog(selectedCategory);
         }
-        private void btnMenuDashboard_Click(object sender, EventArgs e)
-        {
-            new FormDashboardOwner().ShowDialog();
-        }
-
-        private void btnMenuProduk_Click(object sender, EventArgs e)
-        {
-            new FormManajemenProduk().ShowDialog();
-        }
-
-        private void btnMenuKaryawan_Click(object sender, EventArgs e)
-        {
-            new FormTambahKaryawan().ShowDialog();
-        }
+        private void btnMenuDashboard_Click(object sender, EventArgs e) => new FormDashboardOwner().ShowDialog();
+        private void btnMenuProduk_Click(object sender, EventArgs e) => new FormManajemenProduk().ShowDialog();
+        private void btnMenuKaryawan_Click(object sender, EventArgs e) => new FormTambahKaryawan().ShowDialog();
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
             string nama = SesiPenggunaModel.PenggunaAktif?.Username ?? "Pengguna";
             string role = SesiPenggunaModel.PenggunaAktif?.Role ?? "Sistem";
 
-            bool yakinKeluar = UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?");
-
-            if (yakinKeluar)
+            if (UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?"))
             {
+
                 SesiPenggunaModel.Logout();
 
                 for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
                 {
                     var formAktif = Application.OpenForms[i];
-
                     if (formAktif != null && formAktif.Name != "FormLogin")
                     {
                         formAktif.Close();
                     }
                 }
-
                 Application.OpenForms["FormLogin"]?.Show();
             }
         }
 
-        private void cmbFilterKategori_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
-        }
+        private void cmbFilterKategori_SelectedIndexChanged_1(object sender, EventArgs e) { }
+        private void flpKatalog_Paint(object sender, PaintEventArgs e) { }
     }
 } 

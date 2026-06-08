@@ -28,14 +28,9 @@ namespace greenPointofSales.Controllers
         {
             return _context.AmbilLabaRugi(bulan, tahun);
         }
-        //public DataTable DapatkanLabaRugiBulanan(int bulan, int tahun)
-        //{
-        //    return _context.AmbilLabaRugiBulanan(bulan, tahun);
-        //}
-
-        //public DataTable DapatkanDetailLabaRugi(int bulan, int tahun)
-        //{
-        //    return _context.AmbilDetailLabaRugi(bulan, tahun);
-        //}
+        public int DapatkanJumlahProdukKurangLaku()
+        {
+            return _context.AmbilTotalProdukKurangLaku();
+        }
     }
 }

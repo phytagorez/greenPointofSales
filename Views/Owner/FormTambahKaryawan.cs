@@ -60,94 +60,113 @@ namespace greenPointofSales
 
         private void btnSimpan_Click(object sender, EventArgs e)
         {
+            if (!ValidasiFormInput()) return;
             try
             {
-                if (string.IsNullOrWhiteSpace(txtUserBaru.Text))
-                {
-                    MessageBox.Show("Username tidak boleh kosong!", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtUserBaru.Focus();
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(txtPassBaru.Text))
-                {
-                    MessageBox.Show("Password tidak boleh kosong!", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtPassBaru.Focus();
-                    return;
-                }
-
-                if (cmbJenisKelamin.SelectedItem == null)
-                {
-                    MessageBox.Show("Jenis Kelamin harus dipilih!", "Validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    cmbJenisKelamin.Focus();
-                    return;
-                }
-
-                var pengguna = new PenggunaModel();
-
-                try
-                {
-                    pengguna.Username = txtUserBaru.Text.Trim();
-                    pengguna.Password = txtPassBaru.Text.Trim();
-                    pengguna.NamaLengkap = txtNamaLengkap.Text.Trim();
-                    pengguna.NoHp = txtNoHp.Text.Trim();
-                    pengguna.Email = txtEmail.Text.Trim();
-                    pengguna.TglLahir = dtpTanggalLahir.Value;
-                    pengguna.TglMulaiKerja = dtpTanggalMulaiKerja.Value;
-                    pengguna.JenisKelamin = cmbJenisKelamin.SelectedItem?.ToString() ?? "";
-                    pengguna.Role = "Kasir";
-                }
-                catch (ArgumentException argEx)
-                {
-                    MessageBox.Show(
-                        $"❌ Validasi data gagal:\n\n{argEx.Message}",
-                        "Input Tidak Valid",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
-                    return;
-                }
-
-                _controller.TambahKaryawan(pengguna);
-
-                MessageBox.Show(
-                    $"✅ Akun Kasir atas nama '{pengguna.NamaLengkap}' berhasil didaftarkan!\n\n" +
-                    $"Username: {pengguna.Username}\n" +
-                    $"Password: {pengguna.Password}\n\n" +
-                    $"📌 Catat kredensial ini untuk login kasir nanti.",
-                    "Sukses Tambah Karyawan",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information
+                var pengguna = new PenggunaModel(
+                    txtUserBaru.Text.Trim(),
+                    txtPassBaru.Text.Trim(),
+                    txtNamaLengkap.Text.Trim(),
+                    txtNoHp.Text.Trim(),
+                    txtEmail.Text.Trim(),
+                    dtpTanggalLahir.Value,
+                    dtpTanggalMulaiKerja.Value,
+                    cmbJenisKelamin.SelectedItem?.ToString() ?? "",
+                    "Kasir"
                 );
-
+                _controller.TambahKaryawan(pengguna);
+                MessageBox.Show(
+                   $"✅ Akun Kasir atas nama '{pengguna.NamaLengkap}' berhasil didaftarkan!\n\n" +
+                   $"Username: {pengguna.Username}\n" +
+                   $"Password: {pengguna.Password}\n\n" +
+                   $"📌 Catat kredensial ini untuk login kasir nanti.",
+                   "Sukses Tambah Karyawan",
+                   MessageBoxButtons.OK,
+                   MessageBoxIcon.Information
+                );
                 MuatDataKaryawan();
                 BersihkanInputan();
             }
-            catch (ArgumentException validationEx)
+            catch (ArgumentException argEx)
             {
                 MessageBox.Show(
-                    $"⚠️ Validasi gagal:\n\n{validationEx.Message}",
-                    "Peringatan Validasi",
+                    $"validasi data gagal: {argEx.Message}",
+                    "Input Tidak Valid",
                     MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning
-                );
+                    MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
-                string errorDetail = $"❌ Sistem Error:\n\n" +
-                    $"Message: {ex.Message}\n\n" +
-                    $"Type: {ex.GetType().Name}\n\n" +
-                    $"Stack Trace:\n{ex.StackTrace}";
-
-                MessageBox.Show(
-                    errorDetail,
-                    "Error Sistem - Database Problem",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
-
-                Console.WriteLine("[ERROR] " + errorDetail);
+                TampilkanDetailErrorSistem(ex);
             }
+           
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtUserBaru.Text) || string.IsNullOrWhiteSpace(txtNamaLengkap.Text))
+            {
+                UIHelper.Peringatan("silahkan pilih karyawan yang inin diubah!");
+                return;
+            }
+            try
+            {
+                var karyawan = new PenggunaModel(
+                    txtUserBaru.Text.Trim(),
+                    txtPassBaru.Text.Trim(),
+                    txtNamaLengkap.Text.Trim(),
+                    txtNoHp.Text.Trim(),
+                    txtEmail.Text.Trim(),
+                    dtpTanggalLahir.Value,
+                    dtpTanggalMulaiKerja.Value,
+                    cmbJenisKelamin.SelectedItem?.ToString()?? "Laki-laki",
+                    "Kasir"
+                );
+                _controller.UbahDataKaryawan(karyawan);
+                UIHelper.Sukses("Data Karyawan berhasil diperbarui!");
+
+                MuatDataKaryawan();
+                BersihkanInputan();
+                txtUserBaru.ReadOnly = false;
+            }
+            catch (Exception ex)
+            {
+                UIHelper.Error(ex.Message);
+            }
+        }
+
+        private bool ValidasiFormInput()
+        {
+            if (string.IsNullOrWhiteSpace(txtUserBaru.Text))
+            {
+                MessageBox.Show("Username tidak boleh kosong!", "validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtUserBaru.Focus();
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(txtPassBaru.Text))
+            {
+                MessageBox.Show("Password tidak boleh kosong!", "Validaasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPassBaru.Focus();
+                return false;
+            }
+            if (cmbJenisKelamin.SelectedItem == null)
+            {
+                MessageBox.Show("Jenis kelamin harus dipilih!", "Validaasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbJenisKelamin.Focus();
+                return false;
+            }
+            return true;
+        }
+        
+        private void TampilkanDetailErrorSistem(Exception ex)
+        {
+            string errorDetail = $"Sistem Error:\n\n" +
+                $"Messege: {ex.Message}\n\n" +
+                $"Type: {ex.GetType().Name}\n\n" +
+                $"Stack Trace:\n{ex.StackTrace}";
+
+            MessageBox.Show(errorDetail, "Error Sistem - Database problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Console.WriteLine("[ERROR]" + errorDetail);
         }
 
         private void btnNonaktifkan_Click(object sender, EventArgs e)
@@ -215,6 +234,48 @@ namespace greenPointofSales
             dtpTanggalMulaiKerja.Value = DateTime.Now;
             txtUserBaru.Focus();
         }
+
+        private void dgvKaryawan_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var row = dgvKaryawan.Rows[e.RowIndex];
+
+            txtUserBaru.Text = row.Cells["username"].Value?.ToString() ?? string.Empty;
+            txtUserBaru.ReadOnly = true;
+            txtPassBaru.Text = string.Empty;
+            txtNamaLengkap.Text = row.Cells["nama_lengkap"].Value?.ToString() ?? string.Empty;
+            txtNoHp.Text = row.Cells["no_hp"].Value?.ToString() ?? string.Empty;
+            txtEmail.Text = row.Cells["email"].Value?.ToString() ?? string.Empty;
+            cmbJenisKelamin.SelectedItem = row.Cells["jenis_kelamin"].Value?.ToString();
+
+            if (DateTime.TryParse(row.Cells["tgl_lahir"].Value?.ToString(), out DateTime tglLahir))
+            {
+                dtpTanggalLahir.Value = tglLahir;
+            }
+        }
+
+        private void tbSearchBar_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string keyword = tbSearchBar.Text.Trim();
+
+                if (!string.IsNullOrEmpty(keyword))
+                {
+                    dgvKaryawan.DataSource = _controller.CariKaryawan(keyword);
+                }
+                else
+                {
+                    MuatDataKaryawan();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Gagal mencari karyawan: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnMenuDashboard_Click(object sender, EventArgs e)
         {
             new FormDashboardOwner().ShowDialog();
@@ -252,78 +313,9 @@ namespace greenPointofSales
             }
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private void FormTambahKaryawan_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtUserBaru.Text) || string.IsNullOrWhiteSpace(txtNamaLengkap.Text))
-            {
-                UIHelper.Peringatan("Silakan pilih karyawan yang ingin diubah terlebih dahulu!");
-                return;
-            }
 
-            try
-            {
-                var karyawan = new PenggunaModel
-                {
-                    Username = txtUserBaru.Text.Trim(),
-                    Password = txtPassBaru.Text.Trim(),
-                    NamaLengkap = txtNamaLengkap.Text.Trim(),
-                    NoHp = txtNoHp.Text.Trim(),
-                    TglLahir = dtpTanggalLahir.Value,
-                    JenisKelamin = cmbJenisKelamin.SelectedItem?.ToString() ?? "Laki-laki",
-                    Email = txtEmail.Text.Trim()
-                };
-
-                _controller.UbahDataKaryawan(karyawan);
-                UIHelper.Sukses("Data karyawan berhasil diperbarui!");
-
-                MuatDataKaryawan();
-                BersihkanInputan();
-                txtUserBaru.ReadOnly = false;
-            }
-            catch (Exception ex)
-            {
-                UIHelper.Error(ex.Message);
-            }
-        }
-
-        private void dgvKaryawan_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-
-            var row = dgvKaryawan.Rows[e.RowIndex];
-
-            txtUserBaru.Text = row.Cells["username"].Value?.ToString() ?? string.Empty;
-            txtUserBaru.ReadOnly = true;
-            txtPassBaru.Text = string.Empty;
-            txtNamaLengkap.Text = row.Cells["nama_lengkap"].Value?.ToString() ?? string.Empty;
-            txtNoHp.Text = row.Cells["no_hp"].Value?.ToString() ?? string.Empty;
-            txtEmail.Text = row.Cells["email"].Value?.ToString() ?? string.Empty;
-            cmbJenisKelamin.SelectedItem = row.Cells["jenis_kelamin"].Value?.ToString();
-
-            if (DateTime.TryParse(row.Cells["tgl_lahir"].Value?.ToString(), out DateTime tglLahir))
-            {
-                dtpTanggalLahir.Value = tglLahir;
-            }
-        }
-        private void tbSearchBar_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                string keyword = tbSearchBar.Text.Trim();
-
-                if (!string.IsNullOrEmpty(keyword))
-                {
-                    dgvKaryawan.DataSource = _controller.CariKaryawan(keyword);
-                }
-                else
-                {
-                    MuatDataKaryawan();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Gagal mencari karyawan: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
     }
 }
