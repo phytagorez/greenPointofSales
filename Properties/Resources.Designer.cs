@@ -133,6 +133,26 @@ namespace greenPointofSales.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Laporan_LB_O {
+            get {
+                object obj = ResourceManager.GetObject("Laporan_LB_O", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Laporan_P_O {
+            get {
+                object obj = ResourceManager.GetObject("Laporan_P_O", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap list {
             get {
                 object obj = ResourceManager.GetObject("list", resourceCulture);
@@ -146,6 +166,16 @@ namespace greenPointofSales.Properties {
         public static System.Drawing.Bitmap log_out {
             get {
                 object obj = ResourceManager.GetObject("log-out", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Login_G {
+            get {
+                object obj = ResourceManager.GetObject("Login_G", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

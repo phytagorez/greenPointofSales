@@ -1,5 +1,7 @@
 ﻿using greenPointofSales.Controllers;
 using greenPointofSales.Helpers;
+using greenPointofSales.Models.Entity;
+using greenPointofSales.Views.Owner;
 using System;
 using System.Data;
 using System.Drawing;
@@ -11,7 +13,7 @@ namespace greenPointofSales.Views
     public partial class UC_LaporanPenjualan : UserControl
     {
         private readonly LaporanController _controller = new LaporanController();
-
+        public event Action<UserControl>? OnNavigasi;
         public UC_LaporanPenjualan()
         {
             InitializeComponent();
@@ -134,6 +136,47 @@ namespace greenPointofSales.Views
                         UIHelper.Error("Gagal export CSV: " + ex.Message);
                     }
                 }
+            }
+        }
+        private void btnLapLabaRugi_Click(object sender, EventArgs e)
+        {
+            OnNavigasi?.Invoke(new UC_LaporanLabaRugi());
+        }
+        private void btnMenuKaryawan_Click(object sender, EventArgs e)
+        {
+            new FormManajemenKaryawan().ShowDialog();
+        }
+
+        private void btnMenuProduk_Click(object sender, EventArgs e)
+        {
+            new FormProduk().ShowDialog();
+        }
+        private void btnMenuKatlog_Click(object sender, EventArgs e)
+        {
+            new FormManajemenProduk().ShowDialog();
+        }
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            string nama = SesiPenggunaModel.PenggunaAktif?.Username ?? "Pengguna";
+            string role = SesiPenggunaModel.PenggunaAktif?.Role ?? "Sistem";
+
+            bool yakinKeluar = UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?");
+
+            if (yakinKeluar)
+            {
+                SesiPenggunaModel.Logout();
+
+                for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+                {
+                    var formAktif = Application.OpenForms[i];
+
+                    if (formAktif != null && formAktif.Name != "FormLogin")
+                    {
+                        formAktif.Close();
+                    }
+                }
+
+                Application.OpenForms["FormLogin"]?.Show();
             }
         }
     }

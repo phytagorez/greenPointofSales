@@ -80,7 +80,7 @@ namespace greenPointofSales
             switch (role)
             {
                 case "Owner":
-                    new FormDashboardOwner().Show();
+                    new FormDashboard().Show();
                     this.Hide();
                     break;
 

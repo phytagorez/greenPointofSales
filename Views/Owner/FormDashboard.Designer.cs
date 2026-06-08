@@ -1,6 +1,6 @@
 ﻿namespace greenPointofSales.Views
 {
-    partial class FormDashboardOwner
+    partial class FormDashboard
     {
         /// <summary>
         /// Required designer variable.
@@ -146,7 +146,6 @@
             btnMenuKatalog.TextAlign = ContentAlignment.MiddleLeft;
             btnMenuKatalog.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKatalog.UseVisualStyleBackColor = false;
-            btnMenuKatalog.Click += btnMenuKatlog_Click;
             // 
             // btnMenuDashboard
             // 

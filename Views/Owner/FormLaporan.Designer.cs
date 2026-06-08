@@ -33,17 +33,23 @@
             // 
             // pnlContainer
             // 
-            pnlContainer.Location = new Point(25, 12);
+            pnlContainer.BackColor = Color.White;
+            pnlContainer.Dock = DockStyle.Fill;
+            pnlContainer.Location = new Point(0, 0);
             pnlContainer.Name = "pnlContainer";
-            pnlContainer.Size = new Size(743, 408);
+            pnlContainer.Size = new Size(1280, 720);
             pnlContainer.TabIndex = 0;
             // 
             // FormLaporan
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            AutoScaleMode = AutoScaleMode.None;
+            BackColor = SystemColors.AppWorkspace;
+            ClientSize = new Size(1280, 720);
+            MinimumSize = new Size(1280, 720);
+            MaximumSize = new Size(1280, 720);
             Controls.Add(pnlContainer);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "FormLaporan";
             Text = "FormLaporan";
             ResumeLayout(false);

@@ -1,20 +1,26 @@
-﻿using System;
+﻿using greenPointofSales.Controllers;
+using greenPointofSales.Helpers;
+using greenPointofSales.Models.Entity;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using greenPointofSales.Controllers;
-using greenPointofSales.Models.Entity;
 
 namespace greenPointofSales.Views.Owner
 {
     public partial class UC_LaporanLabaRugi : UserControl
     {
         private readonly LaporanController _controller = new LaporanController();
-
+        public event Action<UserControl>? OnNavigasi;
         public UC_LaporanLabaRugi()
         {
             InitializeComponent();
             // Setup default tahun ke tahun sekarang
             txtTahun.Text = DateTime.Now.Year.ToString();
+
+            foreach (Control ctrl in this.Controls)
+            {
+                Console.WriteLine($"Kontrol: {ctrl.Name} | Size: {ctrl.Size} | Location: {ctrl.Location} | Enabled: {ctrl.Enabled}");
+            }
         }
 
         private void btnCari_Click(object sender, EventArgs e)
@@ -39,6 +45,46 @@ namespace greenPointofSales.Views.Owner
             catch (Exception ex)
             {
                 MessageBox.Show("Error saat memproses laporan: " + ex.Message);
+            }
+        }
+        private void btnLapPenjualan_Click(object sender, EventArgs e)
+        {
+            OnNavigasi?.Invoke(new UC_LaporanPenjualan());
+        }
+        private void btnMenuKaryawan_Click(object sender, EventArgs e)
+        {
+            new FormManajemenKaryawan().ShowDialog();
+        }
+        private void btnMenuProduk_Click(object sender, EventArgs e)
+        {
+            new FormProduk().ShowDialog();
+        }
+        private void btnMenuKatlog_Click(object sender, EventArgs e)
+        {
+            new FormManajemenProduk().ShowDialog();
+        }
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            string nama = SesiPenggunaModel.PenggunaAktif?.Username ?? "Pengguna";
+            string role = SesiPenggunaModel.PenggunaAktif?.Role ?? "Sistem";
+
+            bool yakinKeluar = UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?");
+
+            if (yakinKeluar)
+            {
+                SesiPenggunaModel.Logout();
+
+                for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+                {
+                    var formAktif = Application.OpenForms[i];
+
+                    if (formAktif != null && formAktif.Name != "FormLogin")
+                    {
+                        formAktif.Close();
+                    }
+                }
+
+                Application.OpenForms["FormLogin"]?.Show();
             }
         }
     }

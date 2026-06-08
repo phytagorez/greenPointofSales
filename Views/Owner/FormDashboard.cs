@@ -6,9 +6,9 @@ using System.Windows.Forms;
 
 namespace greenPointofSales.Views
 {
-    public partial class FormDashboardOwner : Form
+    public partial class FormDashboard : Form
     {
-        public FormDashboardOwner()
+        public FormDashboard()
         {
             InitializeComponent();
 
@@ -39,12 +39,12 @@ namespace greenPointofSales.Views
 
         private void btnMenuKaryawan_Click(object sender, EventArgs e)
         {
-            new FormTambahKaryawan().ShowDialog();
+            new FormManajemenKaryawan().ShowDialog();
         }
 
         private void btnMenuProduk_Click(object sender, EventArgs e)
         {
-            new FormManajemenProduk().ShowDialog();
+            new FormProduk().ShowDialog();
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -71,17 +71,16 @@ namespace greenPointofSales.Views
                 Application.OpenForms["FormLogin"]?.Show();
             }
         }
-        private void btnMenuKatlog_Click(object sender, EventArgs e)
+        private void btnMenuKatalog_Click(object sender, EventArgs e)
         {
-            new FormKatalog().ShowDialog();
+            new FormManajemenProduk().ShowDialog();
         }
 
         private void btnLaporan_Click(object sender, EventArgs e)
         {
             FormLaporan frm = new FormLaporan();
-            frm.ShowDialog();
+            frm.StartPosition = FormStartPosition.CenterScreen;
+            frm.Show();
         }
-
-
     }
 }

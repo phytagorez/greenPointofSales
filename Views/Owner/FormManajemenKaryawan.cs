@@ -7,12 +7,12 @@ using System.Windows.Forms;
 
 namespace greenPointofSales
 {
-    public partial class FormTambahKaryawan : Form
+    public partial class FormManajemenKaryawan : Form
     {
         //composition
         private readonly PenggunaController _controller = new PenggunaController();
 
-        public FormTambahKaryawan()
+        public FormManajemenKaryawan()
         {
             InitializeComponent();
 
@@ -217,15 +217,15 @@ namespace greenPointofSales
         }
         private void btnMenuDashboard_Click(object sender, EventArgs e)
         {
-            new FormDashboardOwner().ShowDialog();
+            new FormDashboard().ShowDialog();
         }
         private void btnMenuProduk_Click(object sender, EventArgs e)
         {
-            new FormManajemenProduk().ShowDialog();
+            new FormProduk().ShowDialog();
         }
         private void btnMenuKatalog_Click(object sender, EventArgs e)
         {
-            new FormKatalog().ShowDialog();
+            new FormManajemenProduk().ShowDialog();
         }
         private void btnLogout_Click(object sender, EventArgs e)
         {

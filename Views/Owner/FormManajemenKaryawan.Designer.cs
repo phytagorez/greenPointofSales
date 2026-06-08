@@ -1,6 +1,6 @@
 ﻿namespace greenPointofSales
 {
-    partial class FormTambahKaryawan
+    partial class FormManajemenKaryawan
     {
         /// <summary>
         /// Required designer variable.

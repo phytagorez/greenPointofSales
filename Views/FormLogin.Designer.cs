@@ -45,7 +45,7 @@
             txtUsername.BackColor = Color.Beige;
             txtUsername.BorderStyle = BorderStyle.None;
             txtUsername.Cursor = Cursors.Hand;
-            txtUsername.Font = new Font("Poppins", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            txtUsername.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             txtUsername.Location = new Point(479, 323);
             txtUsername.Multiline = true;
             txtUsername.Name = "txtUsername";
@@ -59,7 +59,7 @@
             txtPassword.BackColor = Color.Beige;
             txtPassword.BorderStyle = BorderStyle.None;
             txtPassword.Cursor = Cursors.Hand;
-            txtPassword.Font = new Font("Poppins", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            txtPassword.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Italic, GraphicsUnit.Point, 0);
             txtPassword.Location = new Point(479, 390);
             txtPassword.Multiline = true;
             txtPassword.Name = "txtPassword";
@@ -131,7 +131,7 @@
             // FormLogin
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackgroundImage = Properties.Resources.Login_on;
+            BackgroundImage = Properties.Resources.Login_G;
             ClientSize = new Size(1280, 720);
             Controls.Add(lblPassword);
             Controls.Add(lblUsername);
