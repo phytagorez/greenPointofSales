@@ -416,6 +416,7 @@
             Name = "FormDashboardOwner";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormDashboardOwner";
+            Load += FormDashboardOwner_Load;
             ((System.ComponentModel.ISupportInitialize)pbMenu).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbTTransaksi).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbJTransaksi).EndInit();

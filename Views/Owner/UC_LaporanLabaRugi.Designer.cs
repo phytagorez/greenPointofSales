@@ -101,6 +101,7 @@
             lblHPP.Size = new Size(38, 18);
             lblHPP.TabIndex = 4;
             lblHPP.Text = "HPP";
+            lblHPP.Click += lblHPP_Click;
             // 
             // lblLabaBersih
             // 

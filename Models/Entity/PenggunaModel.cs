@@ -56,6 +56,24 @@ namespace greenPointofSales.Models.Entity
         private string _email = string.Empty;
         private DateTime _tglMulaiKerja;
 
+        public PenggunaModel()
+        {
+
+        }
+        public PenggunaModel(string username, string  password, string namaLengkap, string noHp, string email, DateTime tglLahir, DateTime tglMulaiKerja, string jenisKleamin, string role)
+        {
+            Username = username;
+            Password = password;
+            NamaLengkap = namaLengkap;
+            NoHp = noHp;
+            Email = email;
+            TglLahir = tglLahir;
+            TglMulaiKerja = tglMulaiKerja;
+            JenisKelamin = jenisKleamin;
+            Role = role;
+            IsActive = true;
+
+        }
         public string Password
         {
             get { return _password; }
