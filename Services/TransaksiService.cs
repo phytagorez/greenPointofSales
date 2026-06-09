@@ -184,7 +184,7 @@ namespace greenPointofSales.Services
         }
 
         /// <summary>
-        /// Proses checkout lengkap: simpan transaksi + update stok
+        /// Proses checkout lengkap: simpan transaksi + jalankan pencatatan riwayat stok kasir
         /// </summary>
         public bool ExecuteCheckout(TransaksiModel transaksi)
         {
@@ -193,6 +193,7 @@ namespace greenPointofSales.Services
 
             try
             {
+                // 1. Validasi stok aktual terlebih dahulu sebelum menyimpan transaksi
                 foreach (var item in transaksi.Items)
                 {
                     decimal stokAktual = _produkContext.AmbilStokProduk(item.IdProduk);
@@ -202,16 +203,8 @@ namespace greenPointofSales.Services
                         throw new Exception($"Stok produk {item.NamaProduk} tidak mencukupi");
                     }
                 }
-                foreach (var item in transaksi.Items)
-                {
-                    decimal stokAktual = _produkContext.AmbilStokProduk(item.IdProduk);
 
-                    if (stokAktual < item.Jumlah)
-                    {
-                        throw new Exception($"Stok produk {item.NamaProduk} tidak mencukupi");
-                    }
-                }
-                // Insert header transaksi
+                // 2. Insert header transaksi
                 int newIdTransaksi = _context.InsertHeader(transaksi);
 
                 if (newIdTransaksi > 0)
@@ -220,7 +213,12 @@ namespace greenPointofSales.Services
                     {
                         item.IdTransaksi = newIdTransaksi;
 
+                        // 3. Simpan detail barang belanjaan ke database
                         _detailContext.InsertDetail(newIdTransaksi, item);
+
+                        // FIX DI SINI: Panggil fungsi UpdateStok milik TransaksiContext!
+                        // Ini yang membuat '0 references' hilang dan mencatat log 'Penjualan' kasir ke riwayat_stok
+                        _context.UpdateStok(item.IdProduk, item.Jumlah);
                     }
                     return true;
                 }

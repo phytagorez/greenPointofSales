@@ -32,8 +32,22 @@ namespace greenPointofSales.Models.Context
             return Convert.ToInt32(DBHelper.EksekusiScalar(query, parameters));
         }
 
-        
+        public void UpdateStok(int idProduk, decimal qty)
+        {
+            // PENTING: Karena database kamu sudah punya trigger 'trg_after_insert_detail' untuk memotong stok tabel produk otomatis, 
+            // fungsi di bawah ini fokus murni untuk mencatat log aktivitas belanja kasir ke tabel riwayat_stok.
 
-       
+            string queryRiwayat = @"INSERT INTO riwayat_stok (id_produk, perubahan_stok, jenis_transaksi, keterangan) 
+                                    VALUES (@idP, @perubahan, 'Penjualan', 'Terjual lewat kasir')";
+
+            NpgsqlParameter[] parametersRiwayat = {
+                new NpgsqlParameter("idP", idProduk),
+                new NpgsqlParameter("perubahan", -qty) // Minus (-) menandakan barang keluar terjual
+            };
+
+            DBHelper.EksekusiNonQuery(queryRiwayat, parametersRiwayat);
+        }
+
+
     }
 }
