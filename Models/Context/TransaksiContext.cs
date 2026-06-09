@@ -32,40 +32,8 @@ namespace greenPointofSales.Models.Context
             return Convert.ToInt32(DBHelper.EksekusiScalar(query, parameters));
         }
 
-        public void InsertDetail(DetailTransaksiModel dt)
-        {
-            string query = @"INSERT INTO detail_transaksi (id_transaksi, id_produk, jumlah, harga_satuan, subtotal) 
-                             VALUES (@idT, @idP, @qty, @harga, @sub)";
+        
 
-            NpgsqlParameter[] parameters = {
-                new NpgsqlParameter("idT", dt.IdTransaksi),
-                new NpgsqlParameter("idP", dt.IdProduk),
-                new NpgsqlParameter("qty", dt.Jumlah),
-                new NpgsqlParameter("harga", dt.HargaSatuan),
-                new NpgsqlParameter("sub", dt.Subtotal)
-            };
-
-            DBHelper.EksekusiNonQuery(query, parameters);
-        }
-
-        public void UpdateStok(int idProduk, decimal qty)
-        {
-            // 1. Potong stok
-            string queryStok = "UPDATE produk SET stok = stok - @qty WHERE id_produk = @idP";
-            NpgsqlParameter[] parametersStok = {
-                new NpgsqlParameter("qty", qty),
-                new NpgsqlParameter("idP", idProduk)
-            };
-            DBHelper.EksekusiNonQuery(queryStok, parametersStok);
-
-            // 2. Catat Riwayat
-            string queryRiwayat = @"INSERT INTO riwayat_stok (id_produk, perubahan_stok, jenis_transaksi, keterangan) 
-                                    VALUES (@idP, @perubahan, 'Penjualan', 'Terjual lewat kasir')";
-            NpgsqlParameter[] parametersRiwayat = {
-                new NpgsqlParameter("idP", idProduk),
-                new NpgsqlParameter("perubahan", -qty)
-            };
-            DBHelper.EksekusiNonQuery(queryRiwayat, parametersRiwayat);
-        }
+       
     }
 }

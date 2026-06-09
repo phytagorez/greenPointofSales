@@ -82,6 +82,9 @@ namespace greenPointofSales.Views
             frm.ShowDialog();
         }
 
+        private void FormDashboardOwner_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

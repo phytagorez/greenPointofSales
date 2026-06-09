@@ -41,5 +41,10 @@ namespace greenPointofSales.Views.Owner
                 MessageBox.Show("Error saat memproses laporan: " + ex.Message);
             }
         }
+
+        private void lblHPP_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

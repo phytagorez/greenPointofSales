@@ -125,5 +125,15 @@ namespace greenPointofSales.Models.Context
                 Convert.ToDecimal(row["total_rugi_busuk"])
             );
         }
+        public int AmbilTotalProdukKurangLaku()
+        {
+            string query = "SELECT COUNT(*) FROM vw_produk_kurang_laku;";
+            DataTable dt = DBHelper.EksekusiQuery(query, null);
+            if (dt.Rows.Count > 0)
+            {
+                return Convert.ToInt32(dt.Rows[0][0]);
+            }
+            return 0;
+        }
     }
 }
