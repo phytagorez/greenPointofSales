@@ -5,7 +5,7 @@ namespace greenPointofSales.Helpers
 {
     public static class DBHelper
     {
-        private const string ConnString = "Host=localhost;Port=5432;Username=postgres;Password=23;Database=greenPOS;Include Error Detail=true";
+        private const string ConnString = "Host=localhost;Port=5432;Username=postgres;Password=Aci1;Database=GreenPos;Include Error Detail=true";
 
         public static NpgsqlConnection BukaKoneksi()
         {

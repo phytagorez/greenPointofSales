@@ -94,6 +94,7 @@
             flpKatalog.Name = "flpKatalog";
             flpKatalog.Size = new Size(796, 648);
             flpKatalog.TabIndex = 0;
+            flpKatalog.Paint += flpKatalog_Paint;
             // 
             // tableLayoutPanel1
             // 
