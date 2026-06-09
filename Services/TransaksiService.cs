@@ -15,11 +15,12 @@ namespace greenPointofSales.Services
     {
         private readonly TransaksiContext _context;
         private readonly ProdukContext _produkContext;
-
+        private readonly DetailTransaksiContext _detailContext;
         public TransaksiService()
         {
             _context = new TransaksiContext();
             _produkContext = new ProdukContext();
+            _detailContext = new DetailTransaksiContext();
         }
 
         #region Invoice Generation
@@ -192,19 +193,34 @@ namespace greenPointofSales.Services
 
             try
             {
+                foreach (var item in transaksi.Items)
+                {
+                    decimal stokAktual = _produkContext.AmbilStokProduk(item.IdProduk);
+
+                    if (stokAktual < item.Jumlah)
+                    {
+                        throw new Exception($"Stok produk {item.NamaProduk} tidak mencukupi");
+                    }
+                }
+                foreach (var item in transaksi.Items)
+                {
+                    decimal stokAktual = _produkContext.AmbilStokProduk(item.IdProduk);
+
+                    if (stokAktual < item.Jumlah)
+                    {
+                        throw new Exception($"Stok produk {item.NamaProduk} tidak mencukupi");
+                    }
+                }
                 // Insert header transaksi
                 int newIdTransaksi = _context.InsertHeader(transaksi);
 
                 if (newIdTransaksi > 0)
                 {
-                    // Insert detail items
                     foreach (var item in transaksi.Items)
                     {
                         item.IdTransaksi = newIdTransaksi;
-                        _context.InsertDetail(item);
 
-                        // Update stok produk
-                        _context.UpdateStok(item.IdProduk, item.Jumlah);
+                        _detailContext.InsertDetail(newIdTransaksi, item);
                     }
                     return true;
                 }
@@ -231,6 +247,7 @@ namespace greenPointofSales.Services
             return satuan.ToLower() == "kg" ? 0.25m : 1m;
         }
 
+        
         #endregion
     }
 }

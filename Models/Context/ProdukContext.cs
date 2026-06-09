@@ -124,5 +124,15 @@ namespace greenPointofSales.Models.Context
             object? result = DBHelper.EksekusiScalar(query, parameters);
             return Convert.ToInt32(result ?? 0);
         }
+
+        public decimal AmbilStokProduk(int idProduk)
+        {
+            string query ="SELECT stok FROM produk WHERE id_produk=@id";
+
+            NpgsqlParameter[] parameters ={new NpgsqlParameter("id", idProduk)};
+
+            object? result = DBHelper.EksekusiScalar(query, parameters);
+            return Convert.ToDecimal(result ?? 0);
+        }
     }
 }
