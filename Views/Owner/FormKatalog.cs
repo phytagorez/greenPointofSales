@@ -573,7 +573,9 @@ namespace greenPointofSales.Views
             // EXECUTE UPDATE
             try
             {
-                _controller.UpdateStok(product.IdProduk, -jumlah); // NEGATIF (-)
+                // REFACTOR DI SINI: Kirimkan string "Barang Busuk" agar terbaca oleh View Laba Rugi SQL
+                _controller.UpdateStok(product.IdProduk, -jumlah, "Barang Busuk", $"Dibuang karena busuk: {jumlah} {product.NamaKategori}");
+
                 UIHelper.Sukses($"✓ Stok berhasil dikurangi {jumlah} unit (Rusak/Busuk)!");
                 RefreshCatalog();
             }

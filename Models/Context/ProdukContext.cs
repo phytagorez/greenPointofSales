@@ -62,37 +62,15 @@ namespace greenPointofSales.Models.Context
         public void UpdateStok(int idProduk, decimal jumlahPerubahan, string jenisTransaksi = "Penyesuaian Manual", string keterangan = "Update dari sistem")
         {
             using (var conn = DBHelper.BukaKoneksi())
-            using (var tx = conn.BeginTransaction())
             {
-                try
+                string query = "CALL sp_sesuaikan_stok_eksplisit(@id, @jumlah, @jenis, @ket)";
+                using (var cmd = new NpgsqlCommand(query, conn))
                 {
-                    // 1. Update tabel produk
-                    string queryUpdate = "UPDATE produk SET stok = GREATEST(stok + @jumlah, 0) WHERE id_produk = @id";
-                    using (var cmd = new NpgsqlCommand(queryUpdate, conn, tx))
-                    {
-                        cmd.Parameters.AddWithValue("jumlah", jumlahPerubahan);
-                        cmd.Parameters.AddWithValue("id", idProduk);
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    // 2. Catat ke riwayat
-                    string queryRiwayat = @"INSERT INTO riwayat_stok (id_produk, perubahan_stok, jenis_transaksi, keterangan) 
-                                    VALUES (@id, @jumlah, @jenis, @ket)";
-                    using (var cmdHist = new NpgsqlCommand(queryRiwayat, conn, tx))
-                    {
-                        cmdHist.Parameters.AddWithValue("id", idProduk);
-                        cmdHist.Parameters.AddWithValue("jumlah", jumlahPerubahan);
-                        cmdHist.Parameters.AddWithValue("jenis", jenisTransaksi);
-                        cmdHist.Parameters.AddWithValue("ket", keterangan);
-                        cmdHist.ExecuteNonQuery();
-                    }
-
-                    tx.Commit();
-                }
-                catch
-                {
-                    tx.Rollback();
-                    throw;
+                    cmd.Parameters.AddWithValue("id", idProduk);
+                    cmd.Parameters.AddWithValue("jumlah", jumlahPerubahan);
+                    cmd.Parameters.AddWithValue("jenis", jenisTransaksi);
+                    cmd.Parameters.AddWithValue("ket", keterangan);
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
