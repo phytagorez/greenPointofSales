@@ -60,5 +60,19 @@ namespace greenPointofSales.Models.Context
             object? result = DBHelper.EksekusiScalar(query, null);
             return Convert.ToInt32(result ?? 0);
         }
+
+        public DataTable AmbilGrafikTahunan()
+        {
+            string query = @"
+                SELECT 
+                    EXTRACT(YEAR FROM tgl_transaksi)::int AS tahun, 
+                    COALESCE(SUM(total_harga), 0)::numeric(15,2) AS total_penjualan 
+                FROM transaksi 
+                WHERE EXTRACT(YEAR FROM tgl_transaksi) IN (2025, 2026)
+                GROUP BY EXTRACT(YEAR FROM tgl_transaksi) 
+                ORDER BY tahun;";
+
+            return DBHelper.EksekusiQuery(query, null);
+        }
     }
 }

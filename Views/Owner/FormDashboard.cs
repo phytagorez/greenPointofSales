@@ -1,9 +1,11 @@
-﻿using greenPointofSales.Helpers;
+﻿using greenPointofSales.Controllers;
+using greenPointofSales.Helpers;
 using greenPointofSales.Models.Entity;
 using greenPointofSales.Views.Owner;
-using greenPointofSales.Controllers;
 using System;
+using System.Data;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace greenPointofSales.Views
 {
@@ -21,6 +23,7 @@ namespace greenPointofSales.Views
 
             CekPeringatanStokToko();
             TampilkanWidget();
+            TampilkanGrafikTahunan();
         }
         private void TampilkanWidget()
         {
@@ -87,6 +90,62 @@ namespace greenPointofSales.Views
                 Application.OpenForms["FormLogin"]?.Show();
             }
         }
+
+        private void TampilkanGrafikTahunan()
+        {
+            try
+            {
+                // Ambil data dari controller
+                DataTable dtGrafik = _dashboardController.DapatkanGrafikTahunan();
+
+                // Bersihkan panelChartDashboard terlebih dahulu
+                panelChartDashboard.Controls.Clear();
+
+                // Instansiasi Chart Baru secara Programmatic
+                Chart chartTahunan = new Chart
+                {
+                    Dock = DockStyle.Fill,
+                    BackColor = Color.White
+                };
+
+                // Pengaturan Area Grafik
+                ChartArea areaUtama = new ChartArea("MainArea")
+                {
+                    AxisX = { Title = "Tahun", IsLabelAutoFit = true, MajorGrid = { LineColor = Color.FromArgb(240, 240, 240) } },
+                    AxisY = { Title = "Total Omzet", MajorGrid = { LineColor = Color.FromArgb(240, 240, 240) }, LabelStyle = { Format = "Rp #,##0" } }
+                };
+                chartTahunan.ChartAreas.Add(areaUtama);
+
+                // Buat Series Batang (Column)
+                Series seriesBatang = new Series("Penjualan")
+                {
+                    ChartType = SeriesChartType.Column,
+                    ChartArea = "MainArea",
+                    Color = Color.DodgerBlue, // Warna batang bedakan dengan laporan biar variatif
+                    Font = new Font("Arial", 9, FontStyle.Bold),
+                    IsValueShownAsLabel = true, // Otomatis munculin angka di atas batang
+                    LabelFormat = "Rp #,##0"    // Format Rupiah angka di atas batang
+                };
+
+                // Looping data dari DB ke Chart
+                foreach (DataRow row in dtGrafik.Rows)
+                {
+                    string tahun = row["tahun"].ToString();
+                    decimal total = Convert.ToDecimal(row["total_penjualan"]);
+
+                    seriesBatang.Points.AddXY(tahun, total);
+                }
+
+                // Masukkan series data ke chart, lalu tempel chart ke panel dashboard
+                chartTahunan.Series.Add(seriesBatang);
+                panelChartDashboard.Controls.Add(chartTahunan);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Gagal memuat grafik tahunan: " + ex.Message);
+            }
+        }
+
         private void btnMenuKatalog_Click(object sender, EventArgs e)
         {
             UIHelper.PindahKe(new FormManajemenProduk());

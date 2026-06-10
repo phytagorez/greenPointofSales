@@ -51,6 +51,7 @@
             lblJTrans = new Label();
             lblTKary = new Label();
             lblTProdukBsk = new Label();
+            panelChartDashboard = new Panel();
             ((System.ComponentModel.ISupportInitialize)pbMenu).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbTTransaksi).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbJTransaksi).BeginInit();
@@ -380,12 +381,20 @@
             lblTProdukBsk.Text = "Angka";
             lblTProdukBsk.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // panelChartDashboard
+            // 
+            panelChartDashboard.Location = new Point(226, 215);
+            panelChartDashboard.Name = "panelChartDashboard";
+            panelChartDashboard.Size = new Size(1002, 444);
+            panelChartDashboard.TabIndex = 23;
+            // 
             // FormDashboard
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.Dash_P_O;
             BackgroundImageLayout = ImageLayout.Zoom;
             ClientSize = new Size(1280, 720);
+            Controls.Add(panelChartDashboard);
             Controls.Add(lblTProdukBsk);
             Controls.Add(lblTKary);
             Controls.Add(lblJTrans);
@@ -450,5 +459,6 @@
         private Label lblJTrans;
         private Label lblTKary;
         private Label lblTProdukBsk;
+        private Panel panelChartDashboard;
     }
 }
