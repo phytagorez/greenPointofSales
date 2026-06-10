@@ -142,18 +142,22 @@ namespace greenPointofSales.Views
         {
             OnNavigasi?.Invoke(new UC_LaporanLabaRugi());
         }
+        private void btnMenuDashboard_Click(object sender, EventArgs e)
+        {
+            UIHelper.PindahKe(new FormDashboard());
+        }
         private void btnMenuKaryawan_Click(object sender, EventArgs e)
         {
-            new FormManajemenKaryawan().ShowDialog();
+            UIHelper.PindahKe(new FormManajemenKaryawan());
         }
 
         private void btnMenuProduk_Click(object sender, EventArgs e)
         {
-            new FormProduk().ShowDialog();
+            UIHelper.PindahKe(new FormProduk());
         }
-        private void btnMenuKatlog_Click(object sender, EventArgs e)
+        private void btnMenuKatalog_Click(object sender, EventArgs e)
         {
-            new FormManajemenProduk().ShowDialog();
+            UIHelper.PindahKe(new FormManajemenProduk());
         }
         private void btnLogout_Click(object sender, EventArgs e)
         {

@@ -35,6 +35,7 @@
             pbPassword = new PictureBox();
             lblUsername = new Label();
             lblPassword = new Label();
+            btnX = new Button();
             ((System.ComponentModel.ISupportInitialize)pbUsername).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbPassword).BeginInit();
             SuspendLayout();
@@ -128,11 +129,26 @@
             lblPassword.Size = new Size(0, 22);
             lblPassword.TabIndex = 8;
             // 
+            // btnX
+            // 
+            btnX.BackColor = Color.SandyBrown;
+            btnX.FlatStyle = FlatStyle.Popup;
+            btnX.Font = new Font("Mongolian Baiti", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnX.ForeColor = Color.Black;
+            btnX.Location = new Point(1252, -1);
+            btnX.Name = "btnX";
+            btnX.Size = new Size(29, 33);
+            btnX.TabIndex = 9;
+            btnX.Text = "X";
+            btnX.UseVisualStyleBackColor = false;
+            btnX.Click += btnX_Click;
+            // 
             // FormLogin
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.Login_G;
             ClientSize = new Size(1280, 720);
+            Controls.Add(btnX);
             Controls.Add(lblPassword);
             Controls.Add(lblUsername);
             Controls.Add(pbPassword);
@@ -159,5 +175,6 @@
         private PictureBox pbPassword;
         private Label lblUsername;
         private Label lblPassword;
+        private Button btnX;
     }
 }

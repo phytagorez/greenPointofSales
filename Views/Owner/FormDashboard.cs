@@ -1,6 +1,7 @@
 ﻿using greenPointofSales.Helpers;
 using greenPointofSales.Models.Entity;
 using greenPointofSales.Views.Owner;
+using greenPointofSales.Controllers;
 using System;
 using System.Windows.Forms;
 
@@ -8,6 +9,7 @@ namespace greenPointofSales.Views
 {
     public partial class FormDashboard : Form
     {
+        private readonly DashboardControllers _dashboardController = new();
         public FormDashboard()
         {
             InitializeComponent();
@@ -18,8 +20,22 @@ namespace greenPointofSales.Views
             this.Text = $"Dashboard Owner | Selamat Datang, {nama} ({role})";
 
             CekPeringatanStokToko();
+            TampilkanWidget();
         }
-
+        private void TampilkanWidget()
+        {
+            try
+            {
+                lblTTrans.Text = _dashboardController.DapatkanTotalTransaksiHariIni();
+                lblJTrans.Text = _dashboardController.DapatkanJumlahTransaksiHariIni();
+                lblTKary.Text = _dashboardController.DapatkanTotalKaryawan();
+                lblTProdukBsk.Text = _dashboardController.DapatkanTotalProdukBusuk();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Gagal memuat widget: " + ex.Message);
+            }
+        }
         private void CekPeringatanStokToko()
         {
             try
@@ -39,12 +55,12 @@ namespace greenPointofSales.Views
 
         private void btnMenuKaryawan_Click(object sender, EventArgs e)
         {
-            new FormManajemenKaryawan().ShowDialog();
+            UIHelper.PindahKe(new FormManajemenKaryawan());
         }
 
         private void btnMenuProduk_Click(object sender, EventArgs e)
         {
-            new FormProduk().ShowDialog();
+            UIHelper.PindahKe(new FormProduk());
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -73,14 +89,12 @@ namespace greenPointofSales.Views
         }
         private void btnMenuKatalog_Click(object sender, EventArgs e)
         {
-            new FormManajemenProduk().ShowDialog();
+            UIHelper.PindahKe(new FormManajemenProduk());
         }
 
         private void btnLaporan_Click(object sender, EventArgs e)
         {
-            FormLaporan frm = new FormLaporan();
-            frm.StartPosition = FormStartPosition.CenterScreen;
-            frm.Show();
+            UIHelper.PindahKe(new FormLaporan());
         }
     }
 }

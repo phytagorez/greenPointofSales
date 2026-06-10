@@ -1,6 +1,7 @@
 ﻿using greenPointofSales.Controllers;
 using greenPointofSales.Helpers;
 using greenPointofSales.Models.Entity;
+using greenPointofSales.Views.Owner;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -618,19 +619,22 @@ namespace greenPointofSales.Views
         }
         private void btnMenuDashboard_Click(object sender, EventArgs e)
         {
-            new FormDashboard().ShowDialog();
+            UIHelper.PindahKe(new FormDashboard());
         }
 
         private void btnMenuProduk_Click(object sender, EventArgs e)
         {
-            new FormProduk().ShowDialog();
+            UIHelper.PindahKe(new FormProduk());
         }
 
         private void btnMenuKaryawan_Click(object sender, EventArgs e)
         {
-            new FormManajemenKaryawan().ShowDialog();
+            UIHelper.PindahKe(new FormManajemenKaryawan());
         }
-
+        private void btnLaporan_Click(object sender, EventArgs e)
+        {
+            UIHelper.PindahKe(new FormLaporan());
+        }
         private void btnLogout_Click(object sender, EventArgs e)
         {
             string nama = SesiPenggunaModel.PenggunaAktif?.Username ?? "Pengguna";

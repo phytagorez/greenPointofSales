@@ -43,7 +43,7 @@
             txtEmail = new TextBox();
             btnNonaktifkan = new Button();
             pbMenu = new PictureBox();
-            label2 = new Label();
+            lblMenu = new Label();
             lblLaporan = new Label();
             lblPengelolaan = new Label();
             lblMaster = new Label();
@@ -94,12 +94,12 @@
             // 
             // btnSimpan
             // 
-            btnSimpan.BackColor = Color.White;
+            btnSimpan.BackColor = Color.Wheat;
             btnSimpan.Cursor = Cursors.Hand;
             btnSimpan.FlatAppearance.BorderSize = 0;
             btnSimpan.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnSimpan.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnSimpan.FlatStyle = FlatStyle.Flat;
+            btnSimpan.FlatStyle = FlatStyle.Popup;
             btnSimpan.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnSimpan.Location = new Point(497, 394);
             btnSimpan.Name = "btnSimpan";
@@ -184,11 +184,11 @@
             // 
             // btnNonaktifkan
             // 
-            btnNonaktifkan.BackColor = Color.White;
+            btnNonaktifkan.BackColor = Color.Ivory;
             btnNonaktifkan.Cursor = Cursors.Hand;
             btnNonaktifkan.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnNonaktifkan.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnNonaktifkan.FlatStyle = FlatStyle.Flat;
+            btnNonaktifkan.FlatStyle = FlatStyle.Popup;
             btnNonaktifkan.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnNonaktifkan.ForeColor = SystemColors.ControlText;
             btnNonaktifkan.Location = new Point(644, 394);
@@ -209,17 +209,17 @@
             pbMenu.TabIndex = 28;
             pbMenu.TabStop = false;
             // 
-            // label2
+            // lblMenu
             // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(67, 25);
-            label2.Name = "label2";
-            label2.Size = new Size(56, 22);
-            label2.TabIndex = 27;
-            label2.Text = "Menu";
-            label2.TextChanged += tbSearchBar_TextChanged;
+            lblMenu.AutoSize = true;
+            lblMenu.BackColor = Color.Transparent;
+            lblMenu.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblMenu.Location = new Point(67, 25);
+            lblMenu.Name = "lblMenu";
+            lblMenu.Size = new Size(56, 22);
+            lblMenu.TabIndex = 27;
+            lblMenu.Text = "Menu";
+            lblMenu.TextChanged += tbSearchBar_TextChanged;
             // 
             // lblLaporan
             // 
@@ -261,7 +261,7 @@
             btnLaporan.FlatAppearance.BorderSize = 0;
             btnLaporan.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnLaporan.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnLaporan.FlatStyle = FlatStyle.Flat;
+            btnLaporan.FlatStyle = FlatStyle.Popup;
             btnLaporan.Font = new Font("Georgia", 10.2F);
             btnLaporan.ForeColor = Color.Black;
             btnLaporan.Image = Properties.Resources.bar_chart;
@@ -274,6 +274,7 @@
             btnLaporan.Text = "   Laporan";
             btnLaporan.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnLaporan.UseVisualStyleBackColor = false;
+            btnLaporan.Click += btnLaporan_Click;
             // 
             // btnMenuDashboard
             // 
@@ -282,7 +283,7 @@
             btnMenuDashboard.FlatAppearance.BorderSize = 0;
             btnMenuDashboard.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuDashboard.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuDashboard.FlatStyle = FlatStyle.Flat;
+            btnMenuDashboard.FlatStyle = FlatStyle.Popup;
             btnMenuDashboard.Font = new Font("Georgia", 10.2F);
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
@@ -304,7 +305,7 @@
             btnMenuKatalog.FlatAppearance.BorderSize = 0;
             btnMenuKatalog.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuKatalog.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuKatalog.FlatStyle = FlatStyle.Flat;
+            btnMenuKatalog.FlatStyle = FlatStyle.Popup;
             btnMenuKatalog.Font = new Font("Georgia", 10.2F);
             btnMenuKatalog.ForeColor = Color.Black;
             btnMenuKatalog.Image = Properties.Resources.boxes;
@@ -349,7 +350,7 @@
             btnMenuProduk.FlatAppearance.BorderSize = 0;
             btnMenuProduk.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuProduk.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuProduk.FlatStyle = FlatStyle.Flat;
+            btnMenuProduk.FlatStyle = FlatStyle.Popup;
             btnMenuProduk.Font = new Font("Georgia", 10.2F);
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
@@ -371,7 +372,7 @@
             btnMenuKaryawan.FlatAppearance.BorderSize = 0;
             btnMenuKaryawan.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuKaryawan.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuKaryawan.FlatStyle = FlatStyle.Flat;
+            btnMenuKaryawan.FlatStyle = FlatStyle.Popup;
             btnMenuKaryawan.Font = new Font("Georgia", 10.2F);
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
@@ -416,14 +417,14 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.BackColor = Color.White;
+            btnUpdate.BackColor = Color.Wheat;
             btnUpdate.Cursor = Cursors.Hand;
             btnUpdate.FlatAppearance.BorderSize = 0;
             btnUpdate.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnUpdate.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnUpdate.FlatStyle = FlatStyle.Flat;
+            btnUpdate.FlatStyle = FlatStyle.Popup;
             btnUpdate.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnUpdate.Location = new Point(860, 394);
+            btnUpdate.Location = new Point(856, 394);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(100, 35);
             btnUpdate.TabIndex = 30;
@@ -431,7 +432,7 @@
             btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
-            // FormTambahKaryawan
+            // FormManajemenKaryawan
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.MKaryawan_P;
@@ -439,7 +440,7 @@
             Controls.Add(btnUpdate);
             Controls.Add(tbSearchBar);
             Controls.Add(pbMenu);
-            Controls.Add(label2);
+            Controls.Add(lblMenu);
             Controls.Add(lblLaporan);
             Controls.Add(lblPengelolaan);
             Controls.Add(lblMaster);
@@ -463,7 +464,7 @@
             Controls.Add(txtUserBaru);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FormTambahKaryawan";
+            Name = "FormManajemenKaryawan";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormTambahKaryawan";
             Load += FormTambahKaryawan_Load;
@@ -488,7 +489,7 @@
         private TextBox txtEmail;
         private Button btnNonaktifkan;
         private PictureBox pbMenu;
-        private Label label2;
+        private Label lblMenu;
         private Label lblLaporan;
         private Label lblPengelolaan;
         private Label lblMaster;

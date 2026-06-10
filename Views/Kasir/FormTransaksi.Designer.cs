@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             splitContainer1 = new SplitContainer();
             flpKatalog = new FlowLayoutPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -128,7 +128,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(15, 54);
+            label3.Location = new Point(15, 46);
             label3.Name = "label3";
             label3.Size = new Size(115, 22);
             label3.TabIndex = 4;
@@ -136,13 +136,14 @@
             // 
             // btnBayar
             // 
+            btnBayar.BackColor = Color.FromArgb(227, 233, 207);
             btnBayar.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnBayar.Location = new Point(192, 11);
+            btnBayar.Location = new Point(135, 82);
             btnBayar.Name = "btnBayar";
-            btnBayar.Size = new Size(94, 29);
+            btnBayar.Size = new Size(151, 29);
             btnBayar.TabIndex = 5;
             btnBayar.Text = "Bayar";
-            btnBayar.UseVisualStyleBackColor = true;
+            btnBayar.UseVisualStyleBackColor = false;
             btnBayar.Click += btnBayar_Click;
             // 
             // pnlTunai
@@ -150,9 +151,9 @@
             pnlTunai.Controls.Add(label2);
             pnlTunai.Controls.Add(lblKembalian);
             pnlTunai.Controls.Add(txtUangBayar);
-            pnlTunai.Location = new Point(0, 83);
+            pnlTunai.Location = new Point(0, 123);
             pnlTunai.Name = "pnlTunai";
-            pnlTunai.Size = new Size(297, 133);
+            pnlTunai.Size = new Size(297, 93);
             pnlTunai.TabIndex = 3;
             // 
             // label2
@@ -180,7 +181,7 @@
             txtUangBayar.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtUangBayar.Location = new Point(136, 14);
             txtUangBayar.Name = "txtUangBayar";
-            txtUangBayar.Size = new Size(125, 29);
+            txtUangBayar.Size = new Size(151, 29);
             txtUangBayar.TabIndex = 0;
             txtUangBayar.TextChanged += txtUangBayar_TextChanged;
             // 
@@ -209,7 +210,7 @@
             cmbMetodeBayar.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbMetodeBayar.FormattingEnabled = true;
             cmbMetodeBayar.Items.AddRange(new object[] { "Tunai", "Non-Tunai" });
-            cmbMetodeBayar.Location = new Point(136, 52);
+            cmbMetodeBayar.Location = new Point(136, 44);
             cmbMetodeBayar.Name = "cmbMetodeBayar";
             cmbMetodeBayar.Size = new Size(151, 26);
             cmbMetodeBayar.TabIndex = 0;
@@ -229,7 +230,7 @@
             tbSearchTrans.BackColor = Color.Transparent;
             tbSearchTrans.BorderColor = Color.Transparent;
             tbSearchTrans.BorderRadius = 15;
-            tbSearchTrans.CustomizableEdges = customizableEdges1;
+            tbSearchTrans.CustomizableEdges = customizableEdges9;
             tbSearchTrans.DefaultText = "";
             tbSearchTrans.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             tbSearchTrans.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -247,7 +248,7 @@
             tbSearchTrans.PlaceholderForeColor = Color.Black;
             tbSearchTrans.PlaceholderText = "Cari Produk...";
             tbSearchTrans.SelectedText = "";
-            tbSearchTrans.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            tbSearchTrans.ShadowDecoration.CustomizableEdges = customizableEdges10;
             tbSearchTrans.Size = new Size(300, 30);
             tbSearchTrans.TabIndex = 1;
             // 
@@ -325,12 +326,12 @@
             // guna2PictureBox1
             // 
             guna2PictureBox1.BackgroundImage = Properties.Resources.list;
-            guna2PictureBox1.CustomizableEdges = customizableEdges3;
+            guna2PictureBox1.CustomizableEdges = customizableEdges11;
             guna2PictureBox1.FillColor = Color.Transparent;
             guna2PictureBox1.ImageRotate = 0F;
             guna2PictureBox1.Location = new Point(488, 41);
             guna2PictureBox1.Name = "guna2PictureBox1";
-            guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges12;
             guna2PictureBox1.Size = new Size(0, 0);
             guna2PictureBox1.TabIndex = 29;
             guna2PictureBox1.TabStop = false;

@@ -181,7 +181,7 @@
             btnLaporan.FlatAppearance.BorderSize = 0;
             btnLaporan.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnLaporan.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnLaporan.FlatStyle = FlatStyle.Flat;
+            btnLaporan.FlatStyle = FlatStyle.Popup;
             btnLaporan.Font = new Font("Georgia", 10.2F);
             btnLaporan.ForeColor = Color.Black;
             btnLaporan.Image = Properties.Resources.bar_chart;
@@ -194,6 +194,7 @@
             btnLaporan.Text = "   Laporan";
             btnLaporan.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnLaporan.UseVisualStyleBackColor = false;
+            btnLaporan.Click += btnLaporan_Click;
             // 
             // btnMenuDashboard
             // 
@@ -202,7 +203,7 @@
             btnMenuDashboard.FlatAppearance.BorderSize = 0;
             btnMenuDashboard.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuDashboard.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuDashboard.FlatStyle = FlatStyle.Flat;
+            btnMenuDashboard.FlatStyle = FlatStyle.Popup;
             btnMenuDashboard.Font = new Font("Georgia", 10.2F);
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
@@ -224,7 +225,7 @@
             btnMenuKatalog.FlatAppearance.BorderSize = 0;
             btnMenuKatalog.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuKatalog.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuKatalog.FlatStyle = FlatStyle.Flat;
+            btnMenuKatalog.FlatStyle = FlatStyle.Popup;
             btnMenuKatalog.Font = new Font("Georgia", 10.2F);
             btnMenuKatalog.ForeColor = Color.Black;
             btnMenuKatalog.Image = Properties.Resources.boxes;
@@ -268,7 +269,7 @@
             btnMenuProduk.FlatAppearance.BorderSize = 0;
             btnMenuProduk.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuProduk.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuProduk.FlatStyle = FlatStyle.Flat;
+            btnMenuProduk.FlatStyle = FlatStyle.Popup;
             btnMenuProduk.Font = new Font("Georgia", 10.2F);
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
@@ -290,7 +291,7 @@
             btnMenuKaryawan.FlatAppearance.BorderSize = 0;
             btnMenuKaryawan.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuKaryawan.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuKaryawan.FlatStyle = FlatStyle.Flat;
+            btnMenuKaryawan.FlatStyle = FlatStyle.Popup;
             btnMenuKaryawan.Font = new Font("Georgia", 10.2F);
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
@@ -320,7 +321,7 @@
             btnKAll.TextAlign = ContentAlignment.TopCenter;
             btnKAll.UseVisualStyleBackColor = false;
             // 
-            // FormKatalog
+            // FormManajemenProduk
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
@@ -348,7 +349,7 @@
             DoubleBuffered = true;
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FormKatalog";
+            Name = "FormManajemenProduk";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormKatalog";
             ((System.ComponentModel.ISupportInitialize)pbMenu).EndInit();

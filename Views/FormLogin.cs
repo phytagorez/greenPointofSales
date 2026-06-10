@@ -91,5 +91,19 @@ namespace greenPointofSales
                     break;
             }
         }
+        private void btnX_Click(object sender, EventArgs e)
+        {
+            DialogResult konfirmasi = MessageBox.Show(
+                "Apakah kamu yakin ingin keluar dari aplikasi?",
+                "Konfirmasi Keluar",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (konfirmasi == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
     }
 }

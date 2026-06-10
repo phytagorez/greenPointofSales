@@ -34,5 +34,23 @@ namespace greenPointofSales.Helpers
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             return dr == DialogResult.Yes;
         }
+        //Form Just 1
+        public static void PindahKe(Form formBaru)
+        {
+            formBaru.Show();
+
+            for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+            {
+                Form formAktif = Application.OpenForms[i];
+
+                if (formAktif != null
+                    && formAktif.Name != "FormLogin"
+                    && formAktif.Name != formBaru.Name)
+                {
+                    formAktif.Close();
+                }
+            }
+        }
+
     }
 }

@@ -48,29 +48,39 @@
             btnMenuKaryawan = new Button();
             btnLapLabaRugi = new Button();
             btnLapPenjualan = new Button();
+            TextLabaBersih = new Label();
+            TextRugiBusuk = new Label();
+            TextBulan = new Label();
+            TextTahun = new Label();
+            TextFilterData = new Label();
+            TextPendapatan = new Label();
+            TextTotalHPP = new Label();
             ((System.ComponentModel.ISupportInitialize)pbMenu).BeginInit();
             SuspendLayout();
             // 
             // cbBulan
             // 
+            cbBulan.FlatStyle = FlatStyle.Flat;
             cbBulan.Font = new Font("Mongolian Baiti", 10.2F);
             cbBulan.FormattingEnabled = true;
             cbBulan.Items.AddRange(new object[] { "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember" });
-            cbBulan.Location = new Point(237, 176);
+            cbBulan.Location = new Point(237, 177);
             cbBulan.Name = "cbBulan";
             cbBulan.Size = new Size(207, 26);
             cbBulan.TabIndex = 0;
             // 
             // txtTahun
             // 
+            txtTahun.BorderStyle = BorderStyle.None;
             txtTahun.Font = new Font("Mongolian Baiti", 10.2F);
-            txtTahun.Location = new Point(479, 177);
+            txtTahun.Location = new Point(479, 180);
             txtTahun.Name = "txtTahun";
-            txtTahun.Size = new Size(204, 27);
+            txtTahun.Size = new Size(204, 20);
             txtTahun.TabIndex = 1;
             // 
             // btnCari
             // 
+            btnCari.BackColor = Color.Wheat;
             btnCari.Font = new Font("Mongolian Baiti", 10.2F);
             btnCari.Location = new Point(411, 219);
             btnCari.Name = "btnCari";
@@ -85,45 +95,44 @@
             lblPendapatan.AutoSize = true;
             lblPendapatan.BackColor = Color.Transparent;
             lblPendapatan.Font = new Font("Mongolian Baiti", 10.2F);
-            lblPendapatan.Location = new Point(1052, 101);
+            lblPendapatan.Location = new Point(1096, 171);
             lblPendapatan.Name = "lblPendapatan";
-            lblPendapatan.Size = new Size(90, 18);
+            lblPendapatan.Size = new Size(41, 18);
             lblPendapatan.TabIndex = 3;
-            lblPendapatan.Text = "Pendapatan";
+            lblPendapatan.Text = "Rp 0";
             // 
             // lblHPP
             // 
             lblHPP.AutoSize = true;
             lblHPP.BackColor = Color.Transparent;
             lblHPP.Font = new Font("Mongolian Baiti", 10.2F);
-            lblHPP.Location = new Point(1055, 250);
+            lblHPP.Location = new Point(1096, 304);
             lblHPP.Name = "lblHPP";
-            lblHPP.Size = new Size(38, 18);
+            lblHPP.Size = new Size(41, 18);
             lblHPP.TabIndex = 4;
-            lblHPP.Text = "HPP";
-            lblHPP.Click += lblHPP_Click;
+            lblHPP.Text = "Rp 0";
             // 
             // lblLabaBersih
             // 
             lblLabaBersih.AutoSize = true;
             lblLabaBersih.BackColor = Color.Transparent;
             lblLabaBersih.Font = new Font("Mongolian Baiti", 10.2F);
-            lblLabaBersih.Location = new Point(278, 291);
+            lblLabaBersih.Location = new Point(269, 329);
             lblLabaBersih.Name = "lblLabaBersih";
-            lblLabaBersih.Size = new Size(93, 18);
+            lblLabaBersih.Size = new Size(41, 18);
             lblLabaBersih.TabIndex = 5;
-            lblLabaBersih.Text = "Laba Bersih";
+            lblLabaBersih.Text = "Rp 0";
             // 
             // lblRugiBusuk
             // 
             lblRugiBusuk.AutoSize = true;
             lblRugiBusuk.BackColor = Color.Transparent;
             lblRugiBusuk.Font = new Font("Mongolian Baiti", 10.2F);
-            lblRugiBusuk.Location = new Point(539, 291);
+            lblRugiBusuk.Location = new Point(534, 329);
             lblRugiBusuk.Name = "lblRugiBusuk";
-            lblRugiBusuk.Size = new Size(91, 18);
+            lblRugiBusuk.Size = new Size(41, 18);
             lblRugiBusuk.TabIndex = 6;
-            lblRugiBusuk.Text = "Rugi Busuk";
+            lblRugiBusuk.Text = "Rp 0";
             // 
             // pbMenu
             // 
@@ -186,7 +195,7 @@
             btnLaporan.FlatAppearance.BorderSize = 0;
             btnLaporan.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnLaporan.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnLaporan.FlatStyle = FlatStyle.Flat;
+            btnLaporan.FlatStyle = FlatStyle.Popup;
             btnLaporan.Font = new Font("Georgia", 10.2F);
             btnLaporan.ForeColor = Color.Black;
             btnLaporan.Image = Properties.Resources.bar_chart;
@@ -207,7 +216,7 @@
             btnMenuDashboard.FlatAppearance.BorderSize = 0;
             btnMenuDashboard.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuDashboard.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuDashboard.FlatStyle = FlatStyle.Flat;
+            btnMenuDashboard.FlatStyle = FlatStyle.Popup;
             btnMenuDashboard.Font = new Font("Georgia", 10.2F);
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
@@ -220,6 +229,7 @@
             btnMenuDashboard.Text = "   Dashboard";
             btnMenuDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuDashboard.UseVisualStyleBackColor = false;
+            btnMenuDashboard.Click += btnMenuDashboard_Click;
             // 
             // btnMenuKatalog
             // 
@@ -228,7 +238,7 @@
             btnMenuKatalog.FlatAppearance.BorderSize = 0;
             btnMenuKatalog.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuKatalog.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuKatalog.FlatStyle = FlatStyle.Flat;
+            btnMenuKatalog.FlatStyle = FlatStyle.Popup;
             btnMenuKatalog.Font = new Font("Georgia", 10.2F);
             btnMenuKatalog.ForeColor = Color.Black;
             btnMenuKatalog.Image = Properties.Resources.boxes;
@@ -242,6 +252,7 @@
             btnMenuKatalog.TextAlign = ContentAlignment.MiddleLeft;
             btnMenuKatalog.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKatalog.UseVisualStyleBackColor = false;
+            btnMenuKatalog.Click += btnMenuKatalog_Click;
             // 
             // btnLogout
             // 
@@ -263,6 +274,7 @@
             btnLogout.TextAlign = ContentAlignment.MiddleLeft;
             btnLogout.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // btnMenuProduk
             // 
@@ -271,7 +283,7 @@
             btnMenuProduk.FlatAppearance.BorderSize = 0;
             btnMenuProduk.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuProduk.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuProduk.FlatStyle = FlatStyle.Flat;
+            btnMenuProduk.FlatStyle = FlatStyle.Popup;
             btnMenuProduk.Font = new Font("Georgia", 10.2F);
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
@@ -284,6 +296,7 @@
             btnMenuProduk.Text = "   Produk";
             btnMenuProduk.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuProduk.UseVisualStyleBackColor = false;
+            btnMenuProduk.Click += btnMenuProduk_Click;
             // 
             // btnMenuKaryawan
             // 
@@ -292,7 +305,7 @@
             btnMenuKaryawan.FlatAppearance.BorderSize = 0;
             btnMenuKaryawan.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuKaryawan.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuKaryawan.FlatStyle = FlatStyle.Flat;
+            btnMenuKaryawan.FlatStyle = FlatStyle.Popup;
             btnMenuKaryawan.Font = new Font("Georgia", 10.2F);
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
@@ -306,6 +319,7 @@
             btnMenuKaryawan.TextAlign = ContentAlignment.MiddleLeft;
             btnMenuKaryawan.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKaryawan.UseVisualStyleBackColor = false;
+            btnMenuKaryawan.Click += btnMenuKaryawan_Click;
             // 
             // btnLapLabaRugi
             // 
@@ -330,11 +344,97 @@
             btnLapPenjualan.TabIndex = 33;
             btnLapPenjualan.Text = "Laporan Penjualan";
             btnLapPenjualan.UseVisualStyleBackColor = false;
+            btnLapPenjualan.Click += btnLapPenjualan_Click;
+            // 
+            // TextLabaBersih
+            // 
+            TextLabaBersih.AutoSize = true;
+            TextLabaBersih.BackColor = Color.Transparent;
+            TextLabaBersih.Font = new Font("Perpetua Titling MT", 10.8F);
+            TextLabaBersih.Location = new Point(269, 296);
+            TextLabaBersih.Name = "TextLabaBersih";
+            TextLabaBersih.Size = new Size(117, 21);
+            TextLabaBersih.TabIndex = 35;
+            TextLabaBersih.Text = "Laba Bersih";
+            // 
+            // TextRugiBusuk
+            // 
+            TextRugiBusuk.AutoSize = true;
+            TextRugiBusuk.BackColor = Color.Transparent;
+            TextRugiBusuk.Font = new Font("Perpetua Titling MT", 10.8F);
+            TextRugiBusuk.Location = new Point(531, 295);
+            TextRugiBusuk.Name = "TextRugiBusuk";
+            TextRugiBusuk.Size = new Size(122, 21);
+            TextRugiBusuk.TabIndex = 36;
+            TextRugiBusuk.Text = "Total Rugi";
+            // 
+            // TextBulan
+            // 
+            TextBulan.AutoSize = true;
+            TextBulan.BackColor = Color.Transparent;
+            TextBulan.Font = new Font("Times New Roman", 10.8F);
+            TextBulan.Location = new Point(237, 148);
+            TextBulan.Name = "TextBulan";
+            TextBulan.Size = new Size(51, 20);
+            TextBulan.TabIndex = 37;
+            TextBulan.Text = "Bulan";
+            // 
+            // TextTahun
+            // 
+            TextTahun.AutoSize = true;
+            TextTahun.BackColor = Color.Transparent;
+            TextTahun.Font = new Font("Times New Roman", 10.8F);
+            TextTahun.Location = new Point(479, 149);
+            TextTahun.Name = "TextTahun";
+            TextTahun.Size = new Size(55, 20);
+            TextTahun.TabIndex = 38;
+            TextTahun.Text = "Tahun";
+            // 
+            // TextFilterData
+            // 
+            TextFilterData.AutoSize = true;
+            TextFilterData.BackColor = Color.Transparent;
+            TextFilterData.Font = new Font("Perpetua Titling MT", 10.8F, FontStyle.Bold);
+            TextFilterData.Location = new Point(222, 102);
+            TextFilterData.Name = "TextFilterData";
+            TextFilterData.Size = new Size(256, 22);
+            TextFilterData.TabIndex = 39;
+            TextFilterData.Text = "Filter Data Penjualan";
+            // 
+            // TextPendapatan
+            // 
+            TextPendapatan.AutoSize = true;
+            TextPendapatan.BackColor = Color.Transparent;
+            TextPendapatan.Font = new Font("Perpetua Titling MT", 10.8F);
+            TextPendapatan.Location = new Point(1082, 118);
+            TextPendapatan.Name = "TextPendapatan";
+            TextPendapatan.Size = new Size(131, 42);
+            TextPendapatan.TabIndex = 40;
+            TextPendapatan.Text = "Total \nPendapatan";
+            TextPendapatan.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // TextTotalHPP
+            // 
+            TextTotalHPP.AutoSize = true;
+            TextTotalHPP.BackColor = Color.Transparent;
+            TextTotalHPP.Font = new Font("Perpetua Titling MT", 10.8F);
+            TextTotalHPP.Location = new Point(1092, 270);
+            TextTotalHPP.Name = "TextTotalHPP";
+            TextTotalHPP.Size = new Size(111, 21);
+            TextTotalHPP.TabIndex = 41;
+            TextTotalHPP.Text = "Total HPP";
             // 
             // UC_LaporanLabaRugi
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.Laporan_LB_O;
+            Controls.Add(TextTotalHPP);
+            Controls.Add(TextPendapatan);
+            Controls.Add(TextFilterData);
+            Controls.Add(TextTahun);
+            Controls.Add(TextBulan);
+            Controls.Add(TextRugiBusuk);
+            Controls.Add(TextLabaBersih);
             Controls.Add(btnLapLabaRugi);
             Controls.Add(btnLapPenjualan);
             Controls.Add(pbMenu);
@@ -384,5 +484,12 @@
         private Button btnMenuKaryawan;
         private Button btnLapLabaRugi;
         private Button btnLapPenjualan;
+        private Label TextLabaBersih;
+        private Label TextRugiBusuk;
+        private Label TextBulan;
+        private Label TextTahun;
+        private Label TextFilterData;
+        private Label TextPendapatan;
+        private Label TextTotalHPP;
     }
 }

@@ -24,5 +24,41 @@ namespace greenPointofSales.Models.Context
             }
             return 0;
         }
+        public decimal AmbilTotalTransaksiHariIni()
+        {
+            string query = @"
+                SELECT COALESCE(SUM(total_harga), 0)
+                FROM transaksi
+                WHERE DATE(tgl_transaksi) = CURRENT_DATE";
+            object? result = DBHelper.EksekusiScalar(query, null);
+            return Convert.ToDecimal(result ?? 0);
+        }
+        public int AmbilJumlahTransaksiHariIni()
+        {
+            string query = @"
+                SELECT COUNT(*)
+                FROM transaksi
+                WHERE DATE(tgl_transaksi) = CURRENT_DATE";
+            object? result = DBHelper.EksekusiScalar(query, null);
+            return Convert.ToInt32(result ?? 0);
+        }
+        public int AmbilTotalKaryawan()
+        {
+            string query = @"
+                SELECT COUNT(*)
+                FROM pengguna
+                WHERE role = 'Kasir' AND is_active = true";
+            object? result = DBHelper.EksekusiScalar(query, null);
+            return Convert.ToInt32(result ?? 0);
+        }
+        public int AmbilTotalProdukBusuk()
+        {
+            string query = @"
+                SELECT COUNT(*)
+                FROM produk
+                WHERE is_nonaktif = true";
+            object? result = DBHelper.EksekusiScalar(query, null);
+            return Convert.ToInt32(result ?? 0);
+        }
     }
 }

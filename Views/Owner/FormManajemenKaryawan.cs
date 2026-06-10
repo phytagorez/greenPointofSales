@@ -2,6 +2,7 @@
 using greenPointofSales.Helpers;
 using greenPointofSales.Models.Entity;
 using greenPointofSales.Views;
+using greenPointofSales.Views.Owner;
 using System;
 using System.Windows.Forms;
 
@@ -278,15 +279,19 @@ namespace greenPointofSales
 
         private void btnMenuDashboard_Click(object sender, EventArgs e)
         {
-            new FormDashboard().ShowDialog();
+            UIHelper.PindahKe(new FormDashboard());
         }
         private void btnMenuProduk_Click(object sender, EventArgs e)
         {
-            new FormProduk().ShowDialog();
+            UIHelper.PindahKe(new FormProduk());
         }
         private void btnMenuKatalog_Click(object sender, EventArgs e)
         {
-            new FormManajemenProduk().ShowDialog();
+            UIHelper.PindahKe(new FormManajemenProduk());
+        }
+        private void btnLaporan_Click(object sender, EventArgs e)
+        {
+            UIHelper.PindahKe(new FormLaporan());
         }
         private void btnLogout_Click(object sender, EventArgs e)
         {

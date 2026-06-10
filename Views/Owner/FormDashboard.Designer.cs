@@ -65,7 +65,7 @@
             btnMenuKaryawan.FlatAppearance.BorderSize = 0;
             btnMenuKaryawan.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuKaryawan.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuKaryawan.FlatStyle = FlatStyle.Flat;
+            btnMenuKaryawan.FlatStyle = FlatStyle.Popup;
             btnMenuKaryawan.Font = new Font("Georgia", 10.2F);
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
@@ -88,7 +88,7 @@
             btnMenuProduk.FlatAppearance.BorderSize = 0;
             btnMenuProduk.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuProduk.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuProduk.FlatStyle = FlatStyle.Flat;
+            btnMenuProduk.FlatStyle = FlatStyle.Popup;
             btnMenuProduk.Font = new Font("Georgia", 10.2F);
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
@@ -132,7 +132,7 @@
             btnMenuKatalog.FlatAppearance.BorderSize = 0;
             btnMenuKatalog.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuKatalog.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuKatalog.FlatStyle = FlatStyle.Flat;
+            btnMenuKatalog.FlatStyle = FlatStyle.Popup;
             btnMenuKatalog.Font = new Font("Georgia", 10.2F);
             btnMenuKatalog.ForeColor = Color.Black;
             btnMenuKatalog.Image = Properties.Resources.boxes;
@@ -154,7 +154,7 @@
             btnMenuDashboard.FlatAppearance.BorderSize = 0;
             btnMenuDashboard.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuDashboard.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuDashboard.FlatStyle = FlatStyle.Flat;
+            btnMenuDashboard.FlatStyle = FlatStyle.Popup;
             btnMenuDashboard.Font = new Font("Georgia", 10.2F);
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
@@ -175,7 +175,7 @@
             btnLaporan.FlatAppearance.BorderSize = 0;
             btnLaporan.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnLaporan.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnLaporan.FlatStyle = FlatStyle.Flat;
+            btnLaporan.FlatStyle = FlatStyle.Popup;
             btnLaporan.Font = new Font("Georgia", 10.2F);
             btnLaporan.ForeColor = Color.Black;
             btnLaporan.Image = Properties.Resources.bar_chart;
@@ -380,7 +380,7 @@
             lblTProdukBsk.Text = "Angka";
             lblTProdukBsk.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // FormDashboardOwner
+            // FormDashboard
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.Dash_P_O;
@@ -413,10 +413,9 @@
             Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 4, 3, 4);
-            Name = "FormDashboardOwner";
+            Name = "FormDashboard";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormDashboardOwner";
-            Load += FormDashboardOwner_Load;
             ((System.ComponentModel.ISupportInitialize)pbMenu).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbTTransaksi).EndInit();
             ((System.ComponentModel.ISupportInitialize)pbJTransaksi).EndInit();

@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             txtNamaProduk = new TextBox();
             txtHargaJual = new TextBox();
             txtHargaBeli = new TextBox();
@@ -136,7 +136,7 @@
             btnSimpan.FlatAppearance.BorderSize = 0;
             btnSimpan.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnSimpan.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnSimpan.FlatStyle = FlatStyle.Flat;
+            btnSimpan.FlatStyle = FlatStyle.Popup;
             btnSimpan.Font = new Font("Modern No. 20", 12F);
             btnSimpan.ForeColor = Color.Black;
             btnSimpan.Location = new Point(589, 657);
@@ -166,7 +166,7 @@
             btnBusuk.FlatAppearance.BorderSize = 0;
             btnBusuk.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnBusuk.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnBusuk.FlatStyle = FlatStyle.Flat;
+            btnBusuk.FlatStyle = FlatStyle.Popup;
             btnBusuk.Font = new Font("Modern No. 20", 12F);
             btnBusuk.ForeColor = Color.Black;
             btnBusuk.Location = new Point(728, 657);
@@ -243,7 +243,7 @@
             btnLaporan.FlatAppearance.BorderSize = 0;
             btnLaporan.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnLaporan.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnLaporan.FlatStyle = FlatStyle.Flat;
+            btnLaporan.FlatStyle = FlatStyle.Popup;
             btnLaporan.Font = new Font("Georgia", 10.2F);
             btnLaporan.ForeColor = Color.Black;
             btnLaporan.Image = Properties.Resources.bar_chart;
@@ -256,6 +256,7 @@
             btnLaporan.Text = "   Laporan";
             btnLaporan.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnLaporan.UseVisualStyleBackColor = false;
+            btnLaporan.Click += btnLaporan_Click;
             // 
             // btnMenuDashboard
             // 
@@ -264,7 +265,7 @@
             btnMenuDashboard.FlatAppearance.BorderSize = 0;
             btnMenuDashboard.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuDashboard.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuDashboard.FlatStyle = FlatStyle.Flat;
+            btnMenuDashboard.FlatStyle = FlatStyle.Popup;
             btnMenuDashboard.Font = new Font("Georgia", 10.2F);
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
@@ -286,7 +287,7 @@
             btnMenuKatalog.FlatAppearance.BorderSize = 0;
             btnMenuKatalog.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuKatalog.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuKatalog.FlatStyle = FlatStyle.Flat;
+            btnMenuKatalog.FlatStyle = FlatStyle.Popup;
             btnMenuKatalog.Font = new Font("Georgia", 10.2F);
             btnMenuKatalog.ForeColor = Color.Black;
             btnMenuKatalog.Image = Properties.Resources.boxes;
@@ -331,7 +332,7 @@
             btnMenuProduk.FlatAppearance.BorderSize = 0;
             btnMenuProduk.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuProduk.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuProduk.FlatStyle = FlatStyle.Flat;
+            btnMenuProduk.FlatStyle = FlatStyle.Popup;
             btnMenuProduk.Font = new Font("Georgia", 10.2F);
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
@@ -352,7 +353,7 @@
             btnMenuKaryawan.FlatAppearance.BorderSize = 0;
             btnMenuKaryawan.FlatAppearance.MouseDownBackColor = Color.FromArgb(119, 142, 157);
             btnMenuKaryawan.FlatAppearance.MouseOverBackColor = Color.FromArgb(169, 192, 157);
-            btnMenuKaryawan.FlatStyle = FlatStyle.Flat;
+            btnMenuKaryawan.FlatStyle = FlatStyle.Popup;
             btnMenuKaryawan.Font = new Font("Georgia", 10.2F);
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
@@ -373,7 +374,7 @@
             tbSearchBar.BackColor = Color.Transparent;
             tbSearchBar.BorderColor = Color.Transparent;
             tbSearchBar.BorderRadius = 15;
-            tbSearchBar.CustomizableEdges = customizableEdges5;
+            tbSearchBar.CustomizableEdges = customizableEdges1;
             tbSearchBar.DefaultText = "";
             tbSearchBar.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
             tbSearchBar.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
@@ -391,7 +392,7 @@
             tbSearchBar.PlaceholderForeColor = Color.Black;
             tbSearchBar.PlaceholderText = "Search ...";
             tbSearchBar.SelectedText = "";
-            tbSearchBar.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            tbSearchBar.ShadowDecoration.CustomizableEdges = customizableEdges2;
             tbSearchBar.Size = new Size(300, 30);
             tbSearchBar.TabIndex = 34;
             tbSearchBar.TextChanged += tbSearchBar_TextChanged;
@@ -399,7 +400,7 @@
             // cmbSatuan
             // 
             cmbSatuan.BackColor = Color.White;
-            cmbSatuan.CustomizableEdges = customizableEdges7;
+            cmbSatuan.CustomizableEdges = customizableEdges3;
             cmbSatuan.DrawMode = DrawMode.OwnerDrawFixed;
             cmbSatuan.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSatuan.FocusedColor = Color.FromArgb(94, 148, 255);
@@ -410,7 +411,7 @@
             cmbSatuan.Items.AddRange(new object[] { "Ikat", "Kg", "Pcs" });
             cmbSatuan.Location = new Point(931, 604);
             cmbSatuan.Name = "cmbSatuan";
-            cmbSatuan.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            cmbSatuan.ShadowDecoration.CustomizableEdges = customizableEdges4;
             cmbSatuan.Size = new Size(233, 36);
             cmbSatuan.Style = Guna.UI2.WinForms.Enums.TextBoxStyle.Material;
             cmbSatuan.TabIndex = 35;
@@ -503,7 +504,7 @@
             label4.TabIndex = 37;
             label4.Text = "Harga Jual";
             // 
-            // FormManajemenProduk
+            // FormProduk
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
@@ -534,7 +535,7 @@
             Controls.Add(panel2);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FormManajemenProduk";
+            Name = "FormProduk";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormManajemenProduk";
             ((System.ComponentModel.ISupportInitialize)dgvProduk).EndInit();
