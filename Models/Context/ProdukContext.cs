@@ -66,7 +66,6 @@ namespace greenPointofSales.Models.Context
             {
                 try
                 {
-                    // 1. Update tabel produk
                     string queryUpdate = "UPDATE produk SET stok = GREATEST(stok + @jumlah, 0) WHERE id_produk = @id";
                     using (var cmd = new NpgsqlCommand(queryUpdate, conn, tx))
                     {
@@ -75,7 +74,6 @@ namespace greenPointofSales.Models.Context
                         cmd.ExecuteNonQuery();
                     }
 
-                    // 2. Catat ke riwayat
                     string queryRiwayat = @"INSERT INTO riwayat_stok (id_produk, perubahan_stok, jenis_transaksi, keterangan) 
                                     VALUES (@id, @jumlah, @jenis, @ket)";
                     using (var cmdHist = new NpgsqlCommand(queryRiwayat, conn, tx))
@@ -123,6 +121,16 @@ namespace greenPointofSales.Models.Context
 
             object? result = DBHelper.EksekusiScalar(query, parameters);
             return Convert.ToInt32(result ?? 0);
+        }
+
+        public decimal AmbilStokProduk(int idProduk)
+        {
+            string query ="SELECT stok FROM produk WHERE id_produk=@id";
+
+            NpgsqlParameter[] parameters ={new NpgsqlParameter("id", idProduk)};
+
+            object? result = DBHelper.EksekusiScalar(query, parameters);
+            return Convert.ToDecimal(result ?? 0);
         }
     }
 }

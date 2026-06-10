@@ -269,10 +269,21 @@ namespace greenPointofSales.Views
                 Height = 30,
                 Font = new Font("Segoe UI", 10, FontStyle.Bold)
             };
+            string teksQty = "";
+            string satuanLower = satuan.ToLower();
+            if (satuanLower == "pcs" || satuanLower == "ikat")
+            {
+                teksQty = item.Jumlah.ToString("0") + " " + satuan;
+            }
+            
+            else 
+            {
+                teksQty = item.Jumlah.ToString("0.##") + " " + satuan;
+            }
 
             Label lblQty = new Label
             {
-                Text = $"{item.Jumlah:0.##} {satuan}",
+                Text = teksQty,
                 Location = new Point(cardBarang.Width - 100, 20),
                 Width = 55,
                 TextAlign = ContentAlignment.MiddleCenter,
@@ -553,6 +564,11 @@ namespace greenPointofSales.Views
 
                 Application.OpenForms["FormLogin"]?.Show();
             }
+        }
+
+        private void flpKatalog_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

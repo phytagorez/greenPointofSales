@@ -36,9 +36,9 @@ namespace greenPointofSales.Controllers
             return _context.AmbilKatalog(idKategoriFilter);
         }
 
-        public void UpdateStok(int idProduk, decimal jumlahPerubahan)
+        public void UpdateStok(int idProduk, decimal jumlahPerubahan, string jenisTransaksi = "Penyesuaian Manual", string keterangan = "Update dari sistem")
         {
-            _context.UpdateStok(idProduk, jumlahPerubahan);
+            _context.UpdateStok(idProduk, jumlahPerubahan, jenisTransaksi, keterangan);
         }
         public DataTable CariProdukNama(string keyword)
         {
