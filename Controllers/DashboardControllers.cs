@@ -38,5 +38,9 @@ namespace greenPointofSales.Controllers
             int total = _context.AmbilTotalProdukBusuk();
             return total.ToString() + " Produk";
         }
+        public DataTable DapatkanGrafikTahunan()
+        {
+            return _context.AmbilGrafikTahunan();
+        }
     }
 }

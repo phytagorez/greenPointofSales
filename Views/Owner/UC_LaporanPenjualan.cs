@@ -6,8 +6,7 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting; // Pastikan package NuGet ini terpasang
-
+using System.Windows.Forms.DataVisualization.Charting; 
 namespace greenPointofSales.Views
 {
     public partial class UC_LaporanPenjualan : UserControl
@@ -76,14 +75,12 @@ namespace greenPointofSales.Views
                         object tglObj = row["tanggal"];
                         DateTime tgl;
 
-                        // Type checking untuk menangani berbagai format date
                         if (tglObj is DateTime)
                         {
                             tgl = (DateTime)tglObj;
                         }
                         else if (tglObj is DateOnly)
                         {
-                            // Convert DateOnly ke DateTime dengan TimeOnly.MinValue (00:00:00)
                             DateOnly dateOnly = (DateOnly)tglObj;
                             tgl = dateOnly.ToDateTime(TimeOnly.MinValue);
                         }
@@ -93,7 +90,6 @@ namespace greenPointofSales.Views
                         }
                         else
                         {
-                            // Fallback: coba convert langsung
                             tgl = Convert.ToDateTime(tglObj);
                         }
 
@@ -103,13 +99,12 @@ namespace greenPointofSales.Views
                     catch (Exception rowEx)
                     {
                         UIHelper.Error($"Baris chart gagal diproses: {rowEx.Message}. Melanjutkan dengan data lainnya...");
-                        continue; // Skip baris ini, lanjut ke baris berikutnya
+                        continue;
                     }
                 }
 
                 chartBatangMurni.Series.Add(seriesBatang);
 
-                // KUNCI UTAMA: Bersihkan dan masukkan grafik di akhir proses agar panel TIDAK BLANK/NGILANG
                 panelChart.Controls.Clear();
                 panelChart.Controls.Add(chartBatangMurni);
             }
