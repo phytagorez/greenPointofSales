@@ -339,9 +339,9 @@
             lblTTrans.Font = new Font("Modern No. 20", 13.7999992F, FontStyle.Bold);
             lblTTrans.Location = new Point(284, 131);
             lblTTrans.Name = "lblTTrans";
-            lblTTrans.Size = new Size(78, 25);
+            lblTTrans.Size = new Size(59, 25);
             lblTTrans.TabIndex = 19;
-            lblTTrans.Text = "Angka";
+            lblTTrans.Text = "Rp 0";
             lblTTrans.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblJTrans
@@ -351,9 +351,9 @@
             lblJTrans.Font = new Font("Modern No. 20", 13.7999992F, FontStyle.Bold);
             lblJTrans.Location = new Point(537, 131);
             lblJTrans.Name = "lblJTrans";
-            lblJTrans.Size = new Size(78, 25);
+            lblJTrans.Size = new Size(113, 25);
             lblJTrans.TabIndex = 20;
-            lblJTrans.Text = "Angka";
+            lblJTrans.Text = "Transaksi";
             lblJTrans.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblTKary
@@ -363,9 +363,9 @@
             lblTKary.Font = new Font("Modern No. 20", 13.7999992F, FontStyle.Bold);
             lblTKary.Location = new Point(802, 131);
             lblTKary.Name = "lblTKary";
-            lblTKary.Size = new Size(78, 25);
+            lblTKary.Size = new Size(116, 25);
             lblTKary.TabIndex = 21;
-            lblTKary.Text = "Angka";
+            lblTKary.Text = "Karyawan";
             lblTKary.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblTProdukBsk
@@ -373,11 +373,11 @@
             lblTProdukBsk.AutoSize = true;
             lblTProdukBsk.BackColor = Color.Transparent;
             lblTProdukBsk.Font = new Font("Modern No. 20", 13.7999992F, FontStyle.Bold);
-            lblTProdukBsk.Location = new Point(1053, 131);
+            lblTProdukBsk.Location = new Point(1052, 127);
             lblTProdukBsk.Name = "lblTProdukBsk";
-            lblTProdukBsk.Size = new Size(78, 25);
+            lblTProdukBsk.Size = new Size(159, 25);
             lblTProdukBsk.TabIndex = 22;
-            lblTProdukBsk.Text = "Angka";
+            lblTProdukBsk.Text = "Produk Busuk";
             lblTProdukBsk.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // FormDashboard

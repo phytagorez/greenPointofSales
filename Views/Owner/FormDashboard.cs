@@ -9,7 +9,7 @@ namespace greenPointofSales.Views
 {
     public partial class FormDashboard : Form
     {
-        private readonly DashboardControllers _dashboardController = new();
+        private readonly DashboardControllers Controller = new();
         public FormDashboard()
         {
             InitializeComponent();
@@ -26,10 +26,17 @@ namespace greenPointofSales.Views
         {
             try
             {
-                lblTTrans.Text = _dashboardController.DapatkanTotalTransaksiHariIni();
-                lblJTrans.Text = _dashboardController.DapatkanJumlahTransaksiHariIni();
-                lblTKary.Text = _dashboardController.DapatkanTotalKaryawan();
-                lblTProdukBsk.Text = _dashboardController.DapatkanTotalProdukBusuk();
+                try { lblTTrans.Text = Controller.DapatkanTotalTransaksi(); }
+                catch (Exception ex) { UIHelper.Error("Error TotalTransaksi: " + ex.Message); }
+
+                try { lblJTrans.Text = Controller.DapatkanJumlahTransaksi(); }
+                catch (Exception ex) { UIHelper.Error("Error JumlahTransaksi: " + ex.Message); }
+
+                try { lblTKary.Text = Controller.DapatkanTotalKaryawan(); }
+                catch (Exception ex) { UIHelper.Error("Error TotalKaryawan: " + ex.Message); }
+
+                try { lblTProdukBsk.Text = Controller.DapatkanTotalProdukBusuk(); }
+                catch (Exception ex) { UIHelper.Error("Error ProdukBusuk: " + ex.Message); }
             }
             catch (Exception ex)
             {

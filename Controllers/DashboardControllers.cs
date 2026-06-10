@@ -16,14 +16,14 @@ namespace greenPointofSales.Controllers
         {
             return _context.AmbilTotalProdukDiatasRataRata();
         }
-        public string DapatkanTotalTransaksiHariIni()
+        public string DapatkanTotalTransaksi()
         {
-            decimal total = _context.AmbilTotalTransaksiHariIni();
+            decimal total = _context.AmbilTotalTransaksi();
             return total.ToString("C0", new System.Globalization.CultureInfo("id-ID"));
         }
-        public string DapatkanJumlahTransaksiHariIni()
+        public string DapatkanJumlahTransaksi()
         {
-            int jumlah = _context.AmbilJumlahTransaksiHariIni();
+            int jumlah = _context.AmbilJumlahTransaksi();
             return jumlah.ToString() + " Transaksi";
         }
 
