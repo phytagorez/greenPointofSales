@@ -1,51 +1,8 @@
 ﻿using System;
+using greenPointofSales.IAbstract;
 
 namespace greenPointofSales.Models.Entity
 {
-    //kontrak
-    public interface IBarangJualan
-    {
-        string TampilkanDetail();
-        void KurangiStok(decimal jumlah);
-    }
-
-    //validasi
-    public abstract class EntitasProduk : IBarangJualan
-    {
-        private string _namaProduk = string.Empty;
-        private string _kodeProduk = string.Empty;
-        public int IdKategori { get; set; }
-
-        public virtual string NamaProduk
-        {
-            get { return _namaProduk; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Nama Produk tidak boleh kosong.");
-                }
-                _namaProduk = value;
-            }
-        }
-
-        public virtual string KodeProduk
-        {
-            get { return _kodeProduk; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Kode Produk tidak boleh kosong.");
-                }
-                _kodeProduk = value;
-            }
-        }
-
-        public abstract string TampilkanDetail();
-        public abstract void KurangiStok(decimal jumlah);
-    }
-
     public class ProdukModel : EntitasProduk
     {
         private decimal _hargaBeli;

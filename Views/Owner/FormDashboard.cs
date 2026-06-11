@@ -4,6 +4,7 @@ using greenPointofSales.Models.Entity;
 using greenPointofSales.Views.Owner;
 using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
@@ -12,19 +13,22 @@ namespace greenPointofSales.Views
     public partial class FormDashboard : Form
     {
         private readonly DashboardControllers Controller = new();
+
         public FormDashboard()
         {
             InitializeComponent();
 
             string nama = SesiPenggunaModel.PenggunaAktif?.Username ?? "idk";
             string role = SesiPenggunaModel.PenggunaAktif?.Role ?? "Unknown";
-
             this.Text = $"Dashboard Owner | Selamat Datang, {nama} ({role})";
+
+            UIHelper.IkatNavigasiMenu(this);
 
             CekPeringatanStokToko();
             TampilkanWidget();
             TampilkanGrafikTahunan();
         }
+
         private void TampilkanWidget()
         {
             try
@@ -46,11 +50,12 @@ namespace greenPointofSales.Views
                 System.Diagnostics.Debug.WriteLine("Gagal memuat widget: " + ex.Message);
             }
         }
+
         private void CekPeringatanStokToko()
         {
             try
             {
-                greenPointofSales.Controllers.ProdukController produkCtrl = new();
+                ProdukController produkCtrl = new();
                 int totalKritis = produkCtrl.AmbilTotalStokKritis(5);
                 if (totalKritis > 0)
                 {
@@ -63,59 +68,19 @@ namespace greenPointofSales.Views
             }
         }
 
-        private void btnMenuKaryawan_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormManajemenKaryawan());
-        }
-
-        private void btnMenuProduk_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormProduk());
-        }
-
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            string nama = SesiPenggunaModel.PenggunaAktif?.Username ?? "Pengguna";
-            string role = SesiPenggunaModel.PenggunaAktif?.Role ?? "Sistem";
-
-            bool yakinKeluar = UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?");
-
-            if (yakinKeluar)
-            {
-                SesiPenggunaModel.Logout();
-
-                for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
-                {
-                    var formAktif = Application.OpenForms[i];
-
-                    if (formAktif != null && formAktif.Name != "FormLogin")
-                    {
-                        formAktif.Close();
-                    }
-                }
-
-                Application.OpenForms["FormLogin"]?.Show();
-            }
-        }
-
         private void TampilkanGrafikTahunan()
         {
             try
             {
-                // Ambil data dari controller
-                DataTable dtGrafik = _dashboardController.DapatkanGrafikTahunan();
-
-                // Bersihkan panelChartDashboard terlebih dahulu
+                DataTable dtGrafik = Controller.DapatkanGrafikTahunan();
                 panelChartDashboard.Controls.Clear();
 
-                // Instansiasi Chart Baru secara Programmatic
                 Chart chartTahunan = new Chart
                 {
                     Dock = DockStyle.Fill,
                     BackColor = Color.White
                 };
 
-                // Pengaturan Area Grafik
                 ChartArea areaUtama = new ChartArea("MainArea")
                 {
                     AxisX = { Title = "Tahun", IsLabelAutoFit = true, MajorGrid = { LineColor = Color.FromArgb(240, 240, 240) } },
@@ -123,27 +88,23 @@ namespace greenPointofSales.Views
                 };
                 chartTahunan.ChartAreas.Add(areaUtama);
 
-                // Buat Series Batang (Column)
                 Series seriesBatang = new Series("Penjualan")
                 {
                     ChartType = SeriesChartType.Column,
                     ChartArea = "MainArea",
-                    Color = Color.DodgerBlue, // Warna batang bedakan dengan laporan biar variatif
+                    Color = Color.DodgerBlue,
                     Font = new Font("Arial", 9, FontStyle.Bold),
-                    IsValueShownAsLabel = true, // Otomatis munculin angka di atas batang
-                    LabelFormat = "Rp #,##0"    // Format Rupiah angka di atas batang
+                    IsValueShownAsLabel = true,
+                    LabelFormat = "Rp #,##0"
                 };
 
-                // Looping data dari DB ke Chart
                 foreach (DataRow row in dtGrafik.Rows)
                 {
                     string tahun = row["tahun"].ToString();
                     decimal total = Convert.ToDecimal(row["total_penjualan"]);
-
                     seriesBatang.Points.AddXY(tahun, total);
                 }
 
-                // Masukkan series data ke chart, lalu tempel chart ke panel dashboard
                 chartTahunan.Series.Add(seriesBatang);
                 panelChartDashboard.Controls.Add(chartTahunan);
             }
@@ -151,16 +112,6 @@ namespace greenPointofSales.Views
             {
                 System.Diagnostics.Debug.WriteLine("Gagal memuat grafik tahunan: " + ex.Message);
             }
-        }
-
-        private void btnMenuKatalog_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormManajemenProduk());
-        }
-
-        private void btnLaporan_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormLaporan());
         }
     }
 }

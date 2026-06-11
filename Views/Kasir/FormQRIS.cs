@@ -1,4 +1,5 @@
-﻿using System;
+﻿using greenPointofSales.Helpers;
+using System;
 using System.Windows.Forms;
 
 namespace greenPointofSales.Views.Kasir
@@ -18,7 +19,7 @@ namespace greenPointofSales.Views.Kasir
 
         private void FormQRIS_Load(object sender, EventArgs e)
         {
-            lblTotalQRIS.Text = $"TOTAL TAGIHAN: Rp {_totalTagihan:N0}";
+            lblTotalQRIS.Text = $"TOTAL TAGIHAN: {UIHelper.FormatRupiah(_totalTagihan)}";
 
             btnSelesaiBayar.DialogResult = DialogResult.OK;
             btnBatalQRIS.DialogResult = DialogResult.Cancel;

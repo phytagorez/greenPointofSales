@@ -1,4 +1,5 @@
-﻿using greenPointofSales.Models.Context;
+﻿using greenPointofSales.Helpers;
+using greenPointofSales.Models.Context;
 using greenPointofSales.Models.Entity;
 using System;
 using System.Data;
@@ -19,7 +20,7 @@ namespace greenPointofSales.Controllers
         public string DapatkanTotalTransaksi()
         {
             decimal total = _context.AmbilTotalTransaksi();
-            return total.ToString("C0", new System.Globalization.CultureInfo("id-ID"));
+            return UIHelper.FormatRupiah(total);
         }
         public string DapatkanJumlahTransaksi()
         {

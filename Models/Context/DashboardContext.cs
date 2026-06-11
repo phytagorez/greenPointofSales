@@ -11,7 +11,6 @@ namespace greenPointofSales.Models.Context
         {
             string query = "SELECT total_pendapatan, total_hpp, total_rugi_busuk FROM vw_laporan_laba_rugi ORDER BY tahun DESC, bulan DESC LIMIT 1;";
             return DBHelper.EksekusiQuery(query);
-            
         }
 
         public int AmbilTotalProdukDiatasRataRata()
@@ -24,38 +23,28 @@ namespace greenPointofSales.Models.Context
             }
             return 0;
         }
+
         public decimal AmbilTotalTransaksi()
         {
-            string query = @"
-                SELECT COALESCE(SUM(total_harga), 0)
-                FROM transaksi";
-            //object? result = DBHelper.EksekusiScalar(query, null);
+            string query = "SELECT COALESCE(SUM(total_harga), 0) FROM transaksi";
             return Convert.ToDecimal(DBHelper.EksekusiScalar(query) ?? 0);
         }
+
         public int AmbilJumlahTransaksi()
         {
-            string query = @"
-                SELECT COUNT(*)
-                FROM transaksi";
-            //object? result = DBHelper.EksekusiScalar(query, null);
+            string query = "SELECT COUNT(*) FROM transaksi";
             return Convert.ToInt32(DBHelper.EksekusiScalar(query) ?? 0);
         }
+
         public int AmbilTotalKaryawan()
         {
-            string query = @"
-                SELECT COUNT(*)
-                FROM pengguna
-                WHERE role = 'Kasir' AND is_active = true";
-            //object? result = DBHelper.EksekusiScalar(query, null);
+            string query = "SELECT COUNT(*) FROM pengguna WHERE role = 'Kasir' AND is_active = true";
             return Convert.ToInt32(DBHelper.EksekusiScalar(query) ?? 0);
         }
+
         public int AmbilTotalProdukBusuk()
         {
-            string query = @"
-                SELECT COUNT(*)
-                FROM riwayat_stok
-                WHERE jenis_transaksi = 'Barang Busuk'";
-            //object? result = DBHelper.EksekusiScalar(query, null);
+            string query = "SELECT COUNT(*) FROM riwayat_stok WHERE jenis_transaksi = 'Barang Busuk'";
             return Convert.ToInt32(DBHelper.EksekusiScalar(query) ?? 0);
         }
 
@@ -67,10 +56,9 @@ namespace greenPointofSales.Models.Context
                     COALESCE(SUM(total_harga), 0)::numeric(15,2) AS total_penjualan 
                 FROM transaksi 
                 WHERE EXTRACT(YEAR FROM tgl_transaksi) IN (2025, 2026)
-                GROUP BY EXTRACT(YEAR FROM tgl_transaksi) 
-                ORDER BY tahun;";
-
-            return DBHelper.EksekusiQuery(query, null);
+                GROUP BY EXTRACT(YEAR FROM tgl_transaksi)
+                ORDER BY tahun ASC";
+            return DBHelper.EksekusiQuery(query);
         }
     }
 }

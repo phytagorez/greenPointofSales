@@ -244,7 +244,6 @@
             btnMenuDashboard.Text = "   Dashboard";
             btnMenuDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuDashboard.UseVisualStyleBackColor = false;
-            btnMenuDashboard.Click += btnMenuDashboard_Click;
             // 
             // btnMenuKatalog
             // 
@@ -267,7 +266,6 @@
             btnMenuKatalog.TextAlign = ContentAlignment.MiddleLeft;
             btnMenuKatalog.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKatalog.UseVisualStyleBackColor = false;
-            btnMenuKatalog.Click += btnMenuKatalog_Click;
             // 
             // btnLogout
             // 
@@ -310,7 +308,6 @@
             btnMenuProduk.Text = "   Produk";
             btnMenuProduk.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuProduk.UseVisualStyleBackColor = false;
-            btnMenuProduk.Click += btnMenuProduk_Click;
             // 
             // btnMenuKaryawan
             // 
@@ -333,7 +330,6 @@
             btnMenuKaryawan.TextAlign = ContentAlignment.MiddleLeft;
             btnMenuKaryawan.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKaryawan.UseVisualStyleBackColor = false;
-            btnMenuKaryawan.Click += btnMenuKaryawan_Click;
             // 
             // btnLapLabaRugi
             // 

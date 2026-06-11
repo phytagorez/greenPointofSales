@@ -33,68 +33,6 @@ namespace greenPointofSales.Models.Context
             DBHelper.EksekusiNonQuery(query, parameters);
         }
 
-        public void UpdateStatusProduk(int idProduk, bool statusBaru)
-        {
-            string query = "CALL sp_toggle_produk_aktif(@p_id, @p_status)";
-            NpgsqlParameter[] parameters = {
-                new NpgsqlParameter("p_id", idProduk),
-                new NpgsqlParameter("p_status", statusBaru)
-            };
-            DBHelper.EksekusiNonQuery(query, parameters);
-        }
-
-        public DataTable AmbilKatalog(int idKategoriFilter)
-        {
-            string query = @"
-                SELECT p.id_produk, p.nama_produk, p.harga_jual, p.stok, p.satuan, k.nama_kategori, p.is_nonaktif
-                FROM produk p
-                LEFT JOIN kategori k ON p.id_kategori = k.id_kategori
-                WHERE (p.id_kategori = @p_id OR @p_id = 0) AND p.is_nonaktif = false
-                ORDER BY p.nama_produk";
-            NpgsqlParameter[] parameters = {
-                new NpgsqlParameter("p_id", idKategoriFilter)
-            };
-
-            return DBHelper.EksekusiQuery(query, parameters);
-        }
-
-        // PERBAIKAN DI SINI: Tambahkan jenisTransaksi dan keterangan di dalam kurung parameter
-        public void UpdateStok(int idProduk, decimal jumlahPerubahan, string jenisTransaksi = "Penyesuaian Manual", string keterangan = "Update dari sistem")
-        {
-            using (var conn = DBHelper.BukaKoneksi())
-            using (var tx = conn.BeginTransaction())
-            {
-                try
-                {
-                    string queryUpdate = "UPDATE produk SET stok = GREATEST(stok + @jumlah, 0) WHERE id_produk = @id";
-                    using (var cmd = new NpgsqlCommand(queryUpdate, conn, tx))
-                    {
-                        cmd.Parameters.AddWithValue("jumlah", jumlahPerubahan);
-                        cmd.Parameters.AddWithValue("id", idProduk);
-                        cmd.ExecuteNonQuery();
-                    }
-
-                    string queryRiwayat = @"INSERT INTO riwayat_stok (id_produk, perubahan_stok, jenis_transaksi, keterangan) 
-                                    VALUES (@id, @jumlah, @jenis, @ket)";
-                    using (var cmdHist = new NpgsqlCommand(queryRiwayat, conn, tx))
-                    {
-                        cmdHist.Parameters.AddWithValue("id", idProduk);
-                        cmdHist.Parameters.AddWithValue("jumlah", jumlahPerubahan);
-                        cmdHist.Parameters.AddWithValue("jenis", jenisTransaksi);
-                        cmdHist.Parameters.AddWithValue("ket", keterangan);
-                        cmdHist.ExecuteNonQuery();
-                    }
-
-                    tx.Commit();
-                }
-                catch
-                {
-                    tx.Rollback();
-                    throw;
-                }
-            }
-        }
-
         public DataTable AmbilProdukBerdasarkanNama(string keyword)
         {
             string query = @"
@@ -125,12 +63,11 @@ namespace greenPointofSales.Models.Context
 
         public decimal AmbilStokProduk(int idProduk)
         {
-            string query ="SELECT stok FROM produk WHERE id_produk=@id";
-
-            NpgsqlParameter[] parameters ={new NpgsqlParameter("id", idProduk)};
-
-            object? result = DBHelper.EksekusiScalar(query, parameters);
-            return Convert.ToDecimal(result ?? 0);
+            string query = "SELECT stok FROM produk WHERE id_produk = @id";
+            NpgsqlParameter[] parameters = {
+                new NpgsqlParameter("id", idProduk)
+            };
+            return Convert.ToDecimal(DBHelper.EksekusiScalar(query, parameters) ?? 0);
         }
     }
 }

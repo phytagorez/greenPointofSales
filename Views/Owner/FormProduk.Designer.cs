@@ -256,7 +256,6 @@
             btnLaporan.Text = "   Laporan";
             btnLaporan.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnLaporan.UseVisualStyleBackColor = false;
-            btnLaporan.Click += btnLaporan_Click;
             // 
             // btnMenuDashboard
             // 
@@ -278,7 +277,6 @@
             btnMenuDashboard.Text = "   Dashboard";
             btnMenuDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuDashboard.UseVisualStyleBackColor = false;
-            btnMenuDashboard.Click += btnMenuDashboard_Click;
             // 
             // btnMenuKatalog
             // 
@@ -301,7 +299,6 @@
             btnMenuKatalog.TextAlign = ContentAlignment.MiddleLeft;
             btnMenuKatalog.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKatalog.UseVisualStyleBackColor = false;
-            btnMenuKatalog.Click += btnMenuKatalog_Click;
             // 
             // btnLogout
             // 
@@ -323,7 +320,6 @@
             btnLogout.TextAlign = ContentAlignment.MiddleLeft;
             btnLogout.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnLogout.UseVisualStyleBackColor = false;
-            btnLogout.Click += btnLogout_Click;
             // 
             // btnMenuProduk
             // 
@@ -367,7 +363,6 @@
             btnMenuKaryawan.TextAlign = ContentAlignment.MiddleLeft;
             btnMenuKaryawan.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKaryawan.UseVisualStyleBackColor = false;
-            btnMenuKaryawan.Click += btnMenuKaryawan_Click;
             // 
             // tbSearchBar
             // 

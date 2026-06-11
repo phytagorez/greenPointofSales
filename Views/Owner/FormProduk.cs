@@ -1,14 +1,12 @@
 ﻿using greenPointofSales.Controllers;
 using greenPointofSales.Helpers;
 using greenPointofSales.Models.Entity;
-using greenPointofSales.Views.Owner;
 using System;
 using System.Data;
 using System.Windows.Forms;
 
 namespace greenPointofSales.Views
 {
-    //composition
     public partial class FormProduk : Form
     {
         private readonly ProdukController _controller = new();
@@ -16,9 +14,9 @@ namespace greenPointofSales.Views
         public FormProduk()
         {
             InitializeComponent();
+            UIHelper.IkatNavigasiMenu(this);
 
             SetupDataGridView();
-
             MuatKategori();
             MuatDataProduk();
         }
@@ -58,6 +56,7 @@ namespace greenPointofSales.Views
                 UIHelper.Error("Gagal memuat tabel: " + ex.Message);
             }
         }
+
         private void tbSearchBar_TextChanged(object sender, EventArgs e)
         {
             try
@@ -67,7 +66,6 @@ namespace greenPointofSales.Views
                 if (!string.IsNullOrEmpty(keyword))
                 {
                     DataTable dtHasilCari = _controller.CariProdukNama(keyword);
-
                     dgvProduk.DataSource = dtHasilCari;
                 }
                 else
@@ -77,9 +75,10 @@ namespace greenPointofSales.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Gagal mencari produk: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UIHelper.Error($"Gagal mencari produk: {ex.Message}");
             }
         }
+
         private void btnSimpan_Click(object sender, EventArgs e)
         {
             if (cmbKategori.SelectedIndex == -1 || cmbSatuan.SelectedIndex == -1)
@@ -133,9 +132,7 @@ namespace greenPointofSales.Views
             string nama = dgvProduk.SelectedRows[0].Cells["nama_produk"].Value?.ToString() ?? "Produk";
             bool isNonaktif = Convert.ToBoolean(dgvProduk.SelectedRows[0].Cells["is_nonaktif"].Value ?? false);
 
-            //rollback toggle
             bool statusBaru = !isNonaktif;
-
             string pesan = statusBaru ? $"Nonaktifkan produk {nama}?" : $"Aktifkan kembali produk {nama}?";
 
             if (UIHelper.Konfirmasi(pesan))
@@ -143,7 +140,6 @@ namespace greenPointofSales.Views
                 try
                 {
                     _controller.UbahStatusAktif(id, statusBaru);
-
                     UIHelper.Sukses("Status produk berhasil diperbarui.");
                     MuatDataProduk();
                 }
@@ -151,49 +147,6 @@ namespace greenPointofSales.Views
                 {
                     UIHelper.Error("Gagal memproses data: " + ex.Message);
                 }
-            }
-        }
-
-        private void btnMenuDashboard_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormDashboard());
-        }
-
-        private void btnMenuKatalog_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormManajemenProduk());
-        }
-
-        private void btnMenuKaryawan_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormManajemenKaryawan());
-        }
-        private void btnLaporan_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormLaporan());
-        }
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            string nama = SesiPenggunaModel.PenggunaAktif?.Username ?? "Pengguna";
-            string role = SesiPenggunaModel.PenggunaAktif?.Role ?? "Sistem";
-
-            bool yakinKeluar = UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?");
-
-            if (yakinKeluar)
-            {
-                SesiPenggunaModel.Logout();
-
-                for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
-                {
-                    var formAktif = Application.OpenForms[i];
-
-                    if (formAktif != null && formAktif.Name != "FormLogin")
-                    {
-                        formAktif.Close();
-                    }
-                }
-
-                Application.OpenForms["FormLogin"]?.Show();
             }
         }
 

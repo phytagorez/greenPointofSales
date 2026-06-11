@@ -1,8 +1,6 @@
 ﻿using greenPointofSales.Controllers;
 using greenPointofSales.Helpers;
 using greenPointofSales.Models.Entity;
-using greenPointofSales.Views;
-using greenPointofSales.Views.Owner;
 using System;
 using System.Windows.Forms;
 
@@ -10,12 +8,14 @@ namespace greenPointofSales
 {
     public partial class FormManajemenKaryawan : Form
     {
-        //composition
         private readonly PenggunaController _controller = new PenggunaController();
 
         public FormManajemenKaryawan()
         {
             InitializeComponent();
+
+            // KUNCI UTAMA: Otomatis ikat semua tombol navigasi!
+            UIHelper.IkatNavigasiMenu(this);
 
             dgvKaryawan.ReadOnly = true;
             dgvKaryawan.AllowUserToAddRows = false;
@@ -55,7 +55,7 @@ namespace greenPointofSales
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Gagal memuat data: " + ex.Message, "Error Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UIHelper.Error("Gagal memuat data: " + ex.Message);
             }
         }
 
@@ -75,39 +75,34 @@ namespace greenPointofSales
                     cmbJenisKelamin.SelectedItem?.ToString() ?? "",
                     "Kasir"
                 );
+
                 _controller.TambahKaryawan(pengguna);
-                MessageBox.Show(
+
+                UIHelper.Sukses(
                    $"✅ Akun Kasir atas nama '{pengguna.NamaLengkap}' berhasil didaftarkan!\n\n" +
                    $"Username: {pengguna.Username}\n" +
                    $"Password: {pengguna.Password}\n\n" +
-                   $"📌 Catat kredensial ini untuk login kasir nanti.",
-                   "Sukses Tambah Karyawan",
-                   MessageBoxButtons.OK,
-                   MessageBoxIcon.Information
+                   $"📌 Catat kredensial ini untuk login kasir nanti."
                 );
+
                 MuatDataKaryawan();
                 BersihkanInputan();
             }
             catch (ArgumentException argEx)
             {
-                MessageBox.Show(
-                    $"validasi data gagal: {argEx.Message}",
-                    "Input Tidak Valid",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Warning);
+                UIHelper.Peringatan($"Validasi data gagal: {argEx.Message}");
             }
             catch (Exception ex)
             {
                 TampilkanDetailErrorSistem(ex);
             }
-           
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtUserBaru.Text) || string.IsNullOrWhiteSpace(txtNamaLengkap.Text))
             {
-                UIHelper.Peringatan("silahkan pilih karyawan yang inin diubah!");
+                UIHelper.Peringatan("Silahkan pilih karyawan yang ingin diubah!");
                 return;
             }
             try
@@ -120,9 +115,10 @@ namespace greenPointofSales
                     txtEmail.Text.Trim(),
                     dtpTanggalLahir.Value,
                     dtpTanggalMulaiKerja.Value,
-                    cmbJenisKelamin.SelectedItem?.ToString()?? "Laki-laki",
+                    cmbJenisKelamin.SelectedItem?.ToString() ?? "Laki-laki",
                     "Kasir"
                 );
+
                 _controller.UbahDataKaryawan(karyawan);
                 UIHelper.Sukses("Data Karyawan berhasil diperbarui!");
 
@@ -140,42 +136,37 @@ namespace greenPointofSales
         {
             if (string.IsNullOrWhiteSpace(txtUserBaru.Text))
             {
-                MessageBox.Show("Username tidak boleh kosong!", "validasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                UIHelper.Peringatan("Username tidak boleh kosong!");
                 txtUserBaru.Focus();
                 return false;
             }
             if (string.IsNullOrWhiteSpace(txtPassBaru.Text))
             {
-                MessageBox.Show("Password tidak boleh kosong!", "Validaasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                UIHelper.Peringatan("Password tidak boleh kosong!");
                 txtPassBaru.Focus();
                 return false;
             }
             if (cmbJenisKelamin.SelectedItem == null)
             {
-                MessageBox.Show("Jenis kelamin harus dipilih!", "Validaasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                UIHelper.Peringatan("Jenis kelamin harus dipilih!");
                 cmbJenisKelamin.Focus();
                 return false;
             }
             return true;
         }
-        
+
         private void TampilkanDetailErrorSistem(Exception ex)
         {
-            string errorDetail = $"Sistem Error:\n\n" +
-                $"Messege: {ex.Message}\n\n" +
-                $"Type: {ex.GetType().Name}\n\n" +
-                $"Stack Trace:\n{ex.StackTrace}";
-
-            MessageBox.Show(errorDetail, "Error Sistem - Database problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            Console.WriteLine("[ERROR]" + errorDetail);
+            string errorDetail = $"Sistem Error:\n\nMessage: {ex.Message}\n\nType: {ex.GetType().Name}\n\nStack Trace:\n{ex.StackTrace}";
+            UIHelper.Error(errorDetail);
+            Console.WriteLine("[ERROR] " + errorDetail);
         }
 
         private void btnNonaktifkan_Click(object sender, EventArgs e)
         {
             if (dgvKaryawan.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Pilih baris karyawan di tabel dulu.", "Info",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                UIHelper.Peringatan("Pilih baris karyawan di tabel dulu.");
                 return;
             }
 
@@ -183,39 +174,33 @@ namespace greenPointofSales
             bool statusSaatIni = Convert.ToBoolean(dgvKaryawan.SelectedRows[0].Cells["is_active"]?.Value ?? false);
             string userLogin = SesiPenggunaModel.PenggunaAktif?.Username ?? string.Empty;
 
-            //self-deactivation protection
             if (username.ToLower() == "ejak")
             {
-                MessageBox.Show("Akun utama tidak bisa diubah statusnya!", "Akses Ditolak",
-                    MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                UIHelper.Peringatan("Akun utama tidak bisa diubah statusnya!");
                 return;
             }
             if (username == userLogin)
             {
-                MessageBox.Show("Tidak bisa menonaktifkan akun sendiri!", "Peringatan",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                UIHelper.Peringatan("Tidak bisa menonaktifkan akun sendiri!");
                 return;
             }
 
             string aksi = statusSaatIni ? "menonaktifkan" : "mengaktifkan";
-            if (MessageBox.Show($"Yakin ingin {aksi} akun '{username}'?", "Konfirmasi",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+
+            if (!UIHelper.Konfirmasi($"Yakin ingin {aksi} akun '{username}'?")) return;
 
             try
             {
                 _controller.UbahStatusAktif(username, !statusSaatIni);
-                MessageBox.Show($"✅ Akun berhasil di-{aksi}!", "Sukses",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                UIHelper.Sukses($"✅ Akun berhasil di-{aksi}!");
                 MuatDataKaryawan();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"❌ Gagal {aksi}:\n\n{ex.Message}", "Error",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UIHelper.Error($"❌ Gagal {aksi}:\n\n{ex.Message}");
             }
         }
 
-        //update button status
         private void dgvKaryawan_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvKaryawan.SelectedRows.Count == 0) return;
@@ -273,54 +258,8 @@ namespace greenPointofSales
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Gagal mencari karyawan: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UIHelper.Error($"Gagal mencari karyawan: {ex.Message}");
             }
-        }
-
-        private void btnMenuDashboard_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormDashboard());
-        }
-        private void btnMenuProduk_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormProduk());
-        }
-        private void btnMenuKatalog_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormManajemenProduk());
-        }
-        private void btnLaporan_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormLaporan());
-        }
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            string nama = SesiPenggunaModel.PenggunaAktif?.Username ?? "Pengguna";
-            string role = SesiPenggunaModel.PenggunaAktif?.Role ?? "Sistem";
-
-            bool yakinKeluar = UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?");
-
-            if (yakinKeluar)
-            {
-                SesiPenggunaModel.Logout();
-
-                for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
-                {
-                    var formAktif = Application.OpenForms[i];
-
-                    if (formAktif != null && formAktif.Name != "FormLogin")
-                    {
-                        formAktif.Close();
-                    }
-                }
-
-                Application.OpenForms["FormLogin"]?.Show();
-            }
-        }
-
-        private void FormTambahKaryawan_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

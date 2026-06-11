@@ -1,13 +1,10 @@
 ﻿using greenPointofSales.Controllers;
 using greenPointofSales.Helpers;
 using greenPointofSales.Models.Entity;
-using greenPointofSales.Views.Owner;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace greenPointofSales.Views
@@ -61,6 +58,7 @@ namespace greenPointofSales.Views
         public FormManajemenProduk()
         {
             InitializeComponent();
+            UIHelper.IkatNavigasiMenu(this); // REFACTOR: Otomatis ikat navigasi menu
             flpKatalog.AutoScroll = true;
             flpKatalog.WrapContents = true;
             flpKatalog.FlowDirection = FlowDirection.LeftToRight;
@@ -85,14 +83,13 @@ namespace greenPointofSales.Views
 
                 if (dtKategori == null || dtKategori.Rows.Count == 0)
                 {
-                    MessageBox.Show("Database kategori kosong atau tidak terhubung.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    UIHelper.Peringatan("Database kategori kosong atau tidak terhubung.");
                     return;
                 }
                 btnKAll.Tag = 0;
                 InisialisasiEventTombol(btnKAll);
-
-                // Set tombol All sebagai tombol aktif pertama kali
                 SetTombolAktif(btnKAll);
+
                 foreach (DataRow row in dtKategori.Rows)
                 {
                     int idKategori = Convert.ToInt32(row["id_kategori"]);
@@ -117,29 +114,29 @@ namespace greenPointofSales.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saat inisialisasi tombol kategori:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UIHelper.Error($"Error saat inisialisasi tombol kategori:\n{ex.Message}");
             }
         }
+
         private void InisialisasiEventTombol(Button btn)
         {
             btn.Click -= TombolKategori_Click;
             btn.Click += TombolKategori_Click;
-
             btn.FlatStyle = FlatStyle.Flat;
             btn.FlatAppearance.BorderSize = 0;
             btn.Cursor = Cursors.Hand;
         }
+
         private void TombolKategori_Click(object? sender, EventArgs e)
         {
             if (sender is Button btnTerpilih)
             {
                 SetTombolAktif(btnTerpilih);
-
                 int idTerpilih = Convert.ToInt32(btnTerpilih.Tag ?? 0);
-
                 TampilkanKatalog(idTerpilih);
             }
         }
+
         private void SetTombolAktif(Button btnBaru)
         {
             if (btnKategoriAktif != null)
@@ -147,12 +144,11 @@ namespace greenPointofSales.Views
                 btnKategoriAktif.BackColor = Color.FromArgb(163, 177, 138);
                 btnKategoriAktif.ForeColor = Color.White;
             }
-
             btnBaru.BackColor = Color.FromArgb(114, 140, 107);
             btnBaru.ForeColor = Color.White;
-
             btnKategoriAktif = btnBaru;
         }
+
         private void TampilkanKatalog(int idKategori)
         {
             try
@@ -182,7 +178,7 @@ namespace greenPointofSales.Views
                 {
                     if (!dtProduk.Columns.Contains(col))
                     {
-                        MessageBox.Show($"Kolom '{col}' tidak ditemukan dalam database.", "Error Struktur Database", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        UIHelper.Error($"Kolom '{col}' tidak ditemukan dalam database.");
                         return;
                     }
                 }
@@ -211,7 +207,7 @@ namespace greenPointofSales.Views
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error saat tampil katalog:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                UIHelper.Error($"Error saat tampil katalog:\n{ex.Message}");
             }
         }
 
@@ -223,11 +219,10 @@ namespace greenPointofSales.Views
             Color hoverBgColor = isStokAman ? UIConstants.StokAman.HoverBgColor : UIConstants.StokRendah.HoverBgColor;
             Color stokLabelColor = isStokAman ? UIConstants.StokAman.StokLabelColor : UIConstants.StokRendah.StokLabelColor;
 
-            // CARD CONTAINER - Ukuran diperbesar untuk menampung semua elemen
             Panel card = new Panel
             {
                 Width = 260,
-                Height = 295,  // Diperbesar dari 160 menjadi 295
+                Height = 295,
                 BackColor = bgColor,
                 Margin = new Padding(10),
                 BorderStyle = BorderStyle.FixedSingle,
@@ -235,15 +230,8 @@ namespace greenPointofSales.Views
                 Tag = product.IdProduk
             };
 
-            // TOP LINE INDICATOR
-            Panel line = new Panel
-            {
-                Height = 6,
-                Dock = DockStyle.Top,
-                BackColor = lineColor
-            };
+            Panel line = new Panel { Height = 6, Dock = DockStyle.Top, BackColor = lineColor };
 
-            // PRODUCT NAME
             Label lblNama = new Label
             {
                 Text = product.NamaProduk,
@@ -257,10 +245,9 @@ namespace greenPointofSales.Views
                 ForeColor = UIConstants.TextPrimary
             };
 
-            // PRICE
             Label lblHarga = new Label
             {
-                Text = "Rp " + product.HargaJual.ToString("N0"),
+                Text = UIHelper.FormatRupiah(product.HargaJual),
                 Font = UIConstants.FontHarga,
                 Top = 55,
                 Left = 12,
@@ -270,11 +257,7 @@ namespace greenPointofSales.Views
                 AutoEllipsis = true
             };
 
-            // STOCK STATUS
-            string stokText = product.Stok < 5
-                ? $"⚠ Stok: {product.Stok} (RENDAH!)"
-                : $"✓ Stok: {product.Stok}";
-
+            string stokText = product.Stok < 5 ? $"⚠ Stok: {product.Stok} (RENDAH!)" : $"✓ Stok: {product.Stok}";
             Label lblStok = new Label
             {
                 Text = stokText,
@@ -287,7 +270,6 @@ namespace greenPointofSales.Views
                 AutoEllipsis = true
             };
 
-            // CATEGORY
             Label lblKategori = new Label
             {
                 Text = $"📂 {product.NamaKategori}",
@@ -300,19 +282,8 @@ namespace greenPointofSales.Views
                 AutoSize = false
             };
 
-            // DIVIDER LINE
-            Panel divider = new Panel
-            {
-                Height = 1,
-                BackColor = Color.FromArgb(200, 200, 200),
-                Top = 130,
-                Left = 12,
-                Width = 236
-            };
+            Panel divider = new Panel { Height = 1, BackColor = Color.FromArgb(200, 200, 200), Top = 130, Left = 12, Width = 236 };
 
-            // ============================================
-            // UPDATE BUTTON - IMPROVED UI
-            // ============================================
             Button btnUpdate = new Button
             {
                 Text = "➕ UPDATE",
@@ -322,43 +293,11 @@ namespace greenPointofSales.Views
                 BackColor = UIConstants.ButtonColors.UpdateNormal,
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                TextAlign = ContentAlignment.MiddleCenter
+                Cursor = Cursors.Hand
             };
             btnUpdate.FlatAppearance.BorderSize = 0;
-            btnUpdate.FlatAppearance.MouseDownBackColor = UIConstants.ButtonColors.UpdateActive;
-            btnUpdate.FlatAppearance.MouseOverBackColor = UIConstants.ButtonColors.UpdateHover;
+            btnUpdate.Click += (s, e) => HandleUpdateStok(product);
 
-            btnUpdate.MouseEnter += (s, e) =>
-            {
-                btnUpdate.BackColor = UIConstants.ButtonColors.UpdateHover;
-                btnUpdate.Font = new Font(UIConstants.FontButton.FontFamily, 9, FontStyle.Bold | FontStyle.Underline);
-            };
-
-            btnUpdate.MouseLeave += (s, e) =>
-            {
-                btnUpdate.BackColor = UIConstants.ButtonColors.UpdateNormal;
-                btnUpdate.Font = UIConstants.FontButton;
-            };
-
-            btnUpdate.MouseDown += (s, e) =>
-            {
-                btnUpdate.BackColor = UIConstants.ButtonColors.UpdateActive;
-            };
-
-            btnUpdate.MouseUp += (s, e) =>
-            {
-                btnUpdate.BackColor = UIConstants.ButtonColors.UpdateHover;
-            };
-
-            btnUpdate.Click += (s, e) =>
-            {
-                HandleUpdateStok(product);
-            };
-
-            // ============================================
-            // BUSUK BUTTON - IMPROVED UI
-            // ============================================
             Button btnBusuk = new Button
             {
                 Text = "❌ BUSUK",
@@ -368,41 +307,11 @@ namespace greenPointofSales.Views
                 BackColor = UIConstants.ButtonColors.BusukNormal,
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                TextAlign = ContentAlignment.MiddleCenter
+                Cursor = Cursors.Hand
             };
             btnBusuk.FlatAppearance.BorderSize = 0;
-            btnBusuk.FlatAppearance.MouseDownBackColor = UIConstants.ButtonColors.BusukActive;
-            btnBusuk.FlatAppearance.MouseOverBackColor = UIConstants.ButtonColors.BusukHover;
+            btnBusuk.Click += (s, e) => HandleBusukStok(product);
 
-            btnBusuk.MouseEnter += (s, e) =>
-            {
-                btnBusuk.BackColor = UIConstants.ButtonColors.BusukHover;
-                btnBusuk.Font = new Font(UIConstants.FontButton.FontFamily, 9, FontStyle.Bold | FontStyle.Underline);
-            };
-
-            btnBusuk.MouseLeave += (s, e) =>
-            {
-                btnBusuk.BackColor = UIConstants.ButtonColors.BusukNormal;
-                btnBusuk.Font = UIConstants.FontButton;
-            };
-
-            btnBusuk.MouseDown += (s, e) =>
-            {
-                btnBusuk.BackColor = UIConstants.ButtonColors.BusukActive;
-            };
-
-            btnBusuk.MouseUp += (s, e) =>
-            {
-                btnBusuk.BackColor = UIConstants.ButtonColors.BusukHover;
-            };
-
-            btnBusuk.Click += (s, e) =>
-            {
-                HandleBusukStok(product);
-            };
-
-            // INFO BUTTON - LIHAT DETAIL
             Button btnInfo = new Button
             {
                 Text = "ℹ️ DETAIL",
@@ -412,28 +321,11 @@ namespace greenPointofSales.Views
                 BackColor = Color.FromArgb(23, 162, 184),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                TextAlign = ContentAlignment.MiddleCenter
+                Cursor = Cursors.Hand
             };
             btnInfo.FlatAppearance.BorderSize = 0;
-            btnInfo.FlatAppearance.MouseOverBackColor = Color.FromArgb(17, 129, 147);
+            btnInfo.Click += (s, e) => ShowProductDetails(product);
 
-            btnInfo.MouseEnter += (s, e) =>
-            {
-                btnInfo.BackColor = Color.FromArgb(17, 129, 147);
-            };
-
-            btnInfo.MouseLeave += (s, e) =>
-            {
-                btnInfo.BackColor = Color.FromArgb(23, 162, 184);
-            };
-
-            btnInfo.Click += (s, e) =>
-            {
-                ShowProductDetails(product);
-            };
-
-            // COPY ID BUTTON - UTILITY
             Button btnCopyId = new Button
             {
                 Text = "📋 ID: " + product.IdProduk,
@@ -443,89 +335,37 @@ namespace greenPointofSales.Views
                 BackColor = Color.FromArgb(108, 117, 125),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                TextAlign = ContentAlignment.MiddleCenter
+                Cursor = Cursors.Hand
             };
             btnCopyId.FlatAppearance.BorderSize = 0;
-            btnCopyId.FlatAppearance.MouseOverBackColor = Color.FromArgb(73, 80, 87);
+            btnCopyId.Click += (s, e) => { Clipboard.SetText(product.IdProduk.ToString()); UIHelper.Sukses("ID produk disalin!"); };
 
-            btnCopyId.MouseEnter += (s, e) =>
-            {
-                btnCopyId.BackColor = Color.FromArgb(73, 80, 87);
-            };
+            card.Controls.Add(line); card.Controls.Add(lblNama); card.Controls.Add(lblHarga);
+            card.Controls.Add(lblStok); card.Controls.Add(lblKategori); card.Controls.Add(divider);
+            card.Controls.Add(btnUpdate); card.Controls.Add(btnBusuk); card.Controls.Add(btnInfo); card.Controls.Add(btnCopyId);
 
-            btnCopyId.MouseLeave += (s, e) =>
-            {
-                btnCopyId.BackColor = Color.FromArgb(108, 117, 125);
-            };
-
-            btnCopyId.Click += (s, e) =>
-            {
-                Clipboard.SetText(product.IdProduk.ToString());
-                UIHelper.Sukses("ID produk disalin!");
-            };
-
-            // ADD CONTROLS TO CARD
-            card.Controls.Add(line);
-            card.Controls.Add(lblNama);
-            card.Controls.Add(lblHarga);
-            card.Controls.Add(lblStok);
-            card.Controls.Add(lblKategori);
-            card.Controls.Add(divider);
-            card.Controls.Add(btnUpdate);
-            card.Controls.Add(btnBusuk);
-            card.Controls.Add(btnInfo);
-            card.Controls.Add(btnCopyId);
-
-            // CARD HOVER EFFECTS
-            card.MouseEnter += (s, e) =>
-            {
-                card.BackColor = hoverBgColor;
-                card.BorderStyle = BorderStyle.FixedSingle;
-            };
-
-            card.MouseLeave += (s, e) =>
-            {
-                card.BackColor = bgColor;
-            };
+            card.MouseEnter += (s, e) => { card.BackColor = hoverBgColor; };
+            card.MouseLeave += (s, e) => { card.BackColor = bgColor; };
 
             flpKatalog.Controls.Add(card);
         }
 
-        /// <summary>
-        /// Handle Update Stok Logic
-        /// </summary>
         private void HandleUpdateStok(ProductCardData product)
         {
-            string title = $"📥 Update Stok - {product.NamaProduk}";
-            string prompt = $"Masukkan jumlah stok yang ditambahkan:\n\n" +
-                           $"Stok saat ini: {product.Stok} unit\n" +
-                           $"(Masukkan angka positif)";
+            string prompt = $"Masukkan jumlah stok yang ditambahkan:\n\nStok saat ini: {product.Stok} unit\n(Masukkan angka positif)";
+            string input = Microsoft.VisualBasic.Interaction.InputBox(prompt, $"📥 Update Stok - {product.NamaProduk}", "");
 
-            string input = Microsoft.VisualBasic.Interaction.InputBox(prompt, title, "");
+            if (string.IsNullOrWhiteSpace(input)) return;
 
-            // VALIDASI INPUT
-            if (string.IsNullOrWhiteSpace(input))
+            if (!int.TryParse(input, out int jumlah) || jumlah <= 0)
             {
-                return; // User cancel
-            }
-
-            if (!int.TryParse(input, out int jumlah))
-            {
-                UIHelper.Error("❌ Input harus berupa angka yang valid!");
+                UIHelper.Error("❌ Input harus berupa angka yang valid dan lebih dari 0!");
                 return;
             }
 
-            if (jumlah <= 0)
-            {
-                UIHelper.Error("❌ Jumlah harus lebih besar dari 0!");
-                return;
-            }
-
-            // EXECUTE UPDATE
             try
             {
-                _controller.UpdateStok(product.IdProduk, jumlah); // POSITIF (+)
+                _controller.UpdateStok(product.IdProduk, jumlah);
                 UIHelper.Sukses($"✓ Stok berhasil ditambah {jumlah} unit!");
                 RefreshCatalog();
             }
@@ -535,33 +375,16 @@ namespace greenPointofSales.Views
             }
         }
 
-        /// <summary>
-        /// Handle Busuk Stok Logic
-        /// </summary>
         private void HandleBusukStok(ProductCardData product)
         {
-            string title = $"📤 Kurangi Stok (Rusak/Busuk) - {product.NamaProduk}";
-            string prompt = $"Masukkan jumlah stok yang rusak/busuk:\n\n" +
-                           $"Stok saat ini: {product.Stok} unit\n" +
-                           $"(Masukkan angka positif, akan dikurangi dari stok)";
+            string prompt = $"Masukkan jumlah stok yang rusak/busuk:\n\nStok saat ini: {product.Stok} unit\n(Masukkan angka positif, akan dikurangi dari stok)";
+            string input = Microsoft.VisualBasic.Interaction.InputBox(prompt, $"📤 Kurangi Stok (Rusak/Busuk) - {product.NamaProduk}", "");
 
-            string input = Microsoft.VisualBasic.Interaction.InputBox(prompt, title, "");
+            if (string.IsNullOrWhiteSpace(input)) return;
 
-            // VALIDASI INPUT
-            if (string.IsNullOrWhiteSpace(input))
+            if (!int.TryParse(input, out int jumlah) || jumlah <= 0)
             {
-                return; // User cancel
-            }
-
-            if (!int.TryParse(input, out int jumlah))
-            {
-                UIHelper.Error("❌ Input harus berupa angka yang valid!");
-                return;
-            }
-
-            if (jumlah <= 0)
-            {
-                UIHelper.Error("❌ Jumlah harus lebih besar dari 0!");
+                UIHelper.Error("❌ Input harus berupa angka yang valid dan lebih besar dari 0!");
                 return;
             }
 
@@ -571,10 +394,9 @@ namespace greenPointofSales.Views
                 return;
             }
 
-            // EXECUTE UPDATE
             try
             {
-                _controller.UpdateStok(product.IdProduk, -jumlah); // NEGATIF (-)
+                _controller.UpdateStok(product.IdProduk, -jumlah);
                 UIHelper.Sukses($"✓ Stok berhasil dikurangi {jumlah} unit (Rusak/Busuk)!");
                 RefreshCatalog();
             }
@@ -584,15 +406,12 @@ namespace greenPointofSales.Views
             }
         }
 
-        /// <summary>
-        /// Show Product Details
-        /// </summary>
         private void ShowProductDetails(ProductCardData product)
         {
             string message = $"📦 DETAIL PRODUK\n\n" +
                            $"{'━'.ToString().PadRight(35, '━')}\n" +
                            $"Nama Produk  : {product.NamaProduk}\n" +
-                           $"Harga Jual   : Rp {product.HargaJual:N0}\n" +
+                           $"Harga Jual   : {UIHelper.FormatRupiah(product.HargaJual)}\n" +
                            $"Stok         : {product.Stok} unit\n" +
                            $"Kategori     : {product.NamaKategori}\n" +
                            $"ID Produk    : {product.IdProduk}\n" +
@@ -601,63 +420,10 @@ namespace greenPointofSales.Views
             MessageBox.Show(message, "📋 Informasi Produk", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        /// <summary>
-        /// Refresh Catalog Display
-        /// </summary>
         private void RefreshCatalog()
         {
-            int selectedCategory = 0;
-
-            if (btnKategoriAktif != null && btnKategoriAktif.Tag != null)
-            {
-                selectedCategory = Convert.ToInt32(btnKategoriAktif.Tag);
-            }
-
+            int selectedCategory = btnKategoriAktif?.Tag != null ? Convert.ToInt32(btnKategoriAktif.Tag) : 0;
             TampilkanKatalog(selectedCategory);
-            //int selectedCategory = Convert.ToInt32(cmbFilterKategori.SelectedValue ?? 0);
-            //TampilkanKatalog(selectedCategory);
-        }
-        private void btnMenuDashboard_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormDashboard());
-        }
-
-        private void btnMenuProduk_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormProduk());
-        }
-
-        private void btnMenuKaryawan_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormManajemenKaryawan());
-        }
-        private void btnLaporan_Click(object sender, EventArgs e)
-        {
-            UIHelper.PindahKe(new FormLaporan());
-        }
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            string nama = SesiPenggunaModel.PenggunaAktif?.Username ?? "Pengguna";
-            string role = SesiPenggunaModel.PenggunaAktif?.Role ?? "Sistem";
-
-            bool yakinKeluar = UIHelper.Konfirmasi($"Apakah kamu yakin ingin logout dari akun {role} ({nama})?");
-
-            if (yakinKeluar)
-            {
-                SesiPenggunaModel.Logout();
-
-                for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
-                {
-                    var formAktif = Application.OpenForms[i];
-
-                    if (formAktif != null && formAktif.Name != "FormLogin")
-                    {
-                        formAktif.Close();
-                    }
-                }
-
-                Application.OpenForms["FormLogin"]?.Show();
-            }
         }
     }
-} 
+}
