@@ -22,16 +22,52 @@ namespace greenPointofSales.Models.Context
                 FROM vw_laporan_penjualan
                 WHERE tgl_transaksi::date BETWEEN @dari AND @sampai";
 
-            if (metodeBayar == "Tunai")
-            {
-                query += " AND LOWER(metode_pembayaran) = 'tunai'";
-            }
-            else if (metodeBayar == "Non-Tunai")
-            {
-                query += " AND (LOWER(metode_pembayaran) != 'tunai')";
-            }
+            if (metodeBayar == "Tunai") query += " AND LOWER(metode_pembayaran) = 'tunai'";
+            else if (metodeBayar == "Non-Tunai") query += " AND (LOWER(metode_pembayaran) != 'tunai')";
 
             query += " ORDER BY tgl_transaksi DESC";
+
+            NpgsqlParameter[] parameters = {
+                new NpgsqlParameter("dari", dari.Date),
+                new NpgsqlParameter("sampai", sampai.Date)
+            };
+
+            return DBHelper.EksekusiQuery(query, parameters);
+        }
+
+        public DataTable AmbilWidgetPenjualan(DateTime dari, DateTime sampai, string metodeBayar)
+        {
+            string query = @"
+                SELECT 
+                    COALESCE(SUM(total_harga), 0) AS total_penjualan,
+                    COUNT(id_transaksi) AS total_transaksi
+                FROM transaksi
+                WHERE tgl_transaksi::date BETWEEN @dari AND @sampai";
+
+            if (metodeBayar == "Tunai") query += " AND LOWER(metode_pembayaran) = 'tunai'";
+            else if (metodeBayar == "Non-Tunai") query += " AND (LOWER(metode_pembayaran) != 'tunai' OR metode_pembayaran IS NULL)";
+
+            NpgsqlParameter[] parameters = {
+                new NpgsqlParameter("dari", dari.Date),
+                new NpgsqlParameter("sampai", sampai.Date)
+            };
+
+            return DBHelper.EksekusiQuery(query, parameters);
+        }
+
+        public DataTable AmbilGrafikPenjualan(DateTime dari, DateTime sampai, string metodeBayar)
+        {
+            string query = @"
+                SELECT 
+                    tgl_transaksi::date AS tanggal,
+                    SUM(total_harga) AS total
+                FROM transaksi
+                WHERE tgl_transaksi::date BETWEEN @dari AND @sampai";
+
+            if (metodeBayar == "Tunai") query += " AND LOWER(metode_pembayaran) = 'tunai'";
+            else if (metodeBayar == "Non-Tunai") query += " AND (LOWER(metode_pembayaran) != 'tunai' OR metode_pembayaran IS NULL)";
+
+            query += " GROUP BY tgl_transaksi::date ORDER BY tanggal ASC";
 
             NpgsqlParameter[] parameters = {
                 new NpgsqlParameter("dari", dari.Date),
@@ -54,13 +90,11 @@ namespace greenPointofSales.Models.Context
 
             DataTable dt = DBHelper.EksekusiQuery(query, parameters);
 
-            if (dt.Rows.Count == 0)
-                return new LabaRugiModel(bulan, tahun, 0, 0, 0);
+            if (dt.Rows.Count == 0) return new LabaRugiModel(bulan, tahun, 0, 0, 0);
 
             DataRow row = dt.Rows[0];
             return new LabaRugiModel(
-                bulan,
-                tahun,
+                bulan, tahun,
                 Convert.ToDecimal(row["total_pendapatan"]),
                 Convert.ToDecimal(row["total_hpp"]),
                 Convert.ToDecimal(row["total_rugi_busuk"])
@@ -71,10 +105,7 @@ namespace greenPointofSales.Models.Context
         {
             string query = "SELECT COUNT(*) FROM vw_produk_kurang_laku;";
             DataTable dt = DBHelper.EksekusiQuery(query, null);
-            if (dt.Rows.Count > 0)
-            {
-                return Convert.ToInt32(dt.Rows[0][0]);
-            }
+            if (dt.Rows.Count > 0) return Convert.ToInt32(dt.Rows[0][0]);
             return 0;
         }
     }

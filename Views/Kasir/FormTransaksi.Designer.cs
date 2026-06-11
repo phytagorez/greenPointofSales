@@ -94,7 +94,6 @@
             flpKatalog.Name = "flpKatalog";
             flpKatalog.Size = new Size(796, 648);
             flpKatalog.TabIndex = 0;
-            flpKatalog.Paint += flpKatalog_Paint;
             // 
             // tableLayoutPanel1
             // 
@@ -391,7 +390,6 @@
             btnLogout.TextAlign = ContentAlignment.MiddleLeft;
             btnLogout.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnLogout.UseVisualStyleBackColor = false;
-            btnLogout.Click += btnLogout_Click;
             // 
             // FormTransaksi
             // 
