@@ -1,9 +1,7 @@
 ﻿using greenPointofSales.Models.Context;
 using greenPointofSales.Models.Entity;
-using greenPointofSales.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
 namespace greenPointofSales.Services
@@ -29,46 +27,98 @@ namespace greenPointofSales.Services
             return prefix + (count + 1).ToString("D3");
         }
 
-        public string? ValidasiDanTambahItem(TransaksiModel transaksi, int idProduk, string namaProduk, decimal jumlah, decimal hargaSatuan)
+        public string? ValidasiDanTambahItem(
+            TransaksiModel transaksi,
+            int idProduk,
+            string namaProduk,
+            decimal harga,
+            decimal stokTersedia,
+            Dictionary<int, string> unitMapping)
         {
-            if (jumlah <= 0)
+            if (transaksi == null) return "Transaksi tidak valid";
+
+            string satuan = unitMapping.ContainsKey(idProduk) ? unitMapping[idProduk] : "Pcs";
+            decimal takaran = satuan.ToLower() == "kg" ? 0.25m : 1m;
+
+            var itemAda = transaksi.Items.FirstOrDefault(x => x.IdProduk == idProduk);
+
+            if (itemAda != null && (itemAda.Jumlah + takaran) > stokTersedia)
+                return "Stok barang di toko tidak mencukupi batas pembelian!";
+
+            if (stokTersedia < takaran)
+                return "Produk jualan saat ini sedang kosong atau tidak cukup untuk takaran awal!";
+
+            DetailTransaksiModel itemBaru = new DetailTransaksiModel(idProduk, namaProduk, takaran, harga);
+            transaksi.TambahItem(itemBaru);
+
+            return null;
+        }
+
+        public string? UpdateQuantityItem(
+            TransaksiModel transaksi,
+            DetailTransaksiModel item,
+            decimal deltaQty,
+            decimal stokMaks,
+            Dictionary<int, string> unitMapping)
+        {
+            if (transaksi == null || item == null) return "Item atau transaksi tidak valid";
+
+            string satuan = unitMapping.ContainsKey(item.IdProduk) ? unitMapping[item.IdProduk] : "Pcs";
+            decimal qtyBaru = item.Jumlah + deltaQty;
+
+            if (qtyBaru <= 0)
             {
-                return "Jumlah barang yang dimasukkan harus lebih dari 0!";
-            }
-
-            try
-            {
-                decimal stokTersedia = _produkContext.AmbilStokProduk(idProduk);
-
-                var itemSama = transaksi.Items.FirstOrDefault(x => x.IdProduk == idProduk);
-                decimal jumlahDiKeranjang = itemSama?.Jumlah ?? 0;
-
-                if (jumlahDiKeranjang + jumlah > stokTersedia)
-                {
-                    return $"Stok tidak mencukupi! Sisa stok di toko: {stokTersedia}. Di keranjang Anda sudah ada: {jumlahDiKeranjang}.";
-                }
-
-                var detailBaru = new DetailTransaksiModel(idProduk, namaProduk, jumlah, hargaSatuan);
-                transaksi.TambahItem(detailBaru);
+                transaksi.Items.Remove(item);
                 return null;
             }
-            catch (Exception ex)
-            {
-                return "Gagal melakukan pengecekan stok produk: " + ex.Message;
-            }
+
+            if (qtyBaru > stokMaks) return $"Stok maksimal {stokMaks:0.##} {satuan}";
+
+            item.Jumlah = qtyBaru;
+            return null;
+        }
+
+        public string? ValidasiPembayaranTunai(decimal uangBayar, decimal totalBelanja)
+        {
+            if (uangBayar < totalBelanja) return "Uang tunai yang diinput tidak mencukupi!";
+            return null;
+        }
+
+        public decimal HitungKembalian(decimal uangBayar, decimal totalBelanja)
+        {
+            return uangBayar - totalBelanja;
+        }
+
+        public string? ParseAndValidateNominal(string input, out decimal nominal)
+        {
+            nominal = 0;
+            if (string.IsNullOrWhiteSpace(input)) return "Masukkan nominal uang pembayaran";
+            if (!decimal.TryParse(input, out nominal)) return "Format nominal uang tidak valid (gunakan angka)";
+            if (nominal <= 0) return "Nominal harus lebih dari 0";
+            return null;
+        }
+
+        public string? ValidasiSebelumCheckout(TransaksiModel transaksi)
+        {
+            if (transaksi == null) return "Data transaksi tidak tersedia";
+            if (transaksi.Items == null || transaksi.Items.Count == 0) return "Keranjang belanja masih kosong!";
+            return null;
         }
 
         public bool ExecuteCheckout(TransaksiModel transaksi)
         {
-            if (transaksi == null || !transaksi.Items.Any())
-            {
-                throw new InvalidOperationException("Tidak ada barang di dalam keranjang belanja untuk diproses.");
-            }
+            if (transaksi == null || transaksi.Items.Count == 0) return false;
 
             try
             {
-                int newIdTransaksi = _context.InsertHeader(transaksi);
+                // Validasi stok aktual
+                foreach (var item in transaksi.Items)
+                {
+                    decimal stokAktual = _produkContext.AmbilStokProduk(item.IdProduk);
+                    if (stokAktual < item.Jumlah) throw new Exception($"Stok produk {item.NamaProduk} tidak mencukupi");
+                }
 
+                int newIdTransaksi = _context.InsertHeader(transaksi);
                 if (newIdTransaksi > 0)
                 {
                     foreach (var item in transaksi.Items)
@@ -83,7 +133,7 @@ namespace greenPointofSales.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Sistem gagal menyimpan data transaksi checkout: {ex.Message}", ex);
+                throw new Exception($"Gagal menyimpan transaksi: {ex.Message}", ex);
             }
         }
 

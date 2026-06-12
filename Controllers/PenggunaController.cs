@@ -19,7 +19,6 @@ namespace greenPointofSales.Controllers
                 throw new ArgumentException("Username dan Password tidak boleh kosong.");
             }
 
-            // KUNCI UTAMA: Pastikan id_pengguna, role, dan nama_lengkap ikut di-SELECT!
             string query = "SELECT id_pengguna, role, nama_lengkap FROM pengguna WHERE username=@u AND password=@p AND is_active=true";
 
             Npgsql.NpgsqlParameter[] parameters = {
@@ -27,16 +26,13 @@ namespace greenPointofSales.Controllers
         new Npgsql.NpgsqlParameter("p", password)
     };
 
-            // Eksekusi ke database
             DataTable dtUser = DBHelper.EksekusiQuery(query, parameters);
 
-            // Jika data tidak ditemukan
             if (dtUser.Rows.Count == 0)
             {
                 return null;
             }
 
-            // Pemetaan ke model (Eror kemarin terjadi karena id_pengguna di bawah ini dicari tapi di SELECT atas ga ada)
             var pengguna = new PenggunaModel
             {
                 IdPengguna = Convert.ToInt32(dtUser.Rows[0]["id_pengguna"]),
@@ -45,7 +41,6 @@ namespace greenPointofSales.Controllers
                 NamaLengkap = dtUser.Rows[0]["nama_lengkap"].ToString() ?? ""
             };
 
-            // Daftarkan ke sesi aktif
             SesiPenggunaModel.Login(pengguna);
 
             return pengguna.Role;

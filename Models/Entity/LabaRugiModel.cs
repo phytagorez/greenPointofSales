@@ -6,23 +6,20 @@ namespace greenPointofSales.Models.Entity
     {
         public int Bulan { get; set; }
         public int Tahun { get; set; }
-        public decimal TotalPendapatan { get; set; } // Uang masuk dari kasir
-        public decimal TotalHPP { get; set; }        // Modal barang yang terjual
-        public decimal TotalRugiBusuk { get; set; }  // Modal barang yang dibuang karena busuk
+        public decimal TotalPendapatan { get; set; } 
+        public decimal TotalHPP { get; set; }       
+        public decimal TotalRugiBusuk { get; set; }  
 
-        // Encapsulation: Laba Kotor dihitung otomatis (Pendapatan - Modal Terjual)
         public decimal LabaKotor
         {
             get { return TotalPendapatan - TotalHPP; }
         }
 
-        // Encapsulation: Laba Bersih dihitung otomatis (Laba Kotor - Rugi Busuk)
         public decimal LabaBersih
         {
             get { return LabaKotor - TotalRugiBusuk; }
         }
 
-        // Constructor
         public LabaRugiModel(int bulan, int tahun, decimal pendapatan, decimal hpp, decimal rugiBusuk)
         {
             Bulan = bulan;

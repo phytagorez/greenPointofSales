@@ -36,7 +36,7 @@ namespace greenPointofSales.Helpers
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             return dr == DialogResult.Yes;
         }
-        //Form Just 1
+
         public static void PindahKe(Form formBaru)
         {
             formBaru.Show();
