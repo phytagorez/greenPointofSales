@@ -71,10 +71,10 @@
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
             btnMenuKaryawan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKaryawan.Location = new Point(27, 329);
+            btnMenuKaryawan.Location = new Point(16, 329);
             btnMenuKaryawan.Margin = new Padding(3, 4, 3, 4);
             btnMenuKaryawan.Name = "btnMenuKaryawan";
-            btnMenuKaryawan.Size = new Size(149, 53);
+            btnMenuKaryawan.Size = new Size(160, 48);
             btnMenuKaryawan.TabIndex = 0;
             btnMenuKaryawan.Text = "   Manajemen     Karyawan";
             btnMenuKaryawan.TextAlign = ContentAlignment.MiddleLeft;
@@ -93,10 +93,10 @@
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
             btnMenuProduk.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuProduk.Location = new Point(27, 174);
+            btnMenuProduk.Location = new Point(16, 174);
             btnMenuProduk.Margin = new Padding(3, 4, 3, 4);
             btnMenuProduk.Name = "btnMenuProduk";
-            btnMenuProduk.Size = new Size(149, 48);
+            btnMenuProduk.Size = new Size(160, 48);
             btnMenuProduk.TabIndex = 1;
             btnMenuProduk.Text = "   Produk";
             btnMenuProduk.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -135,10 +135,10 @@
             btnMenuKatalog.ForeColor = Color.Black;
             btnMenuKatalog.Image = Properties.Resources.boxes;
             btnMenuKatalog.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKatalog.Location = new Point(27, 269);
+            btnMenuKatalog.Location = new Point(16, 269);
             btnMenuKatalog.Margin = new Padding(4);
             btnMenuKatalog.Name = "btnMenuKatalog";
-            btnMenuKatalog.Size = new Size(149, 53);
+            btnMenuKatalog.Size = new Size(160, 48);
             btnMenuKatalog.TabIndex = 3;
             btnMenuKatalog.Text = "   Manajemen     Produk      ";
             btnMenuKatalog.TextAlign = ContentAlignment.MiddleLeft;
@@ -157,10 +157,10 @@
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
             btnMenuDashboard.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuDashboard.Location = new Point(27, 87);
+            btnMenuDashboard.Location = new Point(16, 82);
             btnMenuDashboard.Margin = new Padding(3, 4, 3, 4);
             btnMenuDashboard.Name = "btnMenuDashboard";
-            btnMenuDashboard.Size = new Size(149, 48);
+            btnMenuDashboard.Size = new Size(160, 48);
             btnMenuDashboard.TabIndex = 4;
             btnMenuDashboard.Text = "   Dashboard";
             btnMenuDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -178,10 +178,10 @@
             btnLaporan.ForeColor = Color.Black;
             btnLaporan.Image = Properties.Resources.bar_chart;
             btnLaporan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLaporan.Location = new Point(27, 428);
+            btnLaporan.Location = new Point(16, 428);
             btnLaporan.Margin = new Padding(3, 4, 3, 4);
             btnLaporan.Name = "btnLaporan";
-            btnLaporan.Size = new Size(149, 48);
+            btnLaporan.Size = new Size(160, 48);
             btnLaporan.TabIndex = 5;
             btnLaporan.Text = "   Laporan";
             btnLaporan.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -246,7 +246,7 @@
             lblTTransaksi.AutoSize = true;
             lblTTransaksi.BackColor = Color.Transparent;
             lblTTransaksi.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTTransaksi.ForeColor = Color.FromArgb(64, 64, 64);
+            lblTTransaksi.ForeColor = Color.White;
             lblTTransaksi.Location = new Point(284, 99);
             lblTTransaksi.Name = "lblTTransaksi";
             lblTTransaksi.Size = new Size(137, 22);
@@ -258,7 +258,7 @@
             lblJTarnsaksi.AutoSize = true;
             lblJTarnsaksi.BackColor = Color.Transparent;
             lblJTarnsaksi.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblJTarnsaksi.ForeColor = Color.FromArgb(64, 64, 64);
+            lblJTarnsaksi.ForeColor = Color.White;
             lblJTarnsaksi.Location = new Point(537, 99);
             lblJTarnsaksi.Name = "lblJTarnsaksi";
             lblJTarnsaksi.Size = new Size(155, 22);
@@ -270,7 +270,7 @@
             lblTKaryawan.AutoSize = true;
             lblTKaryawan.BackColor = Color.Transparent;
             lblTKaryawan.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTKaryawan.ForeColor = Color.FromArgb(64, 64, 64);
+            lblTKaryawan.ForeColor = Color.White;
             lblTKaryawan.Location = new Point(802, 99);
             lblTKaryawan.Name = "lblTKaryawan";
             lblTKaryawan.Size = new Size(140, 22);
@@ -282,7 +282,7 @@
             lblTPBusuk.AutoSize = true;
             lblTPBusuk.BackColor = Color.Transparent;
             lblTPBusuk.Font = new Font("Modern No. 20", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTPBusuk.ForeColor = Color.FromArgb(64, 64, 64);
+            lblTPBusuk.ForeColor = Color.White;
             lblTPBusuk.Location = new Point(1053, 99);
             lblTPBusuk.Name = "lblTPBusuk";
             lblTPBusuk.Size = new Size(175, 22);
@@ -379,9 +379,10 @@
             // 
             // panelChartDashboard
             // 
-            panelChartDashboard.Location = new Point(226, 215);
+            panelChartDashboard.BackColor = Color.Transparent;
+            panelChartDashboard.Location = new Point(217, 200);
             panelChartDashboard.Name = "panelChartDashboard";
-            panelChartDashboard.Size = new Size(1002, 444);
+            panelChartDashboard.Size = new Size(1019, 472);
             panelChartDashboard.TabIndex = 23;
             // 
             // FormDashboard

@@ -71,7 +71,7 @@
             // 
             txtNamaProduk.BackColor = Color.White;
             txtNamaProduk.BorderStyle = BorderStyle.None;
-            txtNamaProduk.Font = new Font("Modern No. 20", 12F);
+            txtNamaProduk.Font = new Font("Mongolian Baiti", 13.8F);
             txtNamaProduk.ForeColor = Color.Black;
             txtNamaProduk.Location = new Point(247, 495);
             txtNamaProduk.Multiline = true;
@@ -83,7 +83,7 @@
             // 
             txtHargaJual.BackColor = Color.White;
             txtHargaJual.BorderStyle = BorderStyle.None;
-            txtHargaJual.Font = new Font("Modern No. 20", 12F);
+            txtHargaJual.Font = new Font("Mongolian Baiti", 13.8F);
             txtHargaJual.ForeColor = Color.Black;
             txtHargaJual.Location = new Point(589, 604);
             txtHargaJual.Multiline = true;
@@ -95,7 +95,7 @@
             // 
             txtHargaBeli.BackColor = Color.White;
             txtHargaBeli.BorderStyle = BorderStyle.None;
-            txtHargaBeli.Font = new Font("Modern No. 20", 12F);
+            txtHargaBeli.Font = new Font("Mongolian Baiti", 13.8F);
             txtHargaBeli.ForeColor = Color.Black;
             txtHargaBeli.Location = new Point(589, 495);
             txtHargaBeli.Multiline = true;
@@ -107,7 +107,7 @@
             // 
             txtStok.BackColor = Color.White;
             txtStok.BorderStyle = BorderStyle.None;
-            txtStok.Font = new Font("Modern No. 20", 12F);
+            txtStok.Font = new Font("Mongolian Baiti", 13.8F);
             txtStok.ForeColor = Color.Black;
             txtStok.Location = new Point(247, 604);
             txtStok.Multiline = true;
@@ -121,12 +121,12 @@
             cmbKategori.BackColor = Color.White;
             cmbKategori.Cursor = Cursors.Hand;
             cmbKategori.FlatStyle = FlatStyle.Flat;
-            cmbKategori.Font = new Font("Modern No. 20", 12F);
+            cmbKategori.Font = new Font("Mongolian Baiti", 13.8F);
             cmbKategori.ForeColor = Color.Black;
             cmbKategori.FormattingEnabled = true;
             cmbKategori.Location = new Point(931, 501);
             cmbKategori.Name = "cmbKategori";
-            cmbKategori.Size = new Size(233, 30);
+            cmbKategori.Size = new Size(233, 32);
             cmbKategori.TabIndex = 5;
             // 
             // btnSimpan
@@ -248,10 +248,10 @@
             btnLaporan.ForeColor = Color.Black;
             btnLaporan.Image = Properties.Resources.bar_chart;
             btnLaporan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLaporan.Location = new Point(27, 428);
+            btnLaporan.Location = new Point(16, 428);
             btnLaporan.Margin = new Padding(3, 4, 3, 4);
             btnLaporan.Name = "btnLaporan";
-            btnLaporan.Size = new Size(149, 48);
+            btnLaporan.Size = new Size(160, 48);
             btnLaporan.TabIndex = 28;
             btnLaporan.Text = "   Laporan";
             btnLaporan.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -269,10 +269,10 @@
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
             btnMenuDashboard.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuDashboard.Location = new Point(27, 87);
+            btnMenuDashboard.Location = new Point(16, 82);
             btnMenuDashboard.Margin = new Padding(3, 4, 3, 4);
             btnMenuDashboard.Name = "btnMenuDashboard";
-            btnMenuDashboard.Size = new Size(149, 48);
+            btnMenuDashboard.Size = new Size(160, 48);
             btnMenuDashboard.TabIndex = 27;
             btnMenuDashboard.Text = "   Dashboard";
             btnMenuDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -290,10 +290,10 @@
             btnMenuKatalog.ForeColor = Color.Black;
             btnMenuKatalog.Image = Properties.Resources.boxes;
             btnMenuKatalog.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKatalog.Location = new Point(27, 269);
+            btnMenuKatalog.Location = new Point(16, 269);
             btnMenuKatalog.Margin = new Padding(4);
             btnMenuKatalog.Name = "btnMenuKatalog";
-            btnMenuKatalog.Size = new Size(149, 53);
+            btnMenuKatalog.Size = new Size(160, 48);
             btnMenuKatalog.TabIndex = 26;
             btnMenuKatalog.Text = "   Manajemen     Produk      ";
             btnMenuKatalog.TextAlign = ContentAlignment.MiddleLeft;
@@ -333,10 +333,10 @@
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
             btnMenuProduk.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuProduk.Location = new Point(27, 174);
+            btnMenuProduk.Location = new Point(16, 174);
             btnMenuProduk.Margin = new Padding(3, 4, 3, 4);
             btnMenuProduk.Name = "btnMenuProduk";
-            btnMenuProduk.Size = new Size(149, 48);
+            btnMenuProduk.Size = new Size(160, 48);
             btnMenuProduk.TabIndex = 24;
             btnMenuProduk.Text = "   Produk";
             btnMenuProduk.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -354,10 +354,10 @@
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
             btnMenuKaryawan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKaryawan.Location = new Point(27, 329);
+            btnMenuKaryawan.Location = new Point(16, 329);
             btnMenuKaryawan.Margin = new Padding(3, 4, 3, 4);
             btnMenuKaryawan.Name = "btnMenuKaryawan";
-            btnMenuKaryawan.Size = new Size(149, 53);
+            btnMenuKaryawan.Size = new Size(160, 48);
             btnMenuKaryawan.TabIndex = 23;
             btnMenuKaryawan.Text = "   Manajemen     Karyawan";
             btnMenuKaryawan.TextAlign = ContentAlignment.MiddleLeft;
@@ -400,7 +400,7 @@
             cmbSatuan.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbSatuan.FocusedColor = Color.FromArgb(94, 148, 255);
             cmbSatuan.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            cmbSatuan.Font = new Font("Modern No. 20", 12F);
+            cmbSatuan.Font = new Font("Mongolian Baiti", 13.8F);
             cmbSatuan.ForeColor = Color.Black;
             cmbSatuan.ItemHeight = 30;
             cmbSatuan.Items.AddRange(new object[] { "Ikat", "Kg", "Pcs" });

@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace greenPointofSales.Views
 {
-    public partial class FormProduk : Form
+    public partial class    FormProduk : Form
     {
         private readonly ProdukController _controller = new();
 

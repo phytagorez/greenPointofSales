@@ -45,15 +45,22 @@
             TextFilterData = new Label();
             label2 = new Label();
             label3 = new Label();
+            pbTTransaksi = new PictureBox();
+            pbJTransaksi = new PictureBox();
+            label4 = new Label();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvPenjualan).BeginInit();
+            panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbMenu).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbTTransaksi).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbJTransaksi).BeginInit();
             SuspendLayout();
             // 
             // dtpDari
             // 
             dtpDari.CalendarTitleBackColor = Color.White;
             dtpDari.Font = new Font("Mongolian Baiti", 10.2F);
-            dtpDari.Location = new Point(222, 150);
+            dtpDari.Location = new Point(222, 166);
             dtpDari.Name = "dtpDari";
             dtpDari.Size = new Size(250, 27);
             dtpDari.TabIndex = 0;
@@ -62,7 +69,7 @@
             // 
             dtpSampai.CalendarTitleBackColor = Color.White;
             dtpSampai.Font = new Font("Mongolian Baiti", 10.2F);
-            dtpSampai.Location = new Point(222, 213);
+            dtpSampai.Location = new Point(222, 224);
             dtpSampai.Name = "dtpSampai";
             dtpSampai.Size = new Size(250, 27);
             dtpSampai.TabIndex = 1;
@@ -72,7 +79,7 @@
             cmbMetodeBayar.Font = new Font("Mongolian Baiti", 10.2F);
             cmbMetodeBayar.FormattingEnabled = true;
             cmbMetodeBayar.Items.AddRange(new object[] { "All", "Tunai", "Non-Tunai" });
-            cmbMetodeBayar.Location = new Point(509, 150);
+            cmbMetodeBayar.Location = new Point(509, 163);
             cmbMetodeBayar.Name = "cmbMetodeBayar";
             cmbMetodeBayar.Size = new Size(180, 26);
             cmbMetodeBayar.TabIndex = 2;
@@ -80,22 +87,23 @@
             // 
             // btnFilter
             // 
+            btnFilter.BackColor = Color.FromArgb(224, 246, 225);
             btnFilter.Font = new Font("Mongolian Baiti", 10.2F);
-            btnFilter.Location = new Point(549, 209);
+            btnFilter.Location = new Point(496, 211);
             btnFilter.Name = "btnFilter";
-            btnFilter.Size = new Size(94, 29);
+            btnFilter.Size = new Size(90, 30);
             btnFilter.TabIndex = 3;
             btnFilter.Text = "Filter";
-            btnFilter.UseVisualStyleBackColor = true;
+            btnFilter.UseVisualStyleBackColor = false;
             btnFilter.Click += btnFilter_Click;
             // 
             // btnCetak
             // 
-            btnCetak.BackColor = Color.FromArgb(148, 172, 137);
+            btnCetak.BackColor = Color.FromArgb(224, 246, 225);
             btnCetak.Font = new Font("Mongolian Baiti", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCetak.Location = new Point(689, 649);
+            btnCetak.Location = new Point(605, 211);
             btnCetak.Name = "btnCetak";
-            btnCetak.Size = new Size(120, 35);
+            btnCetak.Size = new Size(90, 30);
             btnCetak.TabIndex = 4;
             btnCetak.Text = "Cetak";
             btnCetak.UseVisualStyleBackColor = false;
@@ -106,7 +114,7 @@
             lblTotalPenjualan.AutoSize = true;
             lblTotalPenjualan.BackColor = Color.Transparent;
             lblTotalPenjualan.Font = new Font("Mongolian Baiti", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTotalPenjualan.Location = new Point(273, 329);
+            lblTotalPenjualan.Location = new Point(280, 329);
             lblTotalPenjualan.Name = "lblTotalPenjualan";
             lblTotalPenjualan.Size = new Size(110, 24);
             lblTotalPenjualan.TabIndex = 5;
@@ -117,7 +125,7 @@
             lblTotalTransaksi.AutoSize = true;
             lblTotalTransaksi.BackColor = Color.Transparent;
             lblTotalTransaksi.Font = new Font("Mongolian Baiti", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTotalTransaksi.Location = new Point(534, 331);
+            lblTotalTransaksi.Location = new Point(540, 331);
             lblTotalTransaksi.Name = "lblTotalTransaksi";
             lblTotalTransaksi.Size = new Size(109, 24);
             lblTotalTransaksi.TabIndex = 6;
@@ -127,24 +135,25 @@
             // 
             dgvPenjualan.BackgroundColor = Color.FromArgb(148, 172, 137);
             dgvPenjualan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPenjualan.Location = new Point(210, 388);
+            dgvPenjualan.Location = new Point(729, 98);
             dgvPenjualan.Name = "dgvPenjualan";
             dgvPenjualan.RowHeadersWidth = 51;
-            dgvPenjualan.Size = new Size(1038, 257);
+            dgvPenjualan.Size = new Size(518, 271);
             dgvPenjualan.TabIndex = 7;
             // 
             // panelChart
             // 
-            panelChart.BackColor = Color.White;
-            panelChart.Location = new Point(729, 98);
+            panelChart.BackColor = Color.FromArgb(227, 233, 207);
+            panelChart.Location = new Point(209, 388);
             panelChart.Name = "panelChart";
-            panelChart.Size = new Size(519, 271);
+            panelChart.Size = new Size(1039, 302);
             panelChart.TabIndex = 8;
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(148, 172, 137);
-            panel1.Location = new Point(222, 160);
+            panel1.Controls.Add(label5);
+            panel1.Location = new Point(222, 166);
             panel1.Name = "panel1";
             panel1.Size = new Size(476, 52);
             panel1.TabIndex = 9;
@@ -215,10 +224,10 @@
             btnLaporan.ForeColor = Color.Black;
             btnLaporan.Image = Properties.Resources.bar_chart;
             btnLaporan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLaporan.Location = new Point(27, 428);
+            btnLaporan.Location = new Point(16, 428);
             btnLaporan.Margin = new Padding(3, 4, 3, 4);
             btnLaporan.Name = "btnLaporan";
-            btnLaporan.Size = new Size(149, 48);
+            btnLaporan.Size = new Size(160, 48);
             btnLaporan.TabIndex = 16;
             btnLaporan.Text = "   Laporan";
             btnLaporan.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -236,10 +245,10 @@
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
             btnMenuDashboard.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuDashboard.Location = new Point(27, 87);
+            btnMenuDashboard.Location = new Point(16, 82);
             btnMenuDashboard.Margin = new Padding(3, 4, 3, 4);
             btnMenuDashboard.Name = "btnMenuDashboard";
-            btnMenuDashboard.Size = new Size(149, 48);
+            btnMenuDashboard.Size = new Size(160, 48);
             btnMenuDashboard.TabIndex = 15;
             btnMenuDashboard.Text = "   Dashboard";
             btnMenuDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -257,13 +266,12 @@
             btnMenuKatalog.ForeColor = Color.Black;
             btnMenuKatalog.Image = Properties.Resources.boxes;
             btnMenuKatalog.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKatalog.Location = new Point(27, 269);
+            btnMenuKatalog.Location = new Point(16, 269);
             btnMenuKatalog.Margin = new Padding(4);
             btnMenuKatalog.Name = "btnMenuKatalog";
-            btnMenuKatalog.Size = new Size(149, 53);
+            btnMenuKatalog.Size = new Size(160, 53);
             btnMenuKatalog.TabIndex = 14;
-            btnMenuKatalog.Text = "   Manajemen     Produk      ";
-            btnMenuKatalog.TextAlign = ContentAlignment.MiddleLeft;
+            btnMenuKatalog.Text = "  Manajemen  Produk      ";
             btnMenuKatalog.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKatalog.UseVisualStyleBackColor = false;
             // 
@@ -300,10 +308,10 @@
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
             btnMenuProduk.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuProduk.Location = new Point(27, 174);
+            btnMenuProduk.Location = new Point(16, 174);
             btnMenuProduk.Margin = new Padding(3, 4, 3, 4);
             btnMenuProduk.Name = "btnMenuProduk";
-            btnMenuProduk.Size = new Size(149, 48);
+            btnMenuProduk.Size = new Size(160, 48);
             btnMenuProduk.TabIndex = 12;
             btnMenuProduk.Text = "   Produk";
             btnMenuProduk.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -321,13 +329,12 @@
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
             btnMenuKaryawan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKaryawan.Location = new Point(27, 329);
+            btnMenuKaryawan.Location = new Point(16, 329);
             btnMenuKaryawan.Margin = new Padding(3, 4, 3, 4);
             btnMenuKaryawan.Name = "btnMenuKaryawan";
-            btnMenuKaryawan.Size = new Size(149, 53);
+            btnMenuKaryawan.Size = new Size(160, 53);
             btnMenuKaryawan.TabIndex = 11;
-            btnMenuKaryawan.Text = "   Manajemen     Karyawan";
-            btnMenuKaryawan.TextAlign = ContentAlignment.MiddleLeft;
+            btnMenuKaryawan.Text = "  Manajemen  Karyawan";
             btnMenuKaryawan.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKaryawan.UseVisualStyleBackColor = false;
             // 
@@ -349,6 +356,7 @@
             btnLapPenjualan.BackColor = Color.Transparent;
             btnLapPenjualan.FlatStyle = FlatStyle.Popup;
             btnLapPenjualan.Font = new Font("Perpetua Titling MT", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLapPenjualan.ForeColor = Color.White;
             btnLapPenjualan.Location = new Point(743, 24);
             btnLapPenjualan.Name = "btnLapPenjualan";
             btnLapPenjualan.Size = new Size(250, 30);
@@ -371,10 +379,11 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Mongolian Baiti", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(237, 292);
+            label2.Font = new Font("Mongolian Baiti", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(280, 292);
             label2.Name = "label2";
-            label2.Size = new Size(189, 30);
+            label2.Size = new Size(155, 24);
             label2.TabIndex = 41;
             label2.Text = "Total Penjualan";
             // 
@@ -382,16 +391,62 @@
             // 
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Mongolian Baiti", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(496, 292);
+            label3.Font = new Font("Mongolian Baiti", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(541, 292);
             label3.Name = "label3";
-            label3.Size = new Size(187, 30);
+            label3.Size = new Size(154, 24);
             label3.TabIndex = 42;
             label3.Text = "Total Transaksi";
+            // 
+            // pbTTransaksi
+            // 
+            pbTTransaksi.BackColor = Color.Transparent;
+            pbTTransaksi.Image = Properties.Resources.receipt1;
+            pbTTransaksi.Location = new Point(215, 296);
+            pbTTransaksi.Name = "pbTTransaksi";
+            pbTTransaksi.Size = new Size(52, 57);
+            pbTTransaksi.TabIndex = 43;
+            pbTTransaksi.TabStop = false;
+            // 
+            // pbJTransaksi
+            // 
+            pbJTransaksi.BackColor = Color.Transparent;
+            pbJTransaksi.Image = Properties.Resources.badge_dollar_sign;
+            pbJTransaksi.Location = new Point(476, 296);
+            pbJTransaksi.Name = "pbJTransaksi";
+            pbJTransaksi.Size = new Size(52, 57);
+            pbJTransaksi.TabIndex = 44;
+            pbJTransaksi.TabStop = false;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = Color.Transparent;
+            label4.Font = new Font("Mongolian Baiti", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(222, 141);
+            label4.Name = "label4";
+            label4.Size = new Size(130, 21);
+            label4.TabIndex = 45;
+            label4.Text = "Tanggal Mulai";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.Transparent;
+            label5.Font = new Font("Mongolian Baiti", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(-1, 30);
+            label5.Name = "label5";
+            label5.Size = new Size(139, 21);
+            label5.TabIndex = 46;
+            label5.Text = "Tanggal Selesai";
             // 
             // UC_LaporanPenjualan
             // 
             BackgroundImage = Properties.Resources.Laporan_P_O;
+            Controls.Add(label4);
+            Controls.Add(pbJTransaksi);
+            Controls.Add(pbTTransaksi);
             Controls.Add(btnCetak);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -421,7 +476,11 @@
             Name = "UC_LaporanPenjualan";
             Size = new Size(1280, 720);
             ((System.ComponentModel.ISupportInitialize)dgvPenjualan).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbMenu).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbTTransaksi).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbJTransaksi).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -455,5 +514,9 @@
         private Label TextFilterData;
         private Label label2;
         private Label label3;
+        private PictureBox pbTTransaksi;
+        private Label label5;
+        private PictureBox pbJTransaksi;
+        private Label label4;
     }
 }

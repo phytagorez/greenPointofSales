@@ -1,10 +1,13 @@
-﻿using greenPointofSales.Models.Context;
+﻿using greenPointofSales.Helpers;
+using greenPointofSales.Models.Context;
 using greenPointofSales.Models.Entity;
-using greenPointofSales.Helpers;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+//using System.Runtime.ConstrainedExecution;
+//using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace greenPointofSales.Services
 {
@@ -14,7 +17,7 @@ namespace greenPointofSales.Services
         private readonly ProdukContext _produkContext;
         private readonly DetailTransaksiContext _detailContext;
 
-        public TransaksiService()
+        public TransaksiService() //constructure
         {
             _context = new TransaksiContext();
             _produkContext = new ProdukContext();
@@ -38,10 +41,16 @@ namespace greenPointofSales.Services
 
             try
             {
-                decimal stokTersedia = _produkContext.AmbilStokProduk(idProduk);
+                decimal stokTersedia = _produkContext.AmbilStokProduk(idProduk); //Mengecek stok produk di toko.
 
-                var itemSama = transaksi.Items.FirstOrDefault(x => x.IdProduk == idProduk);
+                var itemSama = transaksi.Items.FirstOrDefault(x => x.IdProduk == idProduk); //apakah produk ini sudah ada?
+                    //transaksi.Items = semua item di keranjang saat ini
+                    //FirstOrDefault = cari yang pertama cocok, kalau tidak ada → null
+                    //Untuk setiap item(x) di dalam list,
+                    //cek apakah IdProduk - nya sama dengan idProduk yang dicari
                 decimal jumlahDiKeranjang = itemSama?.Jumlah ?? 0;
+                    //Tanda ?. artinya: "kalau itemSama null, null (kl ada isi lgsg ambil nilai jumlah)"
+                    //Tanda ?? artinya: "kalau hasilnya null, pakai 0"
 
                 if (jumlahDiKeranjang + jumlah > stokTersedia)
                 {
@@ -69,7 +78,7 @@ namespace greenPointofSales.Services
             {
                 int newIdTransaksi = _context.InsertHeader(transaksi);
 
-                if (newIdTransaksi > 0)
+                if (newIdTransaksi > 0) //iterasi, loop tanpa index manual
                 {
                     foreach (var item in transaksi.Items)
                     {

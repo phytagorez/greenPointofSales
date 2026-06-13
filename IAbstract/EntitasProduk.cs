@@ -4,7 +4,7 @@ using System.Text;
 
 namespace greenPointofSales.IAbstract
 {
-    public abstract class EntitasProduk : IBarangJualan
+    public abstract class EntitasProduk : IBarangJualan //Parent // interface
     {
         private string _namaProduk = string.Empty;
         private string _kodeProduk = string.Empty;

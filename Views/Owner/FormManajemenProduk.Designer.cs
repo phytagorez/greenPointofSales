@@ -33,7 +33,6 @@
             btnKSay = new Button();
             btnKBua = new Button();
             btnKBmb = new Button();
-            panel1 = new Panel();
             pbMenu = new PictureBox();
             label2 = new Label();
             lblLaporan = new Label();
@@ -46,15 +45,19 @@
             btnMenuProduk = new Button();
             btnMenuKaryawan = new Button();
             btnKAll = new Button();
+            panel1 = new Panel();
+            label3 = new Label();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)pbMenu).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // flpKatalog
             // 
             flpKatalog.BackColor = Color.White;
-            flpKatalog.Location = new Point(209, 94);
+            flpKatalog.Location = new Point(185, 73);
             flpKatalog.Name = "flpKatalog";
-            flpKatalog.Size = new Size(970, 620);
+            flpKatalog.Size = new Size(930, 640);
             flpKatalog.TabIndex = 0;
             // 
             // label1
@@ -73,7 +76,7 @@
             btnKSay.FlatStyle = FlatStyle.Flat;
             btnKSay.Font = new Font("Constantia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnKSay.ForeColor = Color.Black;
-            btnKSay.Location = new Point(350, 60);
+            btnKSay.Location = new Point(1140, 140);
             btnKSay.Name = "btnKSay";
             btnKSay.Size = new Size(118, 28);
             btnKSay.TabIndex = 3;
@@ -87,7 +90,7 @@
             btnKBua.FlatStyle = FlatStyle.Flat;
             btnKBua.Font = new Font("Constantia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnKBua.ForeColor = Color.Black;
-            btnKBua.Location = new Point(491, 60);
+            btnKBua.Location = new Point(1140, 195);
             btnKBua.Name = "btnKBua";
             btnKBua.Size = new Size(118, 28);
             btnKBua.TabIndex = 4;
@@ -101,20 +104,13 @@
             btnKBmb.FlatStyle = FlatStyle.Flat;
             btnKBmb.Font = new Font("Constantia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnKBmb.ForeColor = Color.Black;
-            btnKBmb.Location = new Point(632, 60);
+            btnKBmb.Location = new Point(1140, 253);
             btnKBmb.Name = "btnKBmb";
             btnKBmb.Size = new Size(118, 28);
             btnKBmb.TabIndex = 5;
             btnKBmb.Text = "Bumbu Dapur";
             btnKBmb.TextAlign = ContentAlignment.TopCenter;
             btnKBmb.UseVisualStyleBackColor = false;
-            // 
-            // panel1
-            // 
-            panel1.Location = new Point(209, 71);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(421, 33);
-            panel1.TabIndex = 11;
             // 
             // pbMenu
             // 
@@ -186,10 +182,10 @@
             btnLaporan.ForeColor = Color.Black;
             btnLaporan.Image = Properties.Resources.bar_chart;
             btnLaporan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLaporan.Location = new Point(27, 428);
+            btnLaporan.Location = new Point(16, 428);
             btnLaporan.Margin = new Padding(3, 4, 3, 4);
             btnLaporan.Name = "btnLaporan";
-            btnLaporan.Size = new Size(149, 48);
+            btnLaporan.Size = new Size(160, 48);
             btnLaporan.TabIndex = 17;
             btnLaporan.Text = "   Laporan";
             btnLaporan.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -207,10 +203,10 @@
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
             btnMenuDashboard.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuDashboard.Location = new Point(27, 87);
+            btnMenuDashboard.Location = new Point(16, 82);
             btnMenuDashboard.Margin = new Padding(3, 4, 3, 4);
             btnMenuDashboard.Name = "btnMenuDashboard";
-            btnMenuDashboard.Size = new Size(149, 48);
+            btnMenuDashboard.Size = new Size(160, 48);
             btnMenuDashboard.TabIndex = 16;
             btnMenuDashboard.Text = "   Dashboard";
             btnMenuDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -228,10 +224,10 @@
             btnMenuKatalog.ForeColor = Color.Black;
             btnMenuKatalog.Image = Properties.Resources.boxes;
             btnMenuKatalog.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKatalog.Location = new Point(27, 269);
+            btnMenuKatalog.Location = new Point(16, 269);
             btnMenuKatalog.Margin = new Padding(4);
             btnMenuKatalog.Name = "btnMenuKatalog";
-            btnMenuKatalog.Size = new Size(149, 53);
+            btnMenuKatalog.Size = new Size(160, 48);
             btnMenuKatalog.TabIndex = 15;
             btnMenuKatalog.Text = "   Manajemen     Produk      ";
             btnMenuKatalog.TextAlign = ContentAlignment.MiddleLeft;
@@ -271,10 +267,10 @@
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
             btnMenuProduk.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuProduk.Location = new Point(27, 174);
+            btnMenuProduk.Location = new Point(16, 174);
             btnMenuProduk.Margin = new Padding(3, 4, 3, 4);
             btnMenuProduk.Name = "btnMenuProduk";
-            btnMenuProduk.Size = new Size(149, 48);
+            btnMenuProduk.Size = new Size(160, 48);
             btnMenuProduk.TabIndex = 13;
             btnMenuProduk.Text = "   Produk";
             btnMenuProduk.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -292,10 +288,10 @@
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
             btnMenuKaryawan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKaryawan.Location = new Point(27, 329);
+            btnMenuKaryawan.Location = new Point(16, 329);
             btnMenuKaryawan.Margin = new Padding(3, 4, 3, 4);
             btnMenuKaryawan.Name = "btnMenuKaryawan";
-            btnMenuKaryawan.Size = new Size(149, 53);
+            btnMenuKaryawan.Size = new Size(160, 48);
             btnMenuKaryawan.TabIndex = 12;
             btnMenuKaryawan.Text = "   Manajemen     Karyawan";
             btnMenuKaryawan.TextAlign = ContentAlignment.MiddleLeft;
@@ -308,13 +304,48 @@
             btnKAll.FlatStyle = FlatStyle.Flat;
             btnKAll.Font = new Font("Constantia", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnKAll.ForeColor = Color.Black;
-            btnKAll.Location = new Point(210, 60);
+            btnKAll.Location = new Point(1140, 86);
             btnKAll.Name = "btnKAll";
             btnKAll.Size = new Size(118, 28);
             btnKAll.TabIndex = 23;
             btnKAll.Text = "All";
             btnKAll.TextAlign = ContentAlignment.TopCenter;
             btnKAll.UseVisualStyleBackColor = false;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(227, 233, 207);
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(button1);
+            panel1.Location = new Point(1117, -4);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(172, 733);
+            panel1.TabIndex = 11;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Modern No. 20", 13.7999992F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(32, 26);
+            label3.Name = "label3";
+            label3.Size = new Size(100, 25);
+            label3.TabIndex = 24;
+            label3.Text = "Kategori";
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.FromArgb(227, 233, 207);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Showcard Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.Black;
+            button1.Location = new Point(-1, -5);
+            button1.Name = "button1";
+            button1.Size = new Size(172, 79);
+            button1.TabIndex = 24;
+            button1.UseVisualStyleBackColor = false;
             // 
             // FormManajemenProduk
             // 
@@ -348,6 +379,8 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormKatalog";
             ((System.ComponentModel.ISupportInitialize)pbMenu).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -359,7 +392,6 @@
         private Button btnKSay;
         private Button btnKBua;
         private Button btnKBmb;
-        private Panel panel1;
         private PictureBox pbMenu;
         private Label label2;
         private Label lblLaporan;
@@ -372,5 +404,8 @@
         private Button btnMenuProduk;
         private Button btnMenuKaryawan;
         private Button btnKAll;
+        private Panel panel1;
+        private Label label3;
+        private Button button1;
     }
 }

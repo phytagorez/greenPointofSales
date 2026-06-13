@@ -4,7 +4,7 @@ using System.Text;
 
 namespace greenPointofSales.IAbstract
 {
-    public abstract class EntitasDetail : INotaItem
+    public abstract class EntitasDetail : INotaItem // interface
     {
         private int _idTransaksi;
         private int _idProduk;
@@ -12,7 +12,7 @@ namespace greenPointofSales.IAbstract
         private decimal _jumlah;
         private decimal _hargaSatuan;
 
-        protected EntitasDetail(int idProduk, string namaProduk, decimal jumlah, decimal hargaSatuan)
+        protected EntitasDetail(int idProduk, string namaProduk, decimal jumlah, decimal hargaSatuan) //Constructore
         {
             this.IdProduk = idProduk;
             this.NamaProduk = namaProduk;
@@ -20,7 +20,7 @@ namespace greenPointofSales.IAbstract
             this.HargaSatuan = hargaSatuan;
         }
 
-        public int IdTransaksi
+        public int IdTransaksi //encapsulation
         {
             get { return _idTransaksi; }
             set

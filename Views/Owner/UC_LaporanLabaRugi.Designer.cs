@@ -72,22 +72,22 @@
             // txtTahun
             // 
             txtTahun.BorderStyle = BorderStyle.None;
-            txtTahun.Font = new Font("Mongolian Baiti", 10.2F);
-            txtTahun.Location = new Point(479, 180);
+            txtTahun.Font = new Font("Mongolian Baiti", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTahun.Location = new Point(479, 179);
             txtTahun.Name = "txtTahun";
-            txtTahun.Size = new Size(204, 20);
+            txtTahun.Size = new Size(204, 24);
             txtTahun.TabIndex = 1;
             // 
             // btnCari
             // 
-            btnCari.BackColor = Color.Wheat;
+            btnCari.BackColor = Color.FromArgb(227, 233, 207);
             btnCari.Font = new Font("Mongolian Baiti", 10.2F);
             btnCari.Location = new Point(411, 219);
             btnCari.Name = "btnCari";
             btnCari.Size = new Size(94, 29);
             btnCari.TabIndex = 2;
             btnCari.Text = "Cari";
-            btnCari.UseVisualStyleBackColor = true;
+            btnCari.UseVisualStyleBackColor = false;
             btnCari.Click += btnCari_Click;
             // 
             // lblPendapatan
@@ -200,10 +200,10 @@
             btnLaporan.ForeColor = Color.Black;
             btnLaporan.Image = Properties.Resources.bar_chart;
             btnLaporan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLaporan.Location = new Point(27, 428);
+            btnLaporan.Location = new Point(16, 428);
             btnLaporan.Margin = new Padding(3, 4, 3, 4);
             btnLaporan.Name = "btnLaporan";
-            btnLaporan.Size = new Size(149, 48);
+            btnLaporan.Size = new Size(160, 48);
             btnLaporan.TabIndex = 27;
             btnLaporan.Text = "   Laporan";
             btnLaporan.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -221,10 +221,10 @@
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
             btnMenuDashboard.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuDashboard.Location = new Point(27, 87);
+            btnMenuDashboard.Location = new Point(16, 82);
             btnMenuDashboard.Margin = new Padding(3, 4, 3, 4);
             btnMenuDashboard.Name = "btnMenuDashboard";
-            btnMenuDashboard.Size = new Size(149, 48);
+            btnMenuDashboard.Size = new Size(160, 48);
             btnMenuDashboard.TabIndex = 26;
             btnMenuDashboard.Text = "   Dashboard";
             btnMenuDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -242,13 +242,12 @@
             btnMenuKatalog.ForeColor = Color.Black;
             btnMenuKatalog.Image = Properties.Resources.boxes;
             btnMenuKatalog.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKatalog.Location = new Point(27, 269);
+            btnMenuKatalog.Location = new Point(16, 269);
             btnMenuKatalog.Margin = new Padding(4);
             btnMenuKatalog.Name = "btnMenuKatalog";
-            btnMenuKatalog.Size = new Size(149, 53);
+            btnMenuKatalog.Size = new Size(160, 48);
             btnMenuKatalog.TabIndex = 25;
-            btnMenuKatalog.Text = "   Manajemen     Produk      ";
-            btnMenuKatalog.TextAlign = ContentAlignment.MiddleLeft;
+            btnMenuKatalog.Text = "   Manajemen    Produk      ";
             btnMenuKatalog.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKatalog.UseVisualStyleBackColor = false;
             // 
@@ -285,10 +284,10 @@
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
             btnMenuProduk.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuProduk.Location = new Point(27, 174);
+            btnMenuProduk.Location = new Point(16, 174);
             btnMenuProduk.Margin = new Padding(3, 4, 3, 4);
             btnMenuProduk.Name = "btnMenuProduk";
-            btnMenuProduk.Size = new Size(149, 48);
+            btnMenuProduk.Size = new Size(160, 48);
             btnMenuProduk.TabIndex = 23;
             btnMenuProduk.Text = "   Produk";
             btnMenuProduk.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -306,13 +305,12 @@
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
             btnMenuKaryawan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKaryawan.Location = new Point(27, 329);
+            btnMenuKaryawan.Location = new Point(16, 329);
             btnMenuKaryawan.Margin = new Padding(3, 4, 3, 4);
             btnMenuKaryawan.Name = "btnMenuKaryawan";
-            btnMenuKaryawan.Size = new Size(149, 53);
+            btnMenuKaryawan.Size = new Size(160, 48);
             btnMenuKaryawan.TabIndex = 22;
-            btnMenuKaryawan.Text = "   Manajemen     Karyawan";
-            btnMenuKaryawan.TextAlign = ContentAlignment.MiddleLeft;
+            btnMenuKaryawan.Text = "   Manajemen   Karyawan";
             btnMenuKaryawan.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnMenuKaryawan.UseVisualStyleBackColor = false;
             // 
@@ -321,6 +319,7 @@
             btnLapLabaRugi.BackColor = Color.Transparent;
             btnLapLabaRugi.FlatStyle = FlatStyle.Popup;
             btnLapLabaRugi.Font = new Font("Perpetua Titling MT", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLapLabaRugi.ForeColor = Color.White;
             btnLapLabaRugi.Location = new Point(998, 24);
             btnLapLabaRugi.Name = "btnLapLabaRugi";
             btnLapLabaRugi.Size = new Size(251, 30);
@@ -333,9 +332,9 @@
             btnLapPenjualan.BackColor = Color.Transparent;
             btnLapPenjualan.FlatStyle = FlatStyle.Popup;
             btnLapPenjualan.Font = new Font("Perpetua Titling MT", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnLapPenjualan.Location = new Point(744, 24);
+            btnLapPenjualan.Location = new Point(743, 24);
             btnLapPenjualan.Name = "btnLapPenjualan";
-            btnLapPenjualan.Size = new Size(255, 30);
+            btnLapPenjualan.Size = new Size(256, 30);
             btnLapPenjualan.TabIndex = 33;
             btnLapPenjualan.Text = "Laporan Penjualan";
             btnLapPenjualan.UseVisualStyleBackColor = false;

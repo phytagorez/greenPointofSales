@@ -3,7 +3,7 @@ using greenPointofSales.IAbstract;
 
 namespace greenPointofSales.Models.Entity
 {
-    public class PenggunaModel : AkunDasar
+    public class PenggunaModel : AkunDasar //inheritance // parent
     {
         public int IdPengguna;
         private string _password = string.Empty;
@@ -32,7 +32,7 @@ namespace greenPointofSales.Models.Entity
             IsActive = true;
 
         }
-        public string Password
+        public string Password //encapsulation, dipublik dr password yg diprivate
         {
             get { return _password; }
             set
@@ -137,7 +137,7 @@ namespace greenPointofSales.Models.Entity
         public bool IsActive { get; set; } = true;
 
 
-        public override string TampilkanInfo()
+        public override string TampilkanInfo() //abstract
         {
             return $"[{Role}] {NamaLengkap} ({Username})";
         }

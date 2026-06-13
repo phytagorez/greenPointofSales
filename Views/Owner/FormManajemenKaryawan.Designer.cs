@@ -63,7 +63,7 @@
             // 
             txtUserBaru.BackColor = Color.White;
             txtUserBaru.BorderStyle = BorderStyle.None;
-            txtUserBaru.Font = new Font("Palatino Linotype", 12F);
+            txtUserBaru.Font = new Font("Mongolian Baiti", 13.8F);
             txtUserBaru.Location = new Point(239, 234);
             txtUserBaru.Multiline = true;
             txtUserBaru.Name = "txtUserBaru";
@@ -74,7 +74,7 @@
             // 
             txtPassBaru.BackColor = Color.White;
             txtPassBaru.BorderStyle = BorderStyle.None;
-            txtPassBaru.Font = new Font("Palatino Linotype", 12F);
+            txtPassBaru.Font = new Font("Mongolian Baiti", 13.8F);
             txtPassBaru.Location = new Point(965, 234);
             txtPassBaru.Multiline = true;
             txtPassBaru.Name = "txtPassBaru";
@@ -85,7 +85,7 @@
             // 
             txtNamaLengkap.BackColor = Color.White;
             txtNamaLengkap.BorderStyle = BorderStyle.None;
-            txtNamaLengkap.Font = new Font("Palatino Linotype", 12F);
+            txtNamaLengkap.Font = new Font("Mongolian Baiti", 13.8F);
             txtNamaLengkap.Location = new Point(239, 137);
             txtNamaLengkap.Multiline = true;
             txtNamaLengkap.Name = "txtNamaLengkap";
@@ -94,7 +94,7 @@
             // 
             // btnSimpan
             // 
-            btnSimpan.BackColor = Color.Wheat;
+            btnSimpan.BackColor = Color.FromArgb(224, 246, 225);
             btnSimpan.Cursor = Cursors.Hand;
             btnSimpan.FlatAppearance.BorderSize = 0;
             btnSimpan.FlatAppearance.MouseDownBackColor = Color.Transparent;
@@ -114,6 +114,7 @@
             dgvKaryawan.BackgroundColor = Color.FromArgb(148, 172, 137);
             dgvKaryawan.BorderStyle = BorderStyle.None;
             dgvKaryawan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvKaryawan.GridColor = Color.Black;
             dgvKaryawan.Location = new Point(221, 467);
             dgvKaryawan.Name = "dgvKaryawan";
             dgvKaryawan.RowHeadersWidth = 51;
@@ -126,45 +127,49 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Palatino Linotype", 12F);
-            label1.Location = new Point(974, 338);
+            label1.Font = new Font("Mongolian Baiti", 13.8F);
+            label1.Location = new Point(974, 340);
             label1.Name = "label1";
-            label1.Size = new Size(59, 27);
+            label1.Size = new Size(59, 24);
             label1.TabIndex = 11;
             label1.Text = "Kasir";
             // 
             // dtpTanggalMulaiKerja
             // 
-            dtpTanggalMulaiKerja.Font = new Font("Palatino Linotype", 12F);
+            dtpTanggalMulaiKerja.CalendarForeColor = Color.Transparent;
+            dtpTanggalMulaiKerja.CalendarTitleBackColor = Color.FromArgb(227, 233, 207);
+            dtpTanggalMulaiKerja.Font = new Font("Mongolian Baiti", 12F);
             dtpTanggalMulaiKerja.Location = new Point(965, 141);
             dtpTanggalMulaiKerja.Name = "dtpTanggalMulaiKerja";
-            dtpTanggalMulaiKerja.Size = new Size(239, 34);
+            dtpTanggalMulaiKerja.Size = new Size(239, 31);
             dtpTanggalMulaiKerja.TabIndex = 12;
             // 
             // dtpTanggalLahir
             // 
-            dtpTanggalLahir.Font = new Font("Palatino Linotype", 12F);
+            dtpTanggalLahir.CalendarForeColor = Color.Transparent;
+            dtpTanggalLahir.CalendarTitleBackColor = Color.FromArgb(227, 233, 207);
+            dtpTanggalLahir.Font = new Font("Mongolian Baiti", 12F);
             dtpTanggalLahir.Location = new Point(602, 141);
             dtpTanggalLahir.Name = "dtpTanggalLahir";
-            dtpTanggalLahir.Size = new Size(238, 34);
+            dtpTanggalLahir.Size = new Size(238, 31);
             dtpTanggalLahir.TabIndex = 13;
             // 
             // cmbJenisKelamin
             // 
             cmbJenisKelamin.FlatStyle = FlatStyle.Flat;
-            cmbJenisKelamin.Font = new Font("Palatino Linotype", 12F);
+            cmbJenisKelamin.Font = new Font("Mongolian Baiti", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbJenisKelamin.FormattingEnabled = true;
             cmbJenisKelamin.Items.AddRange(new object[] { "Laki-laki", "Perempuan" });
             cmbJenisKelamin.Location = new Point(239, 337);
             cmbJenisKelamin.Name = "cmbJenisKelamin";
-            cmbJenisKelamin.Size = new Size(238, 35);
+            cmbJenisKelamin.Size = new Size(238, 29);
             cmbJenisKelamin.TabIndex = 14;
             // 
             // txtNoHp
             // 
             txtNoHp.BackColor = Color.White;
             txtNoHp.BorderStyle = BorderStyle.None;
-            txtNoHp.Font = new Font("Palatino Linotype", 12F);
+            txtNoHp.Font = new Font("Mongolian Baiti", 13.8F);
             txtNoHp.Location = new Point(602, 234);
             txtNoHp.Multiline = true;
             txtNoHp.Name = "txtNoHp";
@@ -175,7 +180,7 @@
             // 
             txtEmail.BackColor = Color.White;
             txtEmail.BorderStyle = BorderStyle.None;
-            txtEmail.Font = new Font("Palatino Linotype", 12F);
+            txtEmail.Font = new Font("Mongolian Baiti", 13.8F);
             txtEmail.Location = new Point(602, 331);
             txtEmail.Multiline = true;
             txtEmail.Name = "txtEmail";
@@ -266,10 +271,10 @@
             btnLaporan.ForeColor = Color.Black;
             btnLaporan.Image = Properties.Resources.bar_chart;
             btnLaporan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLaporan.Location = new Point(27, 428);
+            btnLaporan.Location = new Point(16, 428);
             btnLaporan.Margin = new Padding(3, 4, 3, 4);
             btnLaporan.Name = "btnLaporan";
-            btnLaporan.Size = new Size(149, 48);
+            btnLaporan.Size = new Size(160, 48);
             btnLaporan.TabIndex = 23;
             btnLaporan.Text = "   Laporan";
             btnLaporan.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -287,10 +292,10 @@
             btnMenuDashboard.ForeColor = Color.Black;
             btnMenuDashboard.Image = Properties.Resources.home;
             btnMenuDashboard.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuDashboard.Location = new Point(27, 87);
+            btnMenuDashboard.Location = new Point(16, 82);
             btnMenuDashboard.Margin = new Padding(3, 4, 3, 4);
             btnMenuDashboard.Name = "btnMenuDashboard";
-            btnMenuDashboard.Size = new Size(149, 48);
+            btnMenuDashboard.Size = new Size(160, 48);
             btnMenuDashboard.TabIndex = 22;
             btnMenuDashboard.Text = "   Dashboard";
             btnMenuDashboard.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -308,10 +313,10 @@
             btnMenuKatalog.ForeColor = Color.Black;
             btnMenuKatalog.Image = Properties.Resources.boxes;
             btnMenuKatalog.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKatalog.Location = new Point(27, 269);
+            btnMenuKatalog.Location = new Point(16, 269);
             btnMenuKatalog.Margin = new Padding(4);
             btnMenuKatalog.Name = "btnMenuKatalog";
-            btnMenuKatalog.Size = new Size(149, 53);
+            btnMenuKatalog.Size = new Size(160, 48);
             btnMenuKatalog.TabIndex = 21;
             btnMenuKatalog.Text = "   Manajemen     Produk      ";
             btnMenuKatalog.TextAlign = ContentAlignment.MiddleLeft;
@@ -351,10 +356,10 @@
             btnMenuProduk.ForeColor = Color.Black;
             btnMenuProduk.Image = Properties.Resources.shopping_cart_add;
             btnMenuProduk.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuProduk.Location = new Point(27, 174);
+            btnMenuProduk.Location = new Point(16, 174);
             btnMenuProduk.Margin = new Padding(3, 4, 3, 4);
             btnMenuProduk.Name = "btnMenuProduk";
-            btnMenuProduk.Size = new Size(149, 48);
+            btnMenuProduk.Size = new Size(160, 48);
             btnMenuProduk.TabIndex = 19;
             btnMenuProduk.Text = "   Produk";
             btnMenuProduk.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -372,10 +377,10 @@
             btnMenuKaryawan.ForeColor = Color.Black;
             btnMenuKaryawan.Image = Properties.Resources.add_user;
             btnMenuKaryawan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnMenuKaryawan.Location = new Point(27, 329);
+            btnMenuKaryawan.Location = new Point(16, 329);
             btnMenuKaryawan.Margin = new Padding(3, 4, 3, 4);
             btnMenuKaryawan.Name = "btnMenuKaryawan";
-            btnMenuKaryawan.Size = new Size(149, 53);
+            btnMenuKaryawan.Size = new Size(160, 48);
             btnMenuKaryawan.TabIndex = 18;
             btnMenuKaryawan.Text = "   Manajemen     Karyawan";
             btnMenuKaryawan.TextAlign = ContentAlignment.MiddleLeft;
@@ -412,7 +417,7 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.BackColor = Color.Wheat;
+            btnUpdate.BackColor = Color.FromArgb(224, 246, 225);
             btnUpdate.Cursor = Cursors.Hand;
             btnUpdate.FlatAppearance.BorderSize = 0;
             btnUpdate.FlatAppearance.MouseDownBackColor = Color.Transparent;
