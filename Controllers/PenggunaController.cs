@@ -19,16 +19,10 @@ namespace greenPointofSales.Controllers
                 throw new ArgumentException("Username dan Password tidak boleh kosong.");
             }
 
-            string query = "SELECT id_pengguna, role, nama_lengkap FROM pengguna WHERE username=@u AND password=@p AND is_active=true";
+            // Memanggil query dengan bersih dari layer Context
+            DataTable dtUser = _sesiContext.ValidasiLogin(username, password);
 
-            Npgsql.NpgsqlParameter[] parameters = {
-        new Npgsql.NpgsqlParameter("u", username.Trim()),
-        new Npgsql.NpgsqlParameter("p", password)
-    };
-
-            DataTable dtUser = DBHelper.EksekusiQuery(query, parameters);
-
-            if (dtUser.Rows.Count == 0)
+            if (dtUser == null || dtUser.Rows.Count == 0)
             {
                 return null;
             }
@@ -52,24 +46,13 @@ namespace greenPointofSales.Controllers
             {
                 throw new ArgumentNullException(nameof(pengguna), "Objek data karyawan kosong.");
             }
-            else
-            {
-                _context.SimpanKaryawan(pengguna);
-            }
+            _context.SimpanKaryawan(pengguna);
         }
 
         public DataTable DapatkanSemuaKaryawan()
         {
             DataTable data = _context.AmbilSemuaKaryawan();
-
-            if (data != null)
-            {
-                return data;
-            }
-            else
-            {
-                return new DataTable();
-            }
+            return data ?? new DataTable();
         }
 
         public void UbahStatusAktif(string username, bool statusBaru)
@@ -78,11 +61,9 @@ namespace greenPointofSales.Controllers
             {
                 throw new ArgumentException("Username tidak boleh kosong.");
             }
-            else
-            {
-                _context.UpdateStatus(username, statusBaru);
-            }
+            _context.UpdateStatus(username, statusBaru);
         }
+
         public void UbahDataKaryawan(PenggunaModel pengguna)
         {
             if (pengguna == null)
@@ -91,6 +72,7 @@ namespace greenPointofSales.Controllers
             }
             _context.UpdateDataKaryawan(pengguna);
         }
+
         public DataTable CariKaryawan(string keyword)
         {
             if (string.IsNullOrWhiteSpace(keyword))

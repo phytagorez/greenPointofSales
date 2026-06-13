@@ -108,5 +108,11 @@ namespace greenPointofSales.Models.Context
             if (dt.Rows.Count > 0) return Convert.ToInt32(dt.Rows[0][0]);
             return 0;
         }
+
+        public DataTable AmbilSemuaLabaRugi()
+        {
+            string query = "SELECT * FROM vw_laporan_laba_rugi ORDER BY tahun DESC, bulan DESC;";
+            return DBHelper.EksekusiQuery(query, null);
+        }
     }
 }

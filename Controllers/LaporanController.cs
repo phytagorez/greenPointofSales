@@ -32,5 +32,10 @@ namespace greenPointofSales.Controllers
         {
             return _context.AmbilTotalProdukKurangLaku();
         }
+
+        public DataTable DapatkanSemuaLabaRugi()
+        {
+            return _context.AmbilSemuaLabaRugi();
+        }
     }
 }

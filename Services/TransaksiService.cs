@@ -111,7 +111,6 @@ namespace greenPointofSales.Services
 
             try
             {
-                // Validasi stok aktual
                 foreach (var item in transaksi.Items)
                 {
                     decimal stokAktual = _produkContext.AmbilStokProduk(item.IdProduk);
