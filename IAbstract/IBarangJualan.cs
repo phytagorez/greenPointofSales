@@ -4,7 +4,7 @@ using System.Text;
 
 namespace greenPointofSales.IAbstract
 {
-    public interface IBarangJualan //interface, method tanpa isi
+    public interface IBarangJualan
     {
         string TampilkanDetail();
         void KurangiStok(decimal jumlah);

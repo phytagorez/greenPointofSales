@@ -6,10 +6,6 @@ using System.Linq;
 
 namespace greenPointofSales.Services
 {
-    /// <summary>
-    /// Service untuk business logic katalog produk
-    /// Handles: filter kategori, pencarian, mapping unit, caching stok
-    /// </summary>
     public class KatalogService
     {
         private readonly ProdukContext _produkContext;
@@ -20,18 +16,10 @@ namespace greenPointofSales.Services
         }
 
         #region Product Catalog
-
-        /// <summary>
-        /// Load semua produk dari database
-        /// </summary>
         public DataTable MuatSemuaProduk(int idKategoriFilter = 0)
         {
             return _produkContext.AmbilKatalog(idKategoriFilter);
         }
-
-        /// <summary>
-        /// Extract unit mapping dan stok dari DataTable produk
-        /// </summary>
         public void ExtractProductMetadata(
             DataTable dtProduk,
             out Dictionary<int, string> unitMapping,
@@ -54,10 +42,6 @@ namespace greenPointofSales.Services
         #endregion
 
         #region Search & Filter
-
-        /// <summary>
-        /// Filter produk berdasarkan keyword nama
-        /// </summary>
         public DataTable CariProdukByNama(DataTable dtSource, string keyword)
         {
             if (string.IsNullOrWhiteSpace(keyword))
@@ -78,10 +62,6 @@ namespace greenPointofSales.Services
 
             return dtFiltered;
         }
-
-        /// <summary>
-        /// Filter produk berdasarkan kategori
-        /// </summary>
         public DataTable FilterByKategori(int idKategori)
         {
             return _produkContext.AmbilKatalog(idKategori);
@@ -90,10 +70,6 @@ namespace greenPointofSales.Services
         #endregion
 
         #region Validation
-
-        /// <summary>
-        /// Validasi stok kritis
-        /// </summary>
         public bool IsStokKritis(decimal stok, decimal batas = 5m)
         {
             return stok <= batas;
@@ -102,23 +78,13 @@ namespace greenPointofSales.Services
         #endregion
 
         #region Formatting
-
-        /// <summary>
-        /// Format harga untuk tampilan
-        /// </summary>
         public string FormatHarga(decimal harga, string satuan)
         {
             return $"Rp {harga:N0}/{satuan}";
         }
-
-        /// <summary>
-        /// Format display stok dengan warning jika kritis
-        /// </summary>
         public string FormatStok(decimal stok, string satuan)
         {
             return $"Stok: {stok:0.##} {satuan}";
         }
-
-        #endregion
     }
 }

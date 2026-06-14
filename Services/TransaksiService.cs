@@ -5,8 +5,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-//using System.Runtime.ConstrainedExecution;
-//using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace greenPointofSales.Services
 {
@@ -16,7 +14,7 @@ namespace greenPointofSales.Services
         private readonly ProdukContext _produkContext;
         private readonly DetailTransaksiContext _detailContext;
 
-        public TransaksiService() //constructure
+        public TransaksiService()
         {
             _context = new TransaksiContext();
             _produkContext = new ProdukContext();

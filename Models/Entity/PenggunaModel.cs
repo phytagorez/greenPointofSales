@@ -3,7 +3,7 @@ using greenPointofSales.IAbstract;
 
 namespace greenPointofSales.Models.Entity
 {
-    public class PenggunaModel : AkunDasar //inheritance // parent
+    public class PenggunaModel : AkunDasar
     {
         public int IdPengguna;
         private string _password = string.Empty;
@@ -32,7 +32,7 @@ namespace greenPointofSales.Models.Entity
             IsActive = true;
 
         }
-        public string Password //encapsulation, dipublik dr password yg diprivate
+        public string Password
         {
             get { return _password; }
             set

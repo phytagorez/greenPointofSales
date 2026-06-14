@@ -3,7 +3,7 @@ using greenPointofSales.IAbstract;
 
 namespace greenPointofSales.Models.Entity
 {
-    public class ProdukModel : EntitasProduk //inheritance // parent
+    public class ProdukModel : EntitasProduk
     {
         private decimal _hargaBeli;
         private decimal _hargaJual;
@@ -11,7 +11,7 @@ namespace greenPointofSales.Models.Entity
 
         public string Satuan { get; set; } = "Pcs";
 
-        public decimal HargaBeli //encapsulation
+        public decimal HargaBeli
         {
             get { return _hargaBeli; }
             set
@@ -84,12 +84,12 @@ namespace greenPointofSales.Models.Entity
             KodeProduk = $"{singkatan}-{angka}";
         }
 
-        public override string TampilkanDetail() //abstract
+        public override string TampilkanDetail()
         {
             return $"[{KodeProduk}] {NamaProduk} - Rp{HargaJual}/{Satuan}";
         }
 
-        public override void KurangiStok(decimal jumlah) //abstract
+        public override void KurangiStok(decimal jumlah)
         {
             if (jumlah > Stok)
             {

@@ -19,7 +19,6 @@ namespace greenPointofSales.Controllers
                 throw new ArgumentException("Username dan Password tidak boleh kosong.");
             }
 
-            // Memanggil query dengan bersih dari layer Context
             DataTable dtUser = _sesiContext.ValidasiLogin(username, password);
 
             if (dtUser == null || dtUser.Rows.Count == 0)

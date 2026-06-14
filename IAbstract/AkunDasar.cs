@@ -4,7 +4,7 @@ using System.Text;
 
 namespace greenPointofSales.IAbstract
 {
-    public abstract class AkunDasar : IPengguna //interface
+    public abstract class AkunDasar : IPengguna
     {
         private string _username = string.Empty;
         private string _role = string.Empty;

@@ -41,15 +41,14 @@ namespace greenPointofSales.Helpers
                     cmd.Parameters.AddRange(parameters);
 
                 int result = cmd.ExecuteNonQuery();
-                tx.Commit(); //permanen jika sukses
+                tx.Commit();
                 return result;
             }
             catch (Exception)
             {
-                tx.Rollback(); //return klo gagal
+                tx.Rollback();
                 throw;
             }
-
         }
 
         //scalar
@@ -63,6 +62,5 @@ namespace greenPointofSales.Helpers
 
             return cmd.ExecuteScalar();
         }
-
     }
 }

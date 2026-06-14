@@ -4,7 +4,7 @@ namespace greenPointofSales.Models.Entity
 {
     public class LabaRugiModel
     {
-        public int Bulan { get; set; } //encapsulation
+        public int Bulan { get; set; }
         public int Tahun { get; set; }
         public decimal TotalPendapatan { get; set; } 
         public decimal TotalHPP { get; set; }       
