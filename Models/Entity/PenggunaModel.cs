@@ -136,8 +136,7 @@ namespace greenPointofSales.Models.Entity
 
         public bool IsActive { get; set; } = true;
 
-
-        public override string TampilkanInfo() //abstract
+        public override string TampilkanInfo()
         {
             return $"[{Role}] {NamaLengkap} ({Username})";
         }

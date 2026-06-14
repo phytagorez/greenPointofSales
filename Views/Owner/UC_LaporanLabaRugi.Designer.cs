@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             cbBulan = new ComboBox();
             txtTahun = new TextBox();
             btnCari = new Button();
-            lblPendapatan = new Label();
             lblHPP = new Label();
             lblLabaBersih = new Label();
             lblRugiBusuk = new Label();
@@ -53,9 +55,14 @@
             TextBulan = new Label();
             TextTahun = new Label();
             TextFilterData = new Label();
-            TextPendapatan = new Label();
             TextTotalHPP = new Label();
+            dgvLaporan = new Guna.UI2.WinForms.Guna2DataGridView();
+            panelChart = new Panel();
+            lblStatus = new Label();
+            TextPendapatan = new Label();
+            btnExport = new Button();
             ((System.ComponentModel.ISupportInitialize)pbMenu).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvLaporan).BeginInit();
             SuspendLayout();
             // 
             // cbBulan
@@ -89,17 +96,6 @@
             btnCari.Text = "Cari";
             btnCari.UseVisualStyleBackColor = false;
             btnCari.Click += btnCari_Click;
-            // 
-            // lblPendapatan
-            // 
-            lblPendapatan.AutoSize = true;
-            lblPendapatan.BackColor = Color.Transparent;
-            lblPendapatan.Font = new Font("Mongolian Baiti", 10.2F);
-            lblPendapatan.Location = new Point(1096, 171);
-            lblPendapatan.Name = "lblPendapatan";
-            lblPendapatan.Size = new Size(41, 18);
-            lblPendapatan.TabIndex = 3;
-            lblPendapatan.Text = "Rp 0";
             // 
             // lblHPP
             // 
@@ -394,18 +390,6 @@
             TextFilterData.TabIndex = 39;
             TextFilterData.Text = "Filter Data Penjualan";
             // 
-            // TextPendapatan
-            // 
-            TextPendapatan.AutoSize = true;
-            TextPendapatan.BackColor = Color.Transparent;
-            TextPendapatan.Font = new Font("Perpetua Titling MT", 10.8F);
-            TextPendapatan.Location = new Point(1082, 118);
-            TextPendapatan.Name = "TextPendapatan";
-            TextPendapatan.Size = new Size(131, 42);
-            TextPendapatan.TabIndex = 40;
-            TextPendapatan.Text = "Total \nPendapatan";
-            TextPendapatan.TextAlign = ContentAlignment.TopCenter;
-            // 
             // TextTotalHPP
             // 
             TextTotalHPP.AutoSize = true;
@@ -417,12 +401,107 @@
             TextTotalHPP.TabIndex = 41;
             TextTotalHPP.Text = "Total HPP";
             // 
+            // dgvLaporan
+            // 
+            dataGridViewCellStyle1.BackColor = Color.White;
+            dgvLaporan.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dgvLaporan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dgvLaporan.ColumnHeadersHeight = 4;
+            dgvLaporan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dgvLaporan.DefaultCellStyle = dataGridViewCellStyle3;
+            dgvLaporan.GridColor = Color.FromArgb(231, 229, 255);
+            dgvLaporan.Location = new Point(222, 400);
+            dgvLaporan.Name = "dgvLaporan";
+            dgvLaporan.RowHeadersVisible = false;
+            dgvLaporan.RowHeadersWidth = 51;
+            dgvLaporan.Size = new Size(1015, 274);
+            dgvLaporan.TabIndex = 42;
+            dgvLaporan.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
+            dgvLaporan.ThemeStyle.AlternatingRowsStyle.Font = null;
+            dgvLaporan.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
+            dgvLaporan.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
+            dgvLaporan.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
+            dgvLaporan.ThemeStyle.BackColor = Color.White;
+            dgvLaporan.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
+            dgvLaporan.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(100, 88, 255);
+            dgvLaporan.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvLaporan.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 9F);
+            dgvLaporan.ThemeStyle.HeaderStyle.ForeColor = Color.White;
+            dgvLaporan.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            dgvLaporan.ThemeStyle.HeaderStyle.Height = 4;
+            dgvLaporan.ThemeStyle.ReadOnly = false;
+            dgvLaporan.ThemeStyle.RowsStyle.BackColor = Color.White;
+            dgvLaporan.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            dgvLaporan.ThemeStyle.RowsStyle.Font = new Font("Segoe UI", 9F);
+            dgvLaporan.ThemeStyle.RowsStyle.ForeColor = Color.FromArgb(71, 69, 94);
+            dgvLaporan.ThemeStyle.RowsStyle.Height = 29;
+            dgvLaporan.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dgvLaporan.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(71, 69, 94);
+            // 
+            // panelChart
+            // 
+            panelChart.Location = new Point(744, 102);
+            panelChart.Name = "panelChart";
+            panelChart.Size = new Size(272, 258);
+            panelChart.TabIndex = 43;
+            // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.BackColor = Color.Transparent;
+            lblStatus.Font = new Font("Mongolian Baiti", 10.2F);
+            lblStatus.Location = new Point(1096, 177);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(41, 18);
+            lblStatus.TabIndex = 3;
+            lblStatus.Text = "Rp 0";
+            // 
+            // TextPendapatan
+            // 
+            TextPendapatan.AutoSize = true;
+            TextPendapatan.BackColor = Color.Transparent;
+            TextPendapatan.Font = new Font("Perpetua Titling MT", 10.8F);
+            TextPendapatan.Location = new Point(1092, 107);
+            TextPendapatan.Name = "TextPendapatan";
+            TextPendapatan.Size = new Size(131, 42);
+            TextPendapatan.TabIndex = 40;
+            TextPendapatan.Text = "Total \nPendapatan";
+            TextPendapatan.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // btnExport
+            // 
+            btnExport.Location = new Point(531, 218);
+            btnExport.Name = "btnExport";
+            btnExport.Size = new Size(94, 29);
+            btnExport.TabIndex = 44;
+            btnExport.Text = "Export";
+            btnExport.UseVisualStyleBackColor = true;
+            btnExport.Click += btnExport_Click;
+            // 
             // UC_LaporanLabaRugi
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.Laporan_LB_O;
-            Controls.Add(TextTotalHPP);
+            Controls.Add(btnExport);
             Controls.Add(TextPendapatan);
+            Controls.Add(lblStatus);
+            Controls.Add(panelChart);
+            Controls.Add(dgvLaporan);
+            Controls.Add(TextTotalHPP);
             Controls.Add(TextFilterData);
             Controls.Add(TextTahun);
             Controls.Add(TextBulan);
@@ -444,13 +523,13 @@
             Controls.Add(lblRugiBusuk);
             Controls.Add(lblLabaBersih);
             Controls.Add(lblHPP);
-            Controls.Add(lblPendapatan);
             Controls.Add(btnCari);
             Controls.Add(txtTahun);
             Controls.Add(cbBulan);
             Name = "UC_LaporanLabaRugi";
             Size = new Size(1280, 720);
             ((System.ComponentModel.ISupportInitialize)pbMenu).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvLaporan).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -460,7 +539,6 @@
         private ComboBox cbBulan;
         private TextBox txtTahun;
         private Button btnCari;
-        private Label lblPendapatan;
         private Label lblHPP;
         private Label lblLabaBersih;
         private Label lblRugiBusuk;
@@ -482,7 +560,11 @@
         private Label TextBulan;
         private Label TextTahun;
         private Label TextFilterData;
-        private Label TextPendapatan;
         private Label TextTotalHPP;
+        private Guna.UI2.WinForms.Guna2DataGridView dgvLaporan;
+        private Panel panelChart;
+        private Label lblStatus;
+        private Label TextPendapatan;
+        private Button btnExport;
     }
 }

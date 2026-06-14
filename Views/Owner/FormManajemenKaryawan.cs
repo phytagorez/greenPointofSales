@@ -14,7 +14,6 @@ namespace greenPointofSales
         {
             InitializeComponent();
 
-            // KUNCI UTAMA: Otomatis ikat semua tombol navigasi!
             UIHelper.IkatNavigasiMenu(this);
 
             dgvKaryawan.ReadOnly = true;
