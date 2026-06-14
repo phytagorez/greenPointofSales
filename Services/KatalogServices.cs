@@ -77,7 +77,7 @@ namespace greenPointofSales.Services
 
         #endregion
 
-        #region Formatting
+
         public string FormatHarga(decimal harga, string satuan)
         {
             return $"Rp {harga:N0}/{satuan}";

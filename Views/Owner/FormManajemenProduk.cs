@@ -58,7 +58,7 @@ namespace greenPointofSales.Views
         public FormManajemenProduk()
         {
             InitializeComponent();
-            UIHelper.IkatNavigasiMenu(this); // REFACTOR: Otomatis ikat navigasi menu
+            UIHelper.IkatNavigasiMenu(this);
             flpKatalog.AutoScroll = true;
             flpKatalog.WrapContents = true;
             flpKatalog.FlowDirection = FlowDirection.LeftToRight;

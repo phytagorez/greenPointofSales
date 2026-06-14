@@ -18,7 +18,6 @@ namespace greenPointofSales.Views.Owner
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(1280, 720);
             this.MaximumSize = new Size(1280, 720);
-            // Load default
             TampilkanHalaman(new UC_LaporanPenjualan());
         }
 

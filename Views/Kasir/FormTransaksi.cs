@@ -32,7 +32,6 @@ namespace greenPointofSales.Views
 
         private void InitializeAwalTransaksi()
         {
-            // REFACTOR: Ikat navigasi menu otomatis
             UIHelper.IkatNavigasiMenu(this);
 
             string noInvoice = _transaksiService.GenerateNoInvoice();
@@ -139,7 +138,6 @@ namespace greenPointofSales.Views
             }
         }
 
-        // KEMBALINYA TOMBOL + DAN - UNTUK KERANJANG
         private void RenderItemKeranjang(DetailTransaksiModel item)
         {
             string satuan = _transaksiService.GetSatuan(item.IdProduk, _satuanProduk);
@@ -293,7 +291,6 @@ namespace greenPointofSales.Views
                 {
                     UIHelper.Sukses("✓ Transaksi Berhasil Diproses & Stok Berhasil Diperbarui!");
 
-                    // Reset UI, keranjang kosong kembali
                     txtUangBayar.Clear();
                     InitializeAwalTransaksi();
                     flpKeranjang.Controls.Clear();
