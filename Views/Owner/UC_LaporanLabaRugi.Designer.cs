@@ -61,8 +61,14 @@
             lblStatus = new Label();
             TextPendapatan = new Label();
             btnExport = new Button();
+            pbTTransaksi = new PictureBox();
+            pbJTransaksi = new PictureBox();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pbMenu).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvLaporan).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbTTransaksi).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbJTransaksi).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // cbBulan
@@ -87,9 +93,9 @@
             // 
             // btnCari
             // 
-            btnCari.BackColor = Color.FromArgb(227, 233, 207);
+            btnCari.BackColor = Color.FromArgb(224, 246, 225);
             btnCari.Font = new Font("Mongolian Baiti", 10.2F);
-            btnCari.Location = new Point(411, 219);
+            btnCari.Location = new Point(319, 219);
             btnCari.Name = "btnCari";
             btnCari.Size = new Size(94, 29);
             btnCari.TabIndex = 2;
@@ -101,10 +107,10 @@
             // 
             lblHPP.AutoSize = true;
             lblHPP.BackColor = Color.Transparent;
-            lblHPP.Font = new Font("Mongolian Baiti", 10.2F);
-            lblHPP.Location = new Point(1096, 304);
+            lblHPP.Font = new Font("Mongolian Baiti", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHPP.Location = new Point(1122, 310);
             lblHPP.Name = "lblHPP";
-            lblHPP.Size = new Size(41, 18);
+            lblHPP.Size = new Size(58, 24);
             lblHPP.TabIndex = 4;
             lblHPP.Text = "Rp 0";
             // 
@@ -112,10 +118,10 @@
             // 
             lblLabaBersih.AutoSize = true;
             lblLabaBersih.BackColor = Color.Transparent;
-            lblLabaBersih.Font = new Font("Mongolian Baiti", 10.2F);
-            lblLabaBersih.Location = new Point(269, 329);
+            lblLabaBersih.Font = new Font("Mongolian Baiti", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblLabaBersih.Location = new Point(298, 332);
             lblLabaBersih.Name = "lblLabaBersih";
-            lblLabaBersih.Size = new Size(41, 18);
+            lblLabaBersih.Size = new Size(58, 24);
             lblLabaBersih.TabIndex = 5;
             lblLabaBersih.Text = "Rp 0";
             // 
@@ -123,10 +129,10 @@
             // 
             lblRugiBusuk.AutoSize = true;
             lblRugiBusuk.BackColor = Color.Transparent;
-            lblRugiBusuk.Font = new Font("Mongolian Baiti", 10.2F);
-            lblRugiBusuk.Location = new Point(534, 329);
+            lblRugiBusuk.Font = new Font("Mongolian Baiti", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblRugiBusuk.Location = new Point(558, 332);
             lblRugiBusuk.Name = "lblRugiBusuk";
-            lblRugiBusuk.Size = new Size(41, 18);
+            lblRugiBusuk.Size = new Size(58, 24);
             lblRugiBusuk.TabIndex = 6;
             lblRugiBusuk.Text = "Rp 0";
             // 
@@ -334,13 +340,15 @@
             btnLapPenjualan.TabIndex = 33;
             btnLapPenjualan.Text = "Laporan Penjualan";
             btnLapPenjualan.UseVisualStyleBackColor = false;
+            btnLapPenjualan.Click += btnLapPenjualan_Click;
             // 
             // TextLabaBersih
             // 
             TextLabaBersih.AutoSize = true;
             TextLabaBersih.BackColor = Color.Transparent;
             TextLabaBersih.Font = new Font("Perpetua Titling MT", 10.8F);
-            TextLabaBersih.Location = new Point(269, 296);
+            TextLabaBersih.ForeColor = Color.White;
+            TextLabaBersih.Location = new Point(296, 300);
             TextLabaBersih.Name = "TextLabaBersih";
             TextLabaBersih.Size = new Size(117, 21);
             TextLabaBersih.TabIndex = 35;
@@ -351,7 +359,8 @@
             TextRugiBusuk.AutoSize = true;
             TextRugiBusuk.BackColor = Color.Transparent;
             TextRugiBusuk.Font = new Font("Perpetua Titling MT", 10.8F);
-            TextRugiBusuk.Location = new Point(531, 295);
+            TextRugiBusuk.ForeColor = Color.White;
+            TextRugiBusuk.Location = new Point(555, 299);
             TextRugiBusuk.Name = "TextRugiBusuk";
             TextRugiBusuk.Size = new Size(122, 21);
             TextRugiBusuk.TabIndex = 36;
@@ -395,7 +404,7 @@
             TextTotalHPP.AutoSize = true;
             TextTotalHPP.BackColor = Color.Transparent;
             TextTotalHPP.Font = new Font("Perpetua Titling MT", 10.8F);
-            TextTotalHPP.Location = new Point(1092, 270);
+            TextTotalHPP.Location = new Point(1100, 258);
             TextTotalHPP.Name = "TextTotalHPP";
             TextTotalHPP.Size = new Size(111, 21);
             TextTotalHPP.TabIndex = 41;
@@ -405,44 +414,46 @@
             // 
             dataGridViewCellStyle1.BackColor = Color.White;
             dgvLaporan.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dgvLaporan.BackgroundColor = Color.FromArgb(148, 172, 137);
+            dgvLaporan.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(100, 88, 255);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(148, 172, 137);
+            dataGridViewCellStyle2.Font = new Font("Mongolian Baiti", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(148, 172, 137);
+            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(148, 172, 137);
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dgvLaporan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dgvLaporan.ColumnHeadersHeight = 4;
+            dgvLaporan.ColumnHeadersHeight = 28;
             dgvLaporan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle3.BackColor = Color.White;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.Font = new Font("Mongolian Baiti", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataGridViewCellStyle3.ForeColor = Color.FromArgb(71, 69, 94);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(231, 229, 255);
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(224, 246, 225);
             dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(71, 69, 94);
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dgvLaporan.DefaultCellStyle = dataGridViewCellStyle3;
-            dgvLaporan.GridColor = Color.FromArgb(231, 229, 255);
-            dgvLaporan.Location = new Point(222, 400);
+            dgvLaporan.GridColor = Color.Black;
+            dgvLaporan.Location = new Point(210, 390);
             dgvLaporan.Name = "dgvLaporan";
             dgvLaporan.RowHeadersVisible = false;
             dgvLaporan.RowHeadersWidth = 51;
-            dgvLaporan.Size = new Size(1015, 274);
+            dgvLaporan.Size = new Size(1039, 298);
             dgvLaporan.TabIndex = 42;
             dgvLaporan.ThemeStyle.AlternatingRowsStyle.BackColor = Color.White;
             dgvLaporan.ThemeStyle.AlternatingRowsStyle.Font = null;
             dgvLaporan.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
             dgvLaporan.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
             dgvLaporan.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
-            dgvLaporan.ThemeStyle.BackColor = Color.White;
-            dgvLaporan.ThemeStyle.GridColor = Color.FromArgb(231, 229, 255);
+            dgvLaporan.ThemeStyle.BackColor = Color.FromArgb(148, 172, 137);
+            dgvLaporan.ThemeStyle.GridColor = Color.Black;
             dgvLaporan.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(100, 88, 255);
-            dgvLaporan.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvLaporan.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.Single;
             dgvLaporan.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 9F);
             dgvLaporan.ThemeStyle.HeaderStyle.ForeColor = Color.White;
             dgvLaporan.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dgvLaporan.ThemeStyle.HeaderStyle.Height = 4;
+            dgvLaporan.ThemeStyle.HeaderStyle.Height = 28;
             dgvLaporan.ThemeStyle.ReadOnly = false;
             dgvLaporan.ThemeStyle.RowsStyle.BackColor = Color.White;
             dgvLaporan.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -454,48 +465,86 @@
             // 
             // panelChart
             // 
-            panelChart.Location = new Point(744, 102);
+            panelChart.BackColor = Color.FromArgb(148, 172, 137);
+            panelChart.Font = new Font("Mongolian Baiti", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            panelChart.Location = new Point(734, 98);
             panelChart.Name = "panelChart";
-            panelChart.Size = new Size(272, 258);
+            panelChart.Size = new Size(292, 272);
             panelChart.TabIndex = 43;
             // 
             // lblStatus
             // 
             lblStatus.AutoSize = true;
             lblStatus.BackColor = Color.Transparent;
-            lblStatus.Font = new Font("Mongolian Baiti", 10.2F);
-            lblStatus.Location = new Point(1096, 177);
+            lblStatus.Font = new Font("Mongolian Baiti", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblStatus.Location = new Point(1096, 156);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(41, 18);
+            lblStatus.Size = new Size(91, 36);
             lblStatus.TabIndex = 3;
-            lblStatus.Text = "Rp 0";
+            lblStatus.Text = "Profit";
             // 
             // TextPendapatan
             // 
             TextPendapatan.AutoSize = true;
             TextPendapatan.BackColor = Color.Transparent;
             TextPendapatan.Font = new Font("Perpetua Titling MT", 10.8F);
-            TextPendapatan.Location = new Point(1092, 107);
+            TextPendapatan.Location = new Point(1084, 113);
             TextPendapatan.Name = "TextPendapatan";
-            TextPendapatan.Size = new Size(131, 42);
+            TextPendapatan.Size = new Size(149, 21);
             TextPendapatan.TabIndex = 40;
-            TextPendapatan.Text = "Total \nPendapatan";
+            TextPendapatan.Text = "Status Profit:";
             TextPendapatan.TextAlign = ContentAlignment.TopCenter;
             // 
             // btnExport
             // 
-            btnExport.Location = new Point(531, 218);
+            btnExport.BackColor = Color.FromArgb(224, 246, 225);
+            btnExport.Font = new Font("Mongolian Baiti", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnExport.Location = new Point(502, 219);
             btnExport.Name = "btnExport";
             btnExport.Size = new Size(94, 29);
             btnExport.TabIndex = 44;
             btnExport.Text = "Export";
-            btnExport.UseVisualStyleBackColor = true;
+            btnExport.UseVisualStyleBackColor = false;
             btnExport.Click += btnExport_Click;
+            // 
+            // pbTTransaksi
+            // 
+            pbTTransaksi.BackColor = Color.Transparent;
+            pbTTransaksi.Image = Properties.Resources.receipt1;
+            pbTTransaksi.Location = new Point(233, 299);
+            pbTTransaksi.Name = "pbTTransaksi";
+            pbTTransaksi.Size = new Size(52, 57);
+            pbTTransaksi.TabIndex = 45;
+            pbTTransaksi.TabStop = false;
+            // 
+            // pbJTransaksi
+            // 
+            pbJTransaksi.BackColor = Color.Transparent;
+            pbJTransaksi.Image = Properties.Resources.badge_dollar_sign;
+            pbJTransaksi.Location = new Point(490, 299);
+            pbJTransaksi.Name = "pbJTransaksi";
+            pbJTransaksi.Size = new Size(52, 57);
+            pbJTransaksi.TabIndex = 46;
+            pbJTransaksi.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.Transparent;
+            pictureBox1.Image = Properties.Resources.bar_chart1;
+            pictureBox1.Location = new Point(1059, 291);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(52, 57);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 47;
+            pictureBox1.TabStop = false;
             // 
             // UC_LaporanLabaRugi
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackgroundImage = Properties.Resources.Laporan_LB_O;
+            Controls.Add(pictureBox1);
+            Controls.Add(pbJTransaksi);
+            Controls.Add(pbTTransaksi);
             Controls.Add(btnExport);
             Controls.Add(TextPendapatan);
             Controls.Add(lblStatus);
@@ -530,6 +579,9 @@
             Size = new Size(1280, 720);
             ((System.ComponentModel.ISupportInitialize)pbMenu).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvLaporan).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbTTransaksi).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbJTransaksi).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -566,5 +618,8 @@
         private Label lblStatus;
         private Label TextPendapatan;
         private Button btnExport;
+        private PictureBox pbTTransaksi;
+        private PictureBox pbJTransaksi;
+        private PictureBox pictureBox1;
     }
 }

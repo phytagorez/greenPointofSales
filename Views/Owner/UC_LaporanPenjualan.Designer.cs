@@ -19,6 +19,7 @@
 
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             dtpDari = new DateTimePicker();
             dtpSampai = new DateTimePicker();
             cmbMetodeBayar = new ComboBox();
@@ -29,6 +30,7 @@
             dgvPenjualan = new DataGridView();
             panelChart = new Panel();
             panel1 = new Panel();
+            label5 = new Label();
             pbMenu = new PictureBox();
             label1 = new Label();
             lblLaporan = new Label();
@@ -48,7 +50,6 @@
             pbTTransaksi = new PictureBox();
             pbJTransaksi = new PictureBox();
             label4 = new Label();
-            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvPenjualan).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbMenu).BeginInit();
@@ -134,7 +135,16 @@
             // dgvPenjualan
             // 
             dgvPenjualan.BackgroundColor = Color.FromArgb(148, 172, 137);
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(148, 172, 137);
+            dataGridViewCellStyle1.Font = new Font("Mongolian Baiti", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(148, 172, 137);
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvPenjualan.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvPenjualan.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvPenjualan.GridColor = Color.Black;
             dgvPenjualan.Location = new Point(729, 98);
             dgvPenjualan.Name = "dgvPenjualan";
             dgvPenjualan.RowHeadersWidth = 51;
@@ -144,6 +154,7 @@
             // panelChart
             // 
             panelChart.BackColor = Color.FromArgb(227, 233, 207);
+            panelChart.Font = new Font("Mongolian Baiti", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             panelChart.Location = new Point(209, 388);
             panelChart.Name = "panelChart";
             panelChart.Size = new Size(1039, 302);
@@ -157,6 +168,17 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(476, 52);
             panel1.TabIndex = 9;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.Transparent;
+            label5.Font = new Font("Mongolian Baiti", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(-1, 30);
+            label5.Name = "label5";
+            label5.Size = new Size(139, 21);
+            label5.TabIndex = 46;
+            label5.Text = "Tanggal Selesai";
             // 
             // pbMenu
             // 
@@ -429,17 +451,6 @@
             label4.Size = new Size(130, 21);
             label4.TabIndex = 45;
             label4.Text = "Tanggal Mulai";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.BackColor = Color.Transparent;
-            label5.Font = new Font("Mongolian Baiti", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(-1, 30);
-            label5.Name = "label5";
-            label5.Size = new Size(139, 21);
-            label5.TabIndex = 46;
-            label5.Text = "Tanggal Selesai";
             // 
             // UC_LaporanPenjualan
             // 

@@ -1,8 +1,12 @@
-﻿using greenPointofSales.Models.Context;
+﻿using greenPointofSales.Helpers;
+using greenPointofSales.Models.Context;
 using greenPointofSales.Models.Entity;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+//using System.Runtime.ConstrainedExecution;
+//using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace greenPointofSales.Services
 {
@@ -12,7 +16,7 @@ namespace greenPointofSales.Services
         private readonly ProdukContext _produkContext;
         private readonly DetailTransaksiContext _detailContext;
 
-        public TransaksiService()
+        public TransaksiService() //constructure
         {
             _context = new TransaksiContext();
             _produkContext = new ProdukContext();

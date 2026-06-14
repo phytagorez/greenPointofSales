@@ -61,7 +61,7 @@
             // 
             lblTotalQRIS.AutoSize = true;
             lblTotalQRIS.Font = new Font("Mongolian Baiti", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTotalQRIS.Location = new Point(167, 664);
+            lblTotalQRIS.Location = new Point(152, 661);
             lblTotalQRIS.Name = "lblTotalQRIS";
             lblTotalQRIS.Size = new Size(102, 21);
             lblTotalQRIS.TabIndex = 2;
