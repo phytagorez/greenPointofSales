@@ -28,7 +28,6 @@ namespace greenPointofSales.Models
             string query = @"
                 SELECT username, nama_lengkap, jenis_kelamin, no_hp, email, tgl_lahir, tgl_mulai_kerja, is_active 
                 FROM pengguna 
-                WHERE role = 'Kasir' 
                 ORDER BY tgl_mulai_kerja DESC";
             return DBHelper.EksekusiQuery(query);
         }
